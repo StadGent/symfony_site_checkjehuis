@@ -14,8 +14,7 @@ Minimum PHP 5.3.3 is required and composer to perform the installation.
 The following steps can be followed to install the application
 1. Clone this repository and go to the directory of the cloned repo
 2. `composer install`
-3. At the end of `composer install` fill in the correct parameters for the application such as database connection
-details.
+3. At the end of `composer install` fill in the correct parameters for the application such as database connection details.
 4. `app/console doctrine:migrations:migrate`
 5. `app/console cache:clear && app/console cache:warmup`
 6. Dump the assets
