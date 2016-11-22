@@ -1,0 +1,68 @@
+{% extends 'DigipRenovationBundle::base_public.html.twig' %}
+
+{% block base_public_content %}
+
+    <div class="page-heading">
+        <div class="container">
+            <div class="heading-save pull-right">
+                <a href="{{ path('house_mail_token') }}" class="popover-once" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Indien je wenst kan je steeds je gegevens opslaan en later verder doen."><i class="fa fa-fw fa-sign-out"></i> OPSLAAN</a>
+            </div>
+            <div class="heading-sidebar-button pull-left">
+                <a href="#"><i class="fa fa-fw fa-bars"></i></a>
+            </div>
+            <div class="heading-logo">
+                <img src="{{ asset("bundles/digiprenovation/images/logo-gent-header.png") }}" />
+            </div>
+            {% spaceless %}
+                <div class="page-menu even-spacing">
+                    <div class="{% if layout_menu_active == 'my-house' %}active{% endif %}">
+                        <a href="{{ path('my_house') }}">1&nbsp;&nbsp;MIJN HUIS</a>
+                    </div>
+                    <div class="{% if layout_menu_active == 'house-config' %}active{% endif %}">
+                        <a href="{{ path('house_config') }}">2&nbsp;&nbsp;ZO WOON IK</a>
+                    </div>
+                    <div class="{% if layout_menu_active == 'upgrade' %}active{% endif %}">
+                        <a href="{{ path('house_calculator') }}">3&nbsp;&nbsp;ZO WIL IK WONEN</a>
+                    </div>
+                    <div class="{% if layout_menu_active == 'plan' %}active{% endif %}">
+                        <a href="{{ path('app_plan') }}">4&nbsp;&nbsp;MIJN STAPPENPLAN</a>
+                    </div>
+                </div>
+            {% endspaceless %}
+        </div>
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+    <div id="sidebar-overlay">
+        <a href="#" class="sidebar-close"><i class="fa fa-fw fa-close"></i></a>
+
+        <div class="layout-spacer"></div>
+
+        <div class="text-center">
+            <img src="{{ asset('bundles/digiprenovation/images/save-for-life.png') }}" />
+        </div>
+
+        <div class="layout-spacer"></div>
+
+        <div class="menu">
+            <a href="{{ path('app_info') }}">Meer info</a>
+            <a href="http://warmtefoto.gent.be/" target="_blank">Warmtefoto</a>
+            <a href="http://zonnekaart.gent.be/" target="_blank">Energiekaart</a>
+        </div>
+
+        <div class="layout-spacer"></div>
+
+        <h3>Delen</h3>
+
+        <div class="menu">
+            {% set currentURL = (app.request.scheme ~ "://" ~ app.request.host ~ app.request.baseUrl)|url_encode %}
+            <a href="#" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ currentURL }}&layout=link', 'facebookSharePopup', 'width=500, height=300, toolbar=no, scrollbars=no, resizable=no');">Facebook</a>
+            <a href="https://twitter.com/home?status=Gent%20klimaatstad%20{{ currentURL }}" target="_blank">Twitter</a>
+            <a href="https://plus.google.com/share?url={{ currentURL }}" target="_blank">Google+</a>
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ currentURL }}&title=Gent%20Klimaatstad&summary=&source=" target="_blank">LinkedIn</a>
+        </div>
+
+    </div>
+{% endblock %}

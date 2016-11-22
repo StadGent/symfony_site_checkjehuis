@@ -1,0 +1,32 @@
+{% extends 'DigipRenovationBundle::admin.html.twig' %}
+
+{% block content %}
+
+    <div class="container">
+        <h4>Hernieuwbare energie</h4>
+
+        <form action="{{ path('admin_renewables_update') }}" method="POST">
+            <table class="table table-striped">
+                <tr>
+                    <th width="30%">technologie</th>
+                    <th>winst</th>
+                </tr>
+                {% for renewable in renewables %}
+                    <tr>
+                        <td>{{ renewable.label }}</td>
+                        <td>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="renewable[{{ renewable.id }}]" value="{{ renewable.value }}" style="text-align: right" />
+                                <div class="input-group-addon" style="min-width: 120px">{% if renewable.unit %}{{ renewable.unit }}{% endif %}</div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+            <div class="btn-group">
+                <input type="submit" class="btn btn-primary" value="opslaan" />
+            </div>
+        </form>
+    </div>
+{% endblock %}

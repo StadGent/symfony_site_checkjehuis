@@ -1,0 +1,19 @@
+{% set config = calculator.avgScoreConfig(current) %}
+<div class="house-grade-scale text-left">
+    <div class="scale scale-left">150 kWh/m²</div>
+    <div class="scale scale-center">70 kWh/m²</div>
+    <div class="scale scale-right">30 kWh/m²</div>
+    <div class="house-avg-score {% if config.centered %}neutral{% endif %}"
+         style="left: {{ config.position }}%">
+        <div class="house-grade-scale-text house-grade-scale-text-left text-right" style="{% if config.align == 'right' %}display: none;{% endif %}">
+            <span class="house-grade-scale-label">{{ config.label }}</span><br />
+            <span class="score">{{ config.score }}</span> kWh/m²
+        </div>
+        <div class="house-grade-scale-text house-grade-scale-text-right text-left" style="{% if config.align == 'left' %}display: none;{% endif %}">
+            <span class="house-grade-scale-label">{{ calculator.avgScoreLabel(true) }}</span><br />
+            <span class="score">{{ config.score }}</span> kWh/m²
+        </div>
+        <img class="icon-house" src="{{ asset('bundles/digiprenovation/images/icons/house.svg') }}" />
+        <img class="icon-dot" src="{{ asset('bundles/digiprenovation/images/radio-off.png') }}" />
+    </div>
+</div>

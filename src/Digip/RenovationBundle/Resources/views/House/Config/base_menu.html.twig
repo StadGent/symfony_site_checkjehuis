@@ -1,0 +1,26 @@
+{% spaceless %}
+<div class="nav-steps">
+    <div {% if active == 'roof' %}class="active"{% endif %}>
+        <a href="{{ path('house_config_roof') }}">Dakisolatie</a>
+    </div>
+    <div {% if active == 'facade' %}class="active"{% endif %}>
+        <a href="{{ path('house_config_facade') }}">Gevelisolatie</a>
+    </div>
+    <div {% if active == 'floor' %}class="active"{% endif %}>
+        <a href="{{ path('house_config_floor') }}">Vloerisolatie</a>
+    </div>
+    <div {% if active == 'window' %}class="active"{% endif %}>
+        <a href="{{ path('house_config_window') }}">Ramen</a>
+    </div>
+    <div {% if active == 'ventilation' %}class="active"{% endif %}>
+        <a href="{{ path('house_config_ventilation') }}">Ventilatie</a>
+    </div>
+    <div {% if active == 'heating' %}class="active"{% endif %}>
+        <a href="{{ path('house_config_heating') }}">Verwarming</a>
+    </div>
+    <div {% if active == 'renewable' %}class="active"{% endif %}>
+        <a href="{{ path('house_config_renewable') }}">Hernieuwbare energie</a>
+    </div>
+</div>
+{% endspaceless %}
+<hr class="divider" />

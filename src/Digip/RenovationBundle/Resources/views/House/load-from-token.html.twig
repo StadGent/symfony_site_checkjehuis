@@ -1,0 +1,26 @@
+{% extends 'DigipRenovationBundle::app.html.twig' %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Configuratie opnieuw inladen</h1>
+
+    <div class="layout-spacer"></div>
+
+    {% if loaded %}
+        <p>
+            Uw opgeslagen configuratie is opnieuw ingeladen.
+        </p>
+
+        <a href="{{ path('my_house') }}" class="btn btn-primary pull-right">Naar uw configuratie</a>
+    {% else %}
+        <p class="text-danger">
+            Uw opgeslagen configuratie werdt niet gevonden.
+        </p>
+
+        <a href="{{ path('app_index') }}" class="btn btn-primary pull-right">Start nieuwe configuratie</a>
+    {% endif %}
+</div>
+
+{% endblock %}

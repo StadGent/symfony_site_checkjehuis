@@ -1,0 +1,19 @@
+<form class="modal-body" method="post" action="{{ path('admin_matrix_transformation_update', { configFrom: configFrom.id, configTo: configTo.id, inverse: inverse }) }}">
+    {{ form_errors(form) }}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form["value"]) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_label(form["unit"]) }}
+                {{ form_widget(form["unit"], { attr: { 'class': 'form-control' } }) }}
+                {{ form_errors(form["unit"]) }}
+            </div>
+        </div>
+    </div>
+</form>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary submit">Save changes</button>
+</div>

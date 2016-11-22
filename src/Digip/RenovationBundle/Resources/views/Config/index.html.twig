@@ -1,0 +1,123 @@
+{% extends 'DigipRenovationBundle::admin.html.twig' %}
+
+{% block content %}
+
+    <div class="container">
+
+    <ul class="nav nav-tabs" role="tablist">
+        {% for category in categories %}
+            <li><a href="#{{ category.slug }}" role="tab" data-toggle="tab">{{ category.label }}</a></li>
+        {% endfor %}
+    </ul>
+    <div class="tab-content">
+        {% for category in categories %}
+            <div role="tabpanel" class="tab-pane" id="{{ category.slug }}">
+                <h4>{{ category.label }}</h4>
+
+                <p class="form-inline">
+                    percentage op basis van <input type="text" size="3" class="category-percent form-control"
+                                                   data-category="{{ category.slug }}"
+                                                   name="percent[{{ category.slug }}]" value="{{ category.percent }}" />% van
+                    {% if category.fromActual %}
+                        subtotaal berekende
+                    {% else %}
+                        het default
+                    {% endif %}
+                    energieverbruik
+                </p>
+
+                {% include 'DigipRenovationBundle:Config:matrix.html.twig' with {'inverse': false } %}
+
+                {% if category.hasInverseMatrix %}
+                    <h4>extra kosten</h4>
+                    {% include 'DigipRenovationBundle:Config:matrix.html.twig' with {'inverse': true } %}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+    </div>
+
+    <div id="modal-matrix-value" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            var $modal = $('#modal-matrix-value');
+
+            // activate first tab or tab from hash
+            var hash = window.location.hash;
+            var $tab = null;
+            if (hash) {
+                $tab = $('.nav-tabs a[href=' + hash + ']');
+            }
+            if (!hash || !$tab.length) {
+                $tab = $('.nav-tabs a:first');
+            }
+            $tab.tab('show');
+
+            // save category percentage on change
+            $('input.category-percent').on('change', function () {
+                $.ajax({
+                    url: '{{ path('admin_matrix_category_percent_update') }}',
+                    data: {
+                        slug: $(this).attr('data-category'),
+                        percent: $(this).val()
+                    },
+                    success: function (response) {
+                        if (!response.success) {
+                            // if (console) console.log(response.errors);
+                        }
+                    },
+                    error: function (response) {
+                        // console.log('ajax call failed');
+                        // console.log(response);
+                    }
+                });
+            });
+
+            // editable cells
+            $('body').on('click', 'td.value', function () {
+                $.ajax({
+                    url: $(this).attr('data-url'),
+                    success: function (response) {
+                        $modal.find('.modal-body').html(response.template);
+                        $modal.modal('show');
+                    }
+                });
+            });
+
+            // modal form submit
+            $modal.on('click', 'button.submit', function () { $modal.find('form').submit(); });
+            $modal.on('submit', function (e) {
+                var $form = $(this).find('form');
+                $.ajax({
+                    method: 'POST',
+                    url: $form.attr('action'),
+                    data: $form.serialize(),
+                    success: function (response) {
+                        if (response.success === false) {
+                            $modal.find('.modal-body').html(response.template);
+                        } else {
+                            // reload page on current tab
+                            window.location = window.location.origin + window.location.pathname + $('.nav-tabs li.active a').attr('href');
+                            window.location.reload();
+                        }
+                    }
+                });
+
+                e.preventDefault();
+                return false;
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'DigipRenovationBundle::admin.html.twig' %}
+
+{% block content %}
+
+    <div class="container">
+    <h4>Verbruik</h4>
+
+    <table class="table table-striped">
+        <tr>
+            <th>type</th>
+            <th>grootte</th>
+            <th>bouwjaar</th>
+            <th>gas kWh/jaar</th>
+            <th>Elektriciteit kWh/jaar</th>
+            <th>Elektrisch verwarmen kWh/jaar</th>
+        </tr>
+        <tr>
+            <th>
+                <select name="building-type" class="form-control table-filter">
+                    <option></option>
+                    {% for key, label in buildingTypes %}
+                        <option value="{{ key }}" {% if filter['building-type'] == key %}selected="selected"{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </th>
+            <th>
+                <select name="building-size" class="form-control table-filter">
+                    <option></option>
+                    {% for key, label in buildingSizes %}
+                        <option value="{{ key }}" {% if filter['building-size'] == key %}selected="selected"{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </th>
+            <th>
+                <select name="building-year" class="form-control table-filter">
+                    <option></option>
+                    {% for key, label in years %}
+                        <option value="{{ key }}" {% if filter['building-year'] == key %}selected="selected"{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+        </tr>
+        {% for energy in defaults %}
+            <tr>
+                <td>{{ buildingTypes[energy.type] }}</td>
+                <td>{{ buildingSizes[energy.size] }}</td>
+                <td>{{ years[energy.maxYear] }}</td>
+                <td class="left value"
+                    data-url="{{ path('admin_energy_update', { id: energy.id }) }}">{{ energy.gas }}</td>
+                <td class="left value"
+                    data-url="{{ path('admin_energy_update', { id: energy.id }) }}">{{ energy.electricity }}</td>
+                <td class="left value"
+                    data-url="{{ path('admin_energy_update', { id: energy.id }) }}">{{ energy.electricHeating }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    </div>
+
+    <div id="modal-energy-value" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            var $modal = $('#modal-energy-value');
+
+            // editable cells
+            $('body').on('click', 'td.value', function () {
+                $.ajax({
+                    url: $(this).attr('data-url'),
+                    success: function (response) {
+                        $modal.find('.modal-body').html(response.template);
+                        $modal.modal('show');
+                    }
+                });
+            });
+
+            // modal form submit
+            $modal.on('click', 'button.submit', function () { $modal.find('form').submit(); });
+            $modal.on('submit', function (e) {
+                var $form = $(this).find('form');
+                $.ajax({
+                    method: 'POST',
+                    url: $form.attr('action'),
+                    data: $form.serialize(),
+                    success: function (response) {
+                        if (response.success === false) {
+                            $modal.find('.modal-body').html(response.template);
+                        } else {
+                            // reload page
+                            window.location.reload();
+                        }
+                    }
+                });
+
+                e.preventDefault();
+                return false;
+            });
+        });
+    </script>
+{% endblock %}

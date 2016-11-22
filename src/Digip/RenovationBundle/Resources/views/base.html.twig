@@ -1,0 +1,71 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {# general SEO tags #}
+    <meta name="keywords" content="Gents klimaatverbond, Gent klimaatstad, energie, duurzaam, check je huis, beslissingsboom, verbouwing, renovatie" />
+    <meta name="description" content="Maak je woning energiezuinig, bespaar voor het leven. Bekijk de mogelijkheden van jouw huis en bereken je winst." />
+    <meta property="article:publisher" content="https://www.facebook.com/Gentklimaatstad" />
+
+    {# general OpenGraph info (facebook, etc...) #}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Check je huis!" />
+    <meta property="og:url" content="{{ app.request.scheme }}://{{ app.request.host }}{{ app.request.baseUrl }}" />
+    <meta property="og:description" content="Maak je woning energiezuinig, bespaar voor het leven. Hoe energiezuinig is jouw woning? Hoe kan het beter? Wat kost het en wat brengt het op?  Welke premies zijn er? Bekijk de mogelijkheden van jouw huis, download het stappenplan en bereken je winst." />
+    <meta property="og:image" content="http://checkjehuis.gentklimaatstad.be/bundles/digiprenovation/images/og-image.png" />
+
+    {# twitter card #}
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gent2050" />
+    <meta name="twitter:title" content="Check je huis!" />
+    <meta name="twitter:description" content="Maak je woning energiezuinig, bespaar voor het leven. Hoe energiezuinig is jouw woning? Hoe kan het beter? Wat kost het en wat brengt het op?  Welke premies zijn er? Bekijk de mogelijkheden van jouw huis, download het stappenplan en bereken je winst." />
+    <meta name="twitter:image" content="http://checkjehuis.gentklimaatstad.be/bundles/digiprenovation/images/og-image.png" />
+    <meta name="twitter:url" content="{{ app.request.scheme }}://{{ app.request.host }}{{ app.request.baseUrl }}" />
+
+    <link rel="shortcut icon" href="{{ asset('bundles/digiprenovation/images/favicon.ico') }}">
+
+    <title>{% block base_head_title %}Gent klimaatstad{% endblock %}</title>
+
+    {% stylesheets filter='cssrewrite, minifier_css' output="css/app.css"
+    "bundles/digiprenovation/bootstrap/css/bootstrap.css"
+    "bundles/digiprenovation/fontawesome/css/font-awesome.css"
+    "bundles/digiprenovation/css/layout.css"
+    %}
+    <link type="text/css" rel="stylesheet" media="all" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700");
+        * {
+            font-family: "Open Sans", Helvetica, sans-serif;
+        }
+    </style>
+
+    {# javascripts filter='minifier_js' output='js/app.js' #}
+    {% javascripts
+    'bundles/digiprenovation/jquery/jquery.js'
+    'bundles/digiprenovation/bootstrap/js/bootstrap.js'
+    'bundles/digiprenovation/js/forms.js'
+    'bundles/digiprenovation/js/layout.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% block base_head %}{% endblock %}
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+    {% block base_content %}{% endblock %}
+
+</body>
+</html>

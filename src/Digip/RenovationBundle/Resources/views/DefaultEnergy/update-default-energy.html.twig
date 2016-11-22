@@ -1,0 +1,12 @@
+<form class="modal-body" method="post" action="{{ path('admin_energy_update', { id: energy.id }) }}">
+    {{ form_errors(form) }}
+    <div class="container-fluid">
+        {{ form_row(form["gas"]) }}
+        {{ form_row(form["electricity"]) }}
+        {{ form_row(form["electricHeating"]) }}
+    </div>
+</form>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary submit">Save changes</button>
+</div>

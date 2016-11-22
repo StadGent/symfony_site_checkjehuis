@@ -1,0 +1,147 @@
+{% extends 'DigipRenovationBundle:House/Basics:base.html.twig' %}
+
+{% set my_house_menu_active = 'energy' %}
+
+{% block my_house_content %}
+
+    <form class="form form-inline form-ajax validate" id="form-house-energy" action="{{ path('house_energy') }}" method="post">
+
+        <input id="energy" type="hidden" name="energy" value="{% if house.hasCustomEnergy %}custom{% else %}default{% endif %}" />
+
+        <div class="option-list">
+            <div class="option-container option-list-item {% if not house.hasCustomEnergy %}active{% endif %}"
+                 data-option-field="energy" data-option-value="default">
+                <h4>
+                    Ik ken mijn verbruik niet, gebruik dit gemiddelde voor een huis in Gent
+                    {% if content_avg.active %}<small><a href="#" data-toggle="modal" data-target="#modal-content-avg"><span class="fa fa-fw fa-info-circle"></span> meer info</a></small>{% endif %}
+                </h4>
+                <div class="row non-elec {% if house.hasElectricHeating %}hidden{% endif %}">
+                    <div class="col-md-2">
+                        <label>Gas</label>
+                    </div>
+                    <div class="col-md-3">
+                        {{ energy['non-elec'].gas|f_energy }} kWh
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                        <label>Elektriciteit</label>
+                    </div>
+                    <div class="col-md-3">
+                        {{ energy['non-elec'].elec|f_energy }} kWh
+                    </div>
+                </div>
+                <div class="row elec {% if not house.hasElectricHeating %}hidden{% endif %}">
+                    <div class="col-md-2">
+                        <label>Gas</label>
+                    </div>
+                    <div class="col-md-3">
+                        {{ energy['elec'].gas|f_energy }} kWh
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                        <label>Elektriciteit</label>
+                    </div>
+                    <div class="col-md-3">
+                        {{ energy['elec'].elec|f_energy }} kWh
+                    </div>
+                </div>
+            </div>
+            <div class="option-container option-list-item {% if house.hasCustomEnergy %}active{% endif %}"
+                 data-option-field="energy" data-option-value="custom">
+                <h4>
+                    Ik ken mijn verbruik, bereken de besparing op mijn persoonlijk verbruik
+                    {% if content_custom.active %}<small><a href="#" data-toggle="modal" data-target="#modal-content-custom"><span class="fa fa-fw fa-info-circle"></span> meer info</a></small>{% endif %}
+                </h4>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>Gas</label>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" name="gas" class="form-control validate validate-number" value="{{ house.consumptionGas(false) }}" />
+                                <div class="input-group-addon">kWh</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                        <label>Elektriciteit</label>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" name="elec" class="form-control validate validate-number" value="{{ house.consumptionElec(false) }}" />
+                                <div class="input-group-addon">kWh</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% spaceless %}
+        <div class="list-align-checkbox">
+            <div>
+                <label>
+                    <input type="checkbox" name="electric-heating" {% if house.hasElectricHeating %}checked="checked"{% endif %} style="margin-right: 15px;" />
+                    Ik verwarm mijn huis elektrisch
+                </label>
+            </div>
+        </div>
+        {% endspaceless %}
+
+        <div class="layout-spacer hidden-sm hidden-xs"></div>
+
+        <button type="submit" class="btn btn-primary pull-right form-ajax-refresh-indicator btn-next-checked-height">Verder gaan</button>
+
+    </form>
+
+    <script type="text/javascript">
+        $(function () {
+            var $form = $('#form-house-energy');
+            var $rowEnergyNonElec = $form.find('.row.non-elec');
+            var $rowEnergyElec = $form.find('.row.elec');
+            $('input[name="electric-heating"]').on('click', function () {
+                if ($(this).is(':checked')) {
+                    $rowEnergyNonElec.addClass('hidden');
+                    $rowEnergyElec.removeClass('hidden');
+                } else {
+                    $rowEnergyNonElec.removeClass('hidden');
+                    $rowEnergyElec.addClass('hidden');
+                }
+
+                ajaxForm($form);
+            });
+            $('input[name="gas"], input[name="elec"]').on('change', function () {
+                ajaxForm($form);
+            });
+        });
+    </script>
+
+    <div class="modal fade" id="modal-content-avg">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    {{ content_avg.value|raw }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-content-custom">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    {{ content_custom.value|raw }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

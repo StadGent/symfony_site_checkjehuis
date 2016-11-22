@@ -1,0 +1,17 @@
+services:
+    # DETECT MOBILE USERS
+    kernel.listener.mobile_device_redirect:
+        class: Digip\RenovationBundle\EventListener\MobileDeviceListener
+        arguments:
+            - '@router'
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    # DETECT ENTRY FROM OTHER KNOWN SITES
+    kernel.listener.referer_listener:
+        class: Digip\RenovationBundle\EventListener\RefererListener
+        arguments:
+            - '@session'
+            - '%known_referers%'
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

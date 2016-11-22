@@ -1,0 +1,36 @@
+{% extends 'DigipRenovationBundle::base_public.html.twig' %}
+
+{% block base_public_content %}
+
+    <div class="container">
+
+        <div class="layout-spacer hidden-sm hidden-xs"></div>
+
+        <h1 style="font-weight: bolder;">Beter wonen in Gent klimaatstad</h1>
+
+        <p>
+            Maak je woning energiezuinig, bespaar voor het leven
+        </p>
+
+        <hr class="divider" />
+
+        <div class="row">
+            <div class="col-md-7">
+
+                {{ content.value|raw }}
+
+            </div>
+            <div class="col-md-5 text-center">
+                <img src="{{ asset('bundles/digiprenovation/images/kathedraal_intro.svg') }}" width="400" height="400" />
+                <br />
+                <a href="{{ path('my_house') }}" class="btn btn-primary" style="padding: 10px 40px;">Aan de slag!</a>
+            </div>
+        </div>
+
+        <div class="text-center">
+
+        </div>
+
+    </div>
+
+{% endblock %}

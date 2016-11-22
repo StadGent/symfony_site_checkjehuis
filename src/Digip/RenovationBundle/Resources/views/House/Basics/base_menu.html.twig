@@ -1,0 +1,49 @@
+{% spaceless %}
+<div class="even-spacing nav-steps visible-lg visible-md hidden-sm hidden-xs">
+    <div {% if active == 'building-type' %}class="active"{% endif %}>
+        <a href="{{ path('house_building_type') }}">Type</a>
+    </div>
+    <div {% if active == 'year' %}class="active"{% endif %}>
+        <a href="{{ path('house_year') }}">Jaar</a>
+    </div>
+    <div {% if active == 'roof-type' %}class="active"{% endif %}>
+        <a href="{{ path('house_roof') }}">Dak</a>
+    </div>
+    <div {% if active == 'surface' %}class="active"{% endif %}>
+        <a href="{{ path('house_surface') }}">Oppervlakte</a>
+    </div>
+    <div {% if active == 'ownership' %}class="active"{% endif %}>
+        <a href="{{ path('house_ownership') }}">Eigenaar</a>
+    </div>
+    <div {% if active == 'occupants' %}class="active"{% endif %}>
+        <a href="{{ path('house_occupants') }}">Bewoners</a>
+    </div>
+    <div {% if active == 'energy' %}class="active"{% endif %}>
+        <a href="{{ path('house_energy') }}">Energieverbruik</a>
+    </div>
+</div>
+<div class="nav-steps nav-extra-spacing hidden-lg hidden-md ">
+    <div {% if active == 'building-type' %}class="active"{% endif %}>
+        <a href="{{ path('house_building_type') }}">Type</a>
+    </div>
+    <div {% if active == 'year' %}class="active"{% endif %}>
+        <a href="{{ path('house_year') }}">Jaar</a>
+    </div>
+    <div {% if active == 'roof-type' %}class="active"{% endif %}>
+        <a href="{{ path('house_roof') }}">Dak</a>
+    </div>
+    <div {% if active == 'surface' %}class="active"{% endif %}>
+        <a href="{{ path('house_surface') }}">Oppervlakte</a>
+    </div>
+    <div {% if active == 'ownership' %}class="active"{% endif %}>
+        <a href="{{ path('house_ownership') }}">Eigenaar</a>
+    </div>
+    <div {% if active == 'occupants' %}class="active"{% endif %}>
+        <a href="{{ path('house_occupants') }}">Bewoners</a>
+    </div>
+    <div {% if active == 'energy' %}class="active"{% endif %}>
+        <a href="{{ path('house_energy') }}">Energieverbruik</a>
+    </div>
+</div>
+{% endspaceless %}
+<hr class="divider" />

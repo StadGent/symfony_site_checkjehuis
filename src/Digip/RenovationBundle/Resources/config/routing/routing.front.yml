@@ -1,0 +1,193 @@
+app_index:
+    path:     /
+    defaults: { _controller: DigipRenovationBundle:Page:index }
+
+app_info:
+    path:     /meer-info
+    defaults: { _controller: DigipRenovationBundle:Page:moreInfo }
+
+app_plan:
+    path:     /plan/{download}
+    defaults: { _controller: DigipRenovationBundle:Page:plan, download: false }
+
+app_mobile:
+    path:     /mobile
+    defaults: { _controller: DigipRenovationBundle:Page:mobile }
+
+#
+# HOUSE CONFIG BASICS
+#
+
+my_house:
+    path: /mijn-huis
+    defaults: { _controller: DigipRenovationBundle:House:buildingType }
+
+house_building_type:
+    path: /mijn-huis/type
+    defaults: { _controller: DigipRenovationBundle:House:buildingType }
+
+house_year:
+    path: /mijn-huis/jaar
+    defaults: { _controller: DigipRenovationBundle:House:year }
+
+house_roof:
+    path: /mijn-huis/dak-type
+    defaults: { _controller: DigipRenovationBundle:House:roofType }
+
+house_surface:
+    path: /mijn-huis/oppervlakte
+    defaults: { _controller: DigipRenovationBundle:House:surface }
+
+house_ownership:
+    path: /mijn-huis/eigenaar
+    defaults: { _controller: DigipRenovationBundle:House:ownership }
+
+house_occupants:
+    path: /mijn-huis/bewoners
+    defaults: { _controller: DigipRenovationBundle:House:occupants }
+
+house_energy:
+    path: /mijn-huis/energie
+    defaults: { _controller: DigipRenovationBundle:House:energy }
+
+#
+# HOUSE CONFIG SPECIFICS
+#
+
+house_config:
+    path: /zo-woon-ik
+    defaults: { _controller: DigipRenovationBundle:House:roofConfig }
+
+house_config_roof:
+    path: /zo-woon-ik/dakisolatie
+    defaults: { _controller: DigipRenovationBundle:House:roofConfig }
+
+house_config_floor:
+    path: /zo-woon-ik/vloerisolatie
+    defaults: { _controller: DigipRenovationBundle:House:floorConfig }
+
+house_config_facade:
+    path: /zo-woon-ik/gevelisolatie
+    defaults: { _controller: DigipRenovationBundle:House:facadeConfig }
+
+house_config_window:
+    path: /zo-woon-ik/ramen
+    defaults: { _controller: DigipRenovationBundle:House:windowConfig }
+
+house_config_ventilation:
+    path: /zo-woon-ik/ventilatie
+    defaults: { _controller: DigipRenovationBundle:House:ventilationConfig }
+
+house_config_heating:
+    path: /zo-woon-ik/verwarming
+    defaults: { _controller: DigipRenovationBundle:House:heatingConfig }
+
+house_config_renewable:
+    path: /zo-woon-ik/hernieuwebare-energie
+    defaults: { _controller: DigipRenovationBundle:House:renewableConfig }
+
+#
+# CALCULATOR
+#
+
+house_energy_summary:
+    path: /zo-woon-ik/energie
+    defaults: { _controller: DigipRenovationBundle:House:energySummary }
+
+house_calculator:
+    path:     /zo-wil-ik-wonen
+    defaults: { _controller: DigipRenovationBundle:House:calculator }
+
+house_calc_detail:
+    path:     /berekening/detail
+    defaults: { _controller: DigipRenovationBundle:House:calculationDetail }
+
+house_calc_pdf_template:
+    path:     /zo-wil-ik-wonen/pdf/template/{token}
+    defaults: { _controller: DigipRenovationBundle:House:calculationPdfTemplate }
+
+house_calc_pdf:
+    path:     /zo-wil-ik-wonen/pdf
+    defaults: { _controller: DigipRenovationBundle:House:calculationPdf }
+
+#
+# AJAX ROUTES
+#
+
+house_config_update_category:
+    path:     /configuratie/update
+    defaults: { _controller: DigipRenovationBundle:House:updateSingleConfig }
+
+house_toggle_windroof:
+    path:     /dak/onderdak/{current}
+    defaults: { _controller: DigipRenovationBundle:House:toggleWindroof, current: false }
+
+house_update_surface_roof:
+    path:     /oppervlakte/dak
+    defaults: { _controller: DigipRenovationBundle:House:updateSurfaceRoof }
+
+house_update_surface_roof_extra:
+    path:     /oppervlakte/dak-plat
+    defaults: { _controller: DigipRenovationBundle:House:updateSurfaceRoofExtra }
+
+house_update_surface_floor:
+    path:     /oppervlakte/grond
+    defaults: { _controller: DigipRenovationBundle:House:updateSurfaceFloor }
+
+house_update_surface_facade:
+    path:     /oppervlakte/gevel
+    defaults: { _controller: DigipRenovationBundle:House:updateSurfaceFacade }
+
+house_update_surface_window:
+    path:     /oppervlakte/ramen
+    defaults: { _controller: DigipRenovationBundle:House:updateSurfaceWindow }
+
+house_update_solar_wp:
+    path:     /dak/pv-wp
+    defaults: { _controller: DigipRenovationBundle:House:updateSolarWP }
+
+house_toggle_renewable:
+    path:     /hernieuwbaar
+    defaults: { _controller: DigipRenovationBundle:House:toggleRenewableConfig }
+
+house_toggle_renewable_upgrade:
+    path:     /hernieuwbaar/gewenst
+    defaults: { _controller: DigipRenovationBundle:House:toggleRenewable }
+
+house_data:
+    path:     /huis-data/{token}
+    defaults: { _controller: DigipRenovationBundle:House:export }
+
+
+
+#
+# OTHER PUBLIC ROUTES
+#
+
+house_update_callback:
+    path:     /callback-update/{token}
+    defaults: { _controller: DigipRenovationBundle:House:updateHouseCallback }
+
+house_poll:
+    path:     /poll
+    defaults: { _controller: DigipRenovationBundle:House:poll }
+
+house_load_token:
+    path:     /laden/{token}
+    defaults: { _controller: DigipRenovationBundle:House:loadHouseFromToken }
+
+house_mail_token:
+    path:     /mail-url
+    defaults: { _controller: DigipRenovationBundle:House:mailTokenUrl }
+
+house_mail_pdf:
+    path:     /mail-pdf
+    defaults: { _controller: DigipRenovationBundle:House:mailPdf }
+
+mail_reminder:
+    path:     /mail-herinnering
+    defaults: { _controller: DigipRenovationBundle:House:mailReminder }
+
+house_reset:
+    path:     /reset
+    defaults: { _controller: DigipRenovationBundle:House:reset }

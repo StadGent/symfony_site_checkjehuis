@@ -1,0 +1,33 @@
+{% extends 'DigipRenovationBundle::base.html.twig' %}
+
+{% block base_head %}
+    <style>
+        * {
+            font-size: 9pt;
+        }
+        .pagebreak {
+            page-break-before:always;
+        }
+        .keeptogether {
+            page-break-inside: avoid;
+        }
+        .subtext {
+            display: inline-block;
+            width: 60%;
+        }
+        .justify {
+            text-align: justify;
+        }
+        .house-improvement {
+            padding-top: 30px;
+        }
+        .panel-rounded {
+            background: #EFEFEF;
+            border-radius: 15px;
+            padding: 3px;
+            margin-bottom: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block base_content %}{% endblock %}

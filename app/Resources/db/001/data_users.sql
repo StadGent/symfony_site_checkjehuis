@@ -1,0 +1,3 @@
+INSERT INTO fos_user (id, username, username_canonical, email, email_canonical, enabled, salt, password, last_login, locked, expired, expires_at, confirmation_token, password_requested_at, roles, credentials_expired, credentials_expire_at) VALUES
+  (1, 'admin', 'admin', 'digipolis@gent.be', 'digipolis@gent.be', 1, '31qsh1og9tgkcsk044occo80gsgocsk', '1/+wxDupZpA4c360fh6knG93iQw=', NULL, 0, 0, NULL, NULL, NULL, 'a:1:{i:0;s:10:"ROLE_ADMIN";}', 0, NULL)
+;
