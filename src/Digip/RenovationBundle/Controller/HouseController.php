@@ -1421,8 +1421,7 @@ class HouseController extends AbstractController
 
         foreach ($houses as $house) {
 
-            $current = $houseService->calculateCurrent($house);
-            $upgrade = $houseService->calculateUpgrade($house);
+            $view = $this->container->get('digip_reno.calculator.factory')->createCalculatorView($house);
 
             $csv .= '"' . implode('","', array(
                     $house->getId(),
@@ -1473,12 +1472,12 @@ class HouseController extends AbstractController
                     $house->hasUpgradeRenewable($solarWater) ? 1: 0,
                     $house->hasUpgradeRenewable($solarPanels) ? 1: 0,
                     $house->hasUpgradeRenewable($greenPower) ? 1: 0,
-                    $current->getGas(),
-                    $current->getElectricity(),
-                    $current->getAvgScore(),
-                    $upgrade->getGas(),
-                    $upgrade->getElectricity(),
-                    $upgrade->getAvgScore(),
+                    $view->getCurrent()->getState()->getGas(),
+                    $view->getCurrent()->getState()->getElectricity(),
+                    $view->getAvgScore(true),
+                    $view->getUpgrade()->getState()->getGas(),
+                    $view->getUpgrade()->getState()->getElectricity(),
+                    $view->getAvgScore(),
                 )) . '"' . PHP_EOL;
         }
 
