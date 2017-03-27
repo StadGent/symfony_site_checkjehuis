@@ -11,7 +11,7 @@
         "files": [ "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php" ]
     },
     "require": {
-        "php": ">=5.3.9",
+        "php": ">=5.6",
         "doctrine/doctrine-bundle": "~1.4",
         "doctrine/orm": "^2.4.8",
         "incenteev/composer-parameter-handler": "~2.0",
@@ -43,7 +43,8 @@
              "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
              "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
              "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget",
+             "php app/console assetic:dump --env=prod"
          ],
          "post-install-cmd": [
              "@symfony-scripts"

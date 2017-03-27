@@ -79,8 +79,8 @@ fos_user:
     firewall_name: main
     user_class: Digip\RenovationBundle\Entity\User
     from_email:
-        address: info@gentklimaatstad.be
-        sender_name: Gent Klimaatstad
+        address: "%fos_user_from_email_address%"
+        sender_name: "%fos_user_from_sender_name%"
 
 # Swiftmailer Configuration
 swiftmailer:
