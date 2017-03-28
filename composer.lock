@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "000bb4b9f7ead9a0a3c035a7e929747e",
+    "content-hash": "4d426757a8e953791a4da3743a8af939",
     "packages": [
         {
             "name": "ctrl-f5/ctrl-common",
@@ -1015,6 +1015,43 @@
                 "User management"
             ],
             "time": "2017-03-19 13:49:51"
+        },
+        {
+            "name": "gent/symfony-db-commands",
+            "version": "0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/digipolisgent/symfony_bundle_db-commands.git",
+                "reference": "4ca839404239eef17255384eefd63f002a7837e0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/digipolisgent/symfony_bundle_db-commands/zipball/4ca839404239eef17255384eefd63f002a7837e0",
+                "reference": "4ca839404239eef17255384eefd63f002a7837e0",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/framework-bundle": "3.*|^2.8"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gent\\DbCommandsBundle\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Arne Van den Bogaert",
+                    "email": "arne.vandenbogaert@outlook.com"
+                }
+            ],
+            "time": "2017-01-20T14:51:15+00:00"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -4198,7 +4235,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.3.9"
+        "php": ">=5.6"
     },
     "platform-dev": []
 }
