@@ -44,3 +44,7 @@ parameters:
             - "/stad\.gent(.*)warmtefoto/"
         verbouwforum:
             - "/stad\.gent(.*)wonen-verbouwen/"
+
+    # FOS User from_email parameters
+    fos_user_from_email_address: 'info@gentklimaatstad.be'
+    fos_user_from_sender_name: 'Gent Klimaatstad'

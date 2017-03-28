@@ -78,6 +78,9 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: Digip\RenovationBundle\Entity\User
+    from_email:
+        address: "%fos_user_from_email_address%"
+        sender_name: "%fos_user_from_sender_name%"
 
 # Swiftmailer Configuration
 swiftmailer:
