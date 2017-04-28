@@ -332,47 +332,4 @@ class HouseService extends AbstractService
         );
     }
 
-    /**
-     * Calculate the estimated energy usage based on the house's parameters
-     * If an actual energy usage was configured, return this.
-     *
-     * @param House $house
-     * @return Calculation
-     */
-    public function calculateCurrent(House $house)
-    {
-        $nonHeatingElec = $this->getDefaultEnergy($house)->getElectricity();
-
-        $costService = $this->container->get('digip_reno.service.buildcost');
-        $subsidyService = $this->container->get('digip_reno.service.subsidy');
-        $defaultsService = $this->container->get('digip_reno.service.defaults');
-        $paramService = $this->container->get('digip_reno.service.parameter');
-
-        $priceGas = $paramService->getParameterBySlug(Parameter::PARAM_PRICE_GAS)->getValue();
-        $priceElec = $paramService->getParameterBySlug(Parameter::PARAM_PRICE_ELEC)->getValue();
-        $co2PerKwh = $paramService->getParameterBySlug(Parameter::PARAM_CO2_KWH)->getValue();
-        $subsidyCeilingGentRoof = $paramService->getParameterBySlug(Parameter::PARAM_SUBSIDY_GENT_ROOF)->getValue();
-        $electricHeating = $defaultsService->getEnergy($house->getBuildingType(), $house->getSize(), $house->getYear())->getElectricHeating();
-
-        $view = $this->get('digip_reno.calculator.factory')->createCalculatorView($house);
-
-        var_dump($view);
-
-        return $calculation;
-    }
-
-    /**
-     * Calculate the estimated energy usage based on the house's parameters and the configured upgrades
-     *
-     * @param House $house
-     * @return Calculation
-     */
-    public function calculateUpgrade(House $house)
-    {
-        // start from current
-        $calculation = $this->calculateCurrent($house);
-        $calculation->calculate(true);
-
-        return $calculation;
-    }
 }
