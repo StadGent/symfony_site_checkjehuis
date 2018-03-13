@@ -49,6 +49,12 @@ abstract class AbstractController extends Controller
             }
         }
 
+        // Sentinel to prevent exceptions when sending $house the getAddress()
+        // message.
+        if (!$house) {
+            return false;
+        }
+
         if ($cookieAddress && $cookieAddress != $house->getAddress()) {
             $house->setAddress($cookieAddress);
             $save = true;
