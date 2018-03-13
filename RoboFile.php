@@ -14,6 +14,7 @@ class RoboFile extends RoboFileBase
             $collection->addTask($parent);
         }
         $collection->taskSsh($worker, $auth)
+            ->timeout(30)
             ->remoteDirectory($currentProjectRoot, true)
             ->exec('composer symfony-scripts');
         return $collection;
