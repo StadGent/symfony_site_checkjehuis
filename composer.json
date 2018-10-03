@@ -12,7 +12,7 @@
         "files": [ "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php" ]
     },
     "require": {
-        "php": ">=5.6",
+        "php": ">=7.2",
         "ctrl-f5/ctrl-common": "~1",
         "digipolisgent/robo-digipolis-symfony": "^0.1.0@alpha",
         "doctrine/doctrine-bundle": "~1.4",
@@ -51,7 +51,10 @@
          ]
      },
      "config": {
-         "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "7.2.5"
+        }
      },
      "extra": {
          "symfony-app-dir": "app",
