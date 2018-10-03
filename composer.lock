@@ -579,16 +579,16 @@
         },
         {
             "name": "digipolisgent/robo-digipolis-helpers",
-            "version": "0.1.0-rc19",
+            "version": "0.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digipolisgent/robo-digipolis-helpers.git",
-                "reference": "ac445bccf932e344694a49843bf85aa04b958cbe"
+                "reference": "8352384d9a23e9c7782537ba07f8888d1f493ef6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digipolisgent/robo-digipolis-helpers/zipball/ac445bccf932e344694a49843bf85aa04b958cbe",
-                "reference": "ac445bccf932e344694a49843bf85aa04b958cbe",
+                "url": "https://api.github.com/repos/digipolisgent/robo-digipolis-helpers/zipball/8352384d9a23e9c7782537ba07f8888d1f493ef6",
+                "reference": "8352384d9a23e9c7782537ba07f8888d1f493ef6",
                 "shasum": ""
             },
             "require": {
@@ -626,20 +626,20 @@
                 }
             ],
             "description": "Helper to create a basic deploy flow.",
-            "time": "2017-03-29T07:40:01+00:00"
+            "time": "2017-06-08T12:55:49+00:00"
         },
         {
             "name": "digipolisgent/robo-digipolis-package",
-            "version": "0.1.1",
+            "version": "0.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digipolisgent/robo-digipolis-package.git",
-                "reference": "3bdad70adb512fdeb8bac1855f9c61e4d46618e9"
+                "reference": "f17f2379fa4b9ab0f40b22afa3f5f7f8d8334626"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digipolisgent/robo-digipolis-package/zipball/3bdad70adb512fdeb8bac1855f9c61e4d46618e9",
-                "reference": "3bdad70adb512fdeb8bac1855f9c61e4d46618e9",
+                "url": "https://api.github.com/repos/digipolisgent/robo-digipolis-package/zipball/f17f2379fa4b9ab0f40b22afa3f5f7f8d8334626",
+                "reference": "f17f2379fa4b9ab0f40b22afa3f5f7f8d8334626",
                 "shasum": ""
             },
             "require": {
@@ -648,7 +648,6 @@
                 "php": ">=5.5.0"
             },
             "require-dev": {
-                "codeclimate/php-test-reporter": "dev-master",
                 "phpunit/phpunit": "~4.4"
             },
             "type": "robo-tasks",
@@ -676,20 +675,20 @@
                 }
             ],
             "description": "General Packaging/Compile tasks for Robo Task Runner",
-            "time": "2017-03-24T14:26:01+00:00"
+            "time": "2017-11-24T11:25:11+00:00"
         },
         {
             "name": "digipolisgent/robo-digipolis-symfony",
-            "version": "0.1.0-beta1",
+            "version": "0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digipolisgent/robo-digipolis-symfony.git",
-                "reference": "6d3915c4325f69f46dcdf7b9b5bcb557b336cdc4"
+                "reference": "8b95d8612c99237fd52d09f33654a961da8aa30c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digipolisgent/robo-digipolis-symfony/zipball/6d3915c4325f69f46dcdf7b9b5bcb557b336cdc4",
-                "reference": "6d3915c4325f69f46dcdf7b9b5bcb557b336cdc4",
+                "url": "https://api.github.com/repos/digipolisgent/robo-digipolis-symfony/zipball/8b95d8612c99237fd52d09f33654a961da8aa30c",
+                "reference": "8b95d8612c99237fd52d09f33654a961da8aa30c",
                 "shasum": ""
             },
             "require": {
@@ -725,7 +724,7 @@
                 }
             ],
             "description": "Basic deploy flow for a Symfony site.",
-            "time": "2017-03-28T16:09:05+00:00"
+            "time": "2017-05-24T09:40:32+00:00"
         },
         {
             "name": "doctrine/annotations",
