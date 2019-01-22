@@ -1,6 +1,7 @@
 {
     "type": "project",
-    "license": "proprietary",
+    "name": "Check je huis - Stad Gent",
+    "license": "MIT",
     "require": {
         "php": "^7.1.3",
         "ext-ctype": "*",
