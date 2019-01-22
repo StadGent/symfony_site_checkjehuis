@@ -1,0 +1,226 @@
+{% extends 'house/config/base.html.twig' %}
+
+{% set house_config_menu_active = 'roof' %}
+
+{% block house_config_content %}
+
+    <form class="form form-ajax" action="{{ path('house_config_roof') }}" method="post">
+
+        <input id="roof" type="hidden" name="roof" value="{{ house.getConfig(category).id }}" />
+        <input id="roof-extra" type="hidden" name="roof-extra" value="{{ house.extraConfigRoof.id }}" />
+
+        <div class="row">
+            <div class="col-xs-2"></div>
+            <div class="col-xs-8">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <img src="{{ asset(category.iconAsset(house)) }}" width="75%" class="hidden-xs" /><br />
+                        Klopt dit niet?<br /> Pas aan wat je al deed om je huis te verbeteren.
+                    </div>
+                    <div class="col-sm-9">
+                        <h3>
+                            Mijn {% if house.roofType == 'mixed' %}schuin {% endif %}dak is
+                            {% if content.active %}<small><a href="#" data-toggle="modal" data-target="#app-modal"><span class="fa fa-fw fa-info-circle"></span> meer info</a></small>{% endif %}
+                        </h3>
+                        <div class="house-config-dropdown" data-dropdown-field="roof">
+                            <div class="btn btn-default btn-block dropdown-toggle">
+                                <span class="icon"><i class="fa fa-fw fa-chevron-down"></i></span>
+                                <strong class="dropdown-value-label">{{ house.getConfig(category).label }}</strong>
+                            </div>
+                            <div class="dropdown-options list-group">
+                                {% for conf in category.configs if conf.isPossibleCurrent and (house.roofType != 'no' or conf.id != 42)%}
+                                    <a class="list-group-item" href="#" data-dropdown-value="{{ conf.id }}">{{ conf.label }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        {% if house.roofType == 'mixed' or house.roofType == 'yes' %}
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" id="house-windroof" {% if not house.hasWindroof %}checked="checked"{% endif %} />
+                                    Ik heb <strong>geen</strong> winddicht onderdak
+                                </label>
+                            </div>
+                        {% endif %}
+
+                        <div class="heat-map-button-toggle">
+
+                            <div style="margin-top: 15px" data-toggle="heatmap-buttons">
+                                <a href="javascript:void(0)" data-map-url="{{ urlHeatMap }}" class="no-decoration map-popup">
+                                    <i class="fa fa-fw fa-question-circle"></i> <strong>Ik weet het niet: bekijk mijn {% if house.roofType == 'mixed' %}schuin {% endif %}dak op de warmtefoto</strong>
+                                </a>
+                            </div>
+
+                            <div class="well" style="display: none;">
+
+                                <p>
+                                    <button type="button" class="btn btn-default btn-sm pull-right" aria-label="Close"
+                                            data-toggle="heatmap-buttons"
+                                            style="position: relative; top: -10px;"><span aria-hidden="true">&times;</span></button>
+                                    Bekijk je dak op de warmtefoto van Stad Gent en klik het resultaat hier aan.
+                                </p>
+
+                                <div class="row" style="clear: both">
+                                    <div class="col-xs-12">
+                                        <div style="display: inline">
+                                            <button type="button" class="btn btn-primary dropdown-selector" data-dropdown-field="roof" data-dropdown-value="{{ configGood.id }}">uitstekend/goed</button>
+                                        </div>
+                                        <div style="display: inline">
+                                            <button type="button" class="btn btn-primary dropdown-selector" data-dropdown-field="roof" data-dropdown-value="{{ configModerate.id }}">eerder matig/matig</button>
+                                        </div>
+                                        <div style="display: inline">
+                                            <button type="button" class="btn btn-primary dropdown-selector" data-dropdown-field="roof" data-dropdown-value="{{ configBad.id }}">eerder slecht/slecht/niet</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        {% if house.roofType == 'mixed' %}
+                            <h3>Mijn plat dak is</h3>
+                            <div class="house-config-dropdown" data-dropdown-field="roof-extra">
+                                <div class="btn btn-default btn-block dropdown-toggle">
+                                    <span class="icon"><i class="fa fa-fw fa-chevron-down"></i></span>
+                                    <strong class="dropdown-value-label">{{ house.extraConfigRoof.label }}</strong>
+                                </div>
+                                <div class="dropdown-options list-group">
+                                    {% for conf in category.configs if (conf.isPossibleCurrent and (conf.id != 42)) %}
+                                        <a class="list-group-item" href="#" data-dropdown-value="{{ conf.id }}">{{ conf.label }}</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="heat-map-button-toggle" style="margin-top: 15px">
+
+                                <div data-toggle="heatmap-buttons">
+                                    <a href="javascript:void(0)" data-map-url="{{ urlHeatMap }}" class="no-decoration map-popup">
+                                        <i class="fa fa-fw fa-question-circle"></i> <strong>Ik weet het niet: bekijk mijn {% if house.roofType == 'mixed' %}plat {% endif %}dak op de warmtefoto</strong>
+                                    </a>
+                                </div>
+
+                                <div class="well" style="display: none;">
+
+                                    <p>
+                                        <button type="button" class="btn btn-default btn-sm pull-right" aria-label="Close"
+                                                data-toggle="heatmap-buttons"
+                                                style="position: relative; top: -10px;"><span aria-hidden="true">&times;</span></button>
+                                        Bekijk je dak op de warmtefoto van Stad Gent en klik het resultaat hier aan.
+                                    </p>
+
+                                    <div class="row" style="clear: both">
+                                        <div class="col-xs-12">
+                                            <div style="display: inline">
+                                                <button type="button" class="btn btn-primary dropdown-selector" data-dropdown-field="roof-extra" data-dropdown-value="{{ configGood.id }}">uitstekend/goed</button>
+                                            </div>
+                                            <div style="display: inline">
+                                                <button type="button" class="btn btn-primary dropdown-selector" data-dropdown-field="roof-extra" data-dropdown-value="{{ configModerate.id }}">eerder matig/matig</button>
+                                            </div>
+                                            <div style="display: inline">
+                                                <button type="button" class="btn btn-primary dropdown-selector" data-dropdown-field="roof-extra" data-dropdown-value="{{ configBad.id }}">eerder slecht/slecht/niet</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layout-spacer hidden-sm"></div>
+
+        {# form is ajaxed, replaced submit with direct link to next page #}
+        <a class="btn btn-primary pull-right form-ajax-refresh-indicator btn-next-checked-height" href="{{ path('house_config_facade') }}">Verder gaan</a>
+
+    </form>
+
+    <div class="modal fade" id="heat-map-modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body text-center">
+                    {{ contentHeatMap.value|raw }}
+
+                    <a href="{{ urlHeatMap }}" target="_blank" class="btn btn-primary">Bekijk de warmtefoto</a>
+
+                    <hr class="divider" />
+
+                    <div class="row" id="heat-map-roof-selection">
+                        <div class="col-md-4 dropdown-selector" data-dropdown-field="roof" data-dropdown-value="{{ configGood.id }}">
+                            <div class="option-view"></div><br /><br />
+                            uitstekend/goed
+                        </div>
+                        <div class="col-md-4 dropdown-selector" data-dropdown-field="roof" data-dropdown-value="{{ configModerate.id }}">
+                            <div class="option-view"></div><br /><br />
+                            eerder matig/matig
+                        </div>
+                        <div class="col-md-4 dropdown-selector" data-dropdown-field="roof" data-dropdown-value="{{ configBad.id }}">
+                            <div class="option-view"></div><br /><br />
+                            eerder slecht/slecht/niet
+                        </div>
+                    </div>
+
+                    <div class="layout-spacer"></div>
+
+                    <div class="text-center">
+                        <a href="#" class="btn btn-primary" id="heat-map-roof-selection-trigger" data-toggle="modal" data-target="#heat-map-modal">Bevestig je keuze</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block app_modal_content %}
+    <div class="text-center">
+        {{ content.value|raw }}
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function() {
+
+            // ajax the windroof checkbox
+            $('#house-windroof').on('change', function () {
+                var $checkbox = $(this);
+                $.ajax({
+                    url: '{{ path('house_toggle_windroof', { current: true }) }}',
+                    success: function (response) {
+                        if (response.success) {
+                            $checkbox.prop('checked', !response.data.active);
+                        }
+                    }
+                });
+            });
+
+            // heat map buttons
+            $('.dropdown-selector').on('click', function () {
+                var $btn            = $(this);
+                var fieldName       = $btn.attr('data-dropdown-field');
+                var value           = $btn.attr('data-dropdown-value');
+
+                if (fieldName && value) {
+                    var $dropdown   = $('.house-config-dropdown[data-dropdown-field=' + fieldName + ']');
+                    var $item       = $dropdown.find('.list-group-item[data-dropdown-value=' + value + ']');
+                    $item.click();
+                }
+            });
+
+            // heat map buttons toggle visibility
+            $('.heat-map-button-toggle').on('click', '[data-toggle="heatmap-buttons"]', function (e) {
+                var $container = $(this).parents('.heat-map-button-toggle');
+
+                $container.children().toggle();
+            });
+        });
+    </script>
+{% endblock %}

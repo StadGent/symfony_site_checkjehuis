@@ -1,0 +1,36 @@
+{% extends 'house/basics/base.html.twig' %}
+
+{% set my_house_menu_active = 'ownership' %}
+
+{% block my_house_content %}
+
+    <h1>
+        Ik ben
+        {% if content.active %}<small><a href="#" data-toggle="modal" data-target="#app-modal"><span class="fa fa-fw fa-info-circle"></span> meer info</a></small>{% endif %}
+    </h1>
+
+    <form class="form form-switch form-ajax" action="{{ path('house_ownership') }}" method="post">
+
+        <input id="ownership" type="hidden" name="ownership" value="{{ house.ownership }}" />
+
+        <div class="layout-spacer hidden-sm hidden-xs"></div>
+
+        <div class="option-switch-container">
+            <div class="option-left">Eigenaar</div>
+            <div class="option-switch {% if (house.ownership == owner) %}switch-left{% else %}switch-right{% endif %}"
+                 data-value-left="{{ owner }}" data-value-right="{{ renter }}" data-switch-field="ownership">&nbsp;</div>
+            <div class="option-right">Huurder</div>
+        </div>
+
+        <div class="layout-spacer hidden-sm hidden-xs"></div>
+
+        {# form is ajaxed, replaced submit with direct link to next page #}
+        <a class="btn btn-primary pull-right form-ajax-refresh-indicator btn-next-checked-height" href="{{ path('house_occupants') }}">Verder gaan</a>
+
+    </form>
+
+{% endblock %}
+
+{% block app_modal_content %}
+    {{ content.value|raw }}
+{% endblock %}

@@ -1,6 +1,0 @@
-# TWIG EXTENSIONS
-services:
-    digip_reno.twig.format_extension:
-        class: Digip\RenovationBundle\Twig\FormatExtension
-        tags:
-            - { name: twig.extension }

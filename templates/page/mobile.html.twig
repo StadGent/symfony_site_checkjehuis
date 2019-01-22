@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block base_content %}
+
+    <div class="container">
+        <h1>Mobiel apparaat</h1>
+
+        <p>
+            Je huis check je best op een tablet of pc.<br />
+            Stuur jezelf nu <a href="#" style="text-decoration: underline;">een geheugensteuntje</a> voor straks.
+        </p>
+
+        <form method="post" action="{{ path('mail_reminder') }}">
+            <div class="form-group">
+                <input type="email" name="email" class="form-control" value="{{ house.email }}" required="required" placeholder="e-mail adres" />
+            </div>
+
+            <input type="submit" class="btn btn-primary" id="mail" value="verstuur" />
+        </form>
+
+        {% if mailed %}
+        <p class="text-success">
+            Email verzonden.
+        </p>
+        {% endif %}
+    </div>
+
+{% endblock %}

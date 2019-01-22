@@ -1,0 +1,105 @@
+{% extends 'house/config/base.html.twig' %}
+
+{% set house_config_menu_active = 'renewable' %}
+
+{% block house_config_content %}
+
+    <div class="row">
+
+        <div class="row">
+            <div class="col-xs-2"></div>
+            <div class="col-xs-8">
+                <div class="col-sm-3">
+                    <img src="{{ asset('build/images/icons/house-renewable.svg') }}" width="124" class="hidden-xs" /><br />
+                    Klopt dit niet?<br /> Pas aan wat je al deed om je huis te verbeteren.
+                </div>
+                <div class="col-sm-9 list-renewables">
+                    <h3>
+                        Mijn hernieuwbare energie
+                        {% if content.active %}<small><a href="#" data-toggle="modal" data-target="#app-modal"><span class="fa fa-fw fa-info-circle"></span> meer info</a></small>{% endif %}
+                    </h3>
+
+                    {% for renewable in renewables %}
+                        <div class="list-group-item {% if house.hasRenewable(renewable) %}list-group-item-success{% endif %}">
+                            <div class="checkbox" data-renewable-id="{{ renewable.id }}">
+                                {% if renewable.slug == 'solar_panels' %}
+                                    <div class="form-group pull-right">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="house-solar-wp" value="{{ house.solarPanelsSurface }}" required="required" />
+                                            <div class="input-group-addon">m²</div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <label>
+                                    <input type="checkbox" {% if house.hasRenewable(renewable) %}checked="checked"{% endif %}
+                                           name="renewables[{{ renewable.slug }}]"
+                                            > {{ renewable.label }}
+                                </label>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="layout-spacer"></div>
+
+    {# form is ajaxed, replaced submit with direct link to next page #}
+    <a class="btn btn-primary pull-right form-ajax-refresh-indicator btn-next-checked-height" href="{{ path('house_energy_summary') }}">Verder gaan</a>
+
+{% endblock %}
+
+{% block app_modal_content %}
+    <div class="text-center">
+
+        {{ content.value|raw }}
+
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('body').on('click', '.list-renewables .list-group-item', function (e) {
+
+            var $item       = $(this);
+            var $checkbox   = $item.find('input[type=checkbox]');
+            var id          = $item.find('.checkbox').attr('data-renewable-id');
+
+            $.ajax({
+                url: '{{ path('house_toggle_renewable') }}',
+                data: {
+                    renewable: id
+                },
+                success: function (response) {
+                    if (response.success) {
+                        if (response.data.active) {
+                            $item.addClass('list-group-item-success');
+                            $checkbox.prop('checked', true);
+                        } else {
+                            $item.removeClass('list-group-item-success');
+                            $checkbox.prop('checked', false);
+                        }
+                    }
+                }
+            });
+
+            e.preventDefault();
+            return false;
+
+        });
+
+        $('#house-solar-wp').on('change', function () {
+            $.ajax({
+                url: '{{ path('house_update_solar_wp') }}',
+                data: {
+                    wp: $(this).val()
+                }
+            });
+        }).on('click', function (e) {
+            e.preventDefault();
+            return false;
+        });
+
+    </script>
+{% endblock %}
