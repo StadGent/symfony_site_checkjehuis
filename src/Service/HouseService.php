@@ -11,6 +11,7 @@ use App\Entity\House;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -86,7 +87,8 @@ class HouseService extends AbstractService
         RouterInterface $router,
         ConfigService $configService,
         DefaultsService $defaultsService,
-        SessionInterface $session
+        SessionInterface $session,
+        ParameterBagInterface $parameters
     ) {
         parent::__construct($entityManager);
         $this->pdfGenerator = $pdfGenerator;
@@ -94,6 +96,8 @@ class HouseService extends AbstractService
         $this->configService = $configService;
         $this->defaultsService = $defaultsService;
         $this->session = $session;
+        $this->urlHeatMap = $parameters->get('digip_reno.gks_url_map_heat');
+        $this->urlSolarMap = $parameters->get('digip_reno.gks_url_map_solar');
     }
 
     /**
