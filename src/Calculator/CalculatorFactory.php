@@ -13,12 +13,46 @@ use App\Service\SubsidyService;
 
 class CalculatorFactory
 {
-
+    /**
+     * The parameter service.
+     *
+     * @var ParameterService
+     */
     protected $parameterService;
+
+    /**
+     * The house service.
+     *
+     * @var HouseService
+     */
     protected $houseService;
+
+    /**
+     * The build cost service.
+     *
+     * @var BuildCostService
+     */
     protected $buildCostService;
+
+    /**
+     * The subsidy service.
+     *
+     * @var SubsidyService
+     */
     protected $subsidyService;
 
+    /**
+     * Calculator factory constructor.
+     *
+     * @param ParameterService $parameterService
+     *   The parameter service.
+     * @param HouseService $houseService
+     *   The house service.
+     * @param BuildCostService $buildCostService
+     *   The build cost service.
+     * @param SubsidyService $subsidyService
+     *   The subsidy service.
+     */
     function __construct(
         ParameterService $parameterService,
         HouseService $houseService,
@@ -32,6 +66,8 @@ class CalculatorFactory
     }
 
     /**
+     * Create the calculation parameters.
+     *
      * @return Parameters
      */
     public function createParameters()
@@ -40,7 +76,11 @@ class CalculatorFactory
     }
 
     /**
+     * Create the calculator for the current state.
+     *
      * @param House $house
+     *   The house with its current configuration.
+     *
      * @return CurrentEnergyCalculator
      */
     public function createEnergyCalculatorCurrent(House $house)
@@ -58,8 +98,11 @@ class CalculatorFactory
     }
 
     /**
+     * Create the calculator for the upgraded state.
+     *
      * @param House $house
-     * @param State $startEnergy
+     *   The house with its upgraded configuration.
+     *
      * @return UpgradeEnergyCalculator
      */
     public function createEnergyCalculatorUpgrade(House $house)
@@ -73,7 +116,11 @@ class CalculatorFactory
     }
 
     /**
+     * Create the build cost calculator.
+     *
      * @param House $house
+     *   The house.
+     *
      * @return BuildCostCalculator
      */
     public function createBuildCostCalculator(House $house)
@@ -88,7 +135,11 @@ class CalculatorFactory
     }
 
     /**
+     * Create the subsidy calculator.
+     *
      * @param House $house
+     *   The house.
+     *
      * @return SubsidyCalculator
      */
     public function createSubsidyCalculator(House $house)
@@ -115,8 +166,13 @@ class CalculatorFactory
     }
 
     /**
+     * Create the calculator view.
+     *
      * @param House $house
+     *   The house.
      * @param bool $skipUpgrade
+     *   Whether or not to skip the upgrade.
+     *
      * @return CalculatorView
      */
     public function createCalculatorView(House $house, $skipUpgrade = false)

@@ -57,6 +57,18 @@ class State
      */
     protected $forceElectricity = false;
 
+    /**
+     * State constructor.
+     *
+     * @param float $gas
+     *   The gas amount.
+     * @param float $electricity
+     *   The electricity amount.
+     * @param float $nonHeatingElectricity
+     *   The non heating electricity amount.
+     * @param bool $isHeatingElectric
+     *   Whether or not electricity is used for heating.
+     */
     public function __construct($gas, $electricity, $nonHeatingElectricity, $isHeatingElectric)
     {
         $this->setGas($gas);
@@ -68,6 +80,11 @@ class State
         $this->init();
     }
 
+    /**
+     * Initialize the state.
+     *
+     * @return $this
+     */
     public function init()
     {
         if ($this->isHeatingElectric()) {
@@ -82,6 +99,14 @@ class State
         return $this;
     }
 
+    /**
+     * Factory method.
+     *
+     * @param House $house
+     *   The house to create the state from.
+     *
+     * @return \self
+     */
     public static function createFormHouse(House $house)
     {
         $isElectric = false;
@@ -104,6 +129,8 @@ class State
     }
 
     /**
+     * Get the gas amount.
+     *
      * @return float
      */
     public function getGas()
@@ -112,7 +139,11 @@ class State
     }
 
     /**
+     * Set the gas amount.
+     *
      * @param float $gas
+     *   The gas amount.
+     *
      * @return $this
      */
     public function setGas($gas)
@@ -122,6 +153,8 @@ class State
     }
 
     /**
+     * Get the electricity amount.
+     *
      * @return float
      */
     public function getElectricity()
@@ -130,7 +163,11 @@ class State
     }
 
     /**
+     * Set the electricity amount.
+     *
      * @param float $electricity
+     *   The electricity amount.
+     *
      * @return $this
      */
     public function setElectricity($electricity)
@@ -140,6 +177,8 @@ class State
     }
 
     /**
+     * Get the CO2 amount.
+     *
      * @return float
      */
     public function getCo2()
@@ -148,7 +187,11 @@ class State
     }
 
     /**
+     * Set the CO2 amount.
+     *
      * @param float $co2
+     *   The CO2 amount.
+     *
      * @return $this
      */
     public function setCo2($co2)
@@ -158,6 +201,8 @@ class State
     }
 
     /**
+     * Gets the start amount.
+     *
      * @return float
      */
     public function getStart()
@@ -166,7 +211,11 @@ class State
     }
 
     /**
+     * Set the start amount.
+     *
      * @param float $start
+     *   The start amount.
+     *
      * @return $this
      */
     public function setStart($start)
@@ -178,6 +227,8 @@ class State
     }
 
     /**
+     * Get the subtotal amount.
+     *
      * @return float
      */
     public function getSubtotal()
@@ -186,7 +237,11 @@ class State
     }
 
     /**
+     * Set the subtotal amount.
+     *
      * @param float $subtotal
+     *   The subtotal amount.
+     *
      * @return $this
      */
     public function setSubtotal($subtotal)
@@ -196,6 +251,8 @@ class State
     }
 
     /**
+     * Get the base electricity amount.
+     *
      * @return float
      */
     public function getBaseElectricity()
@@ -204,7 +261,11 @@ class State
     }
 
     /**
+     * Set the base electricity amount.
+     *
      * @param float $baseElectricity
+     *   The base electricity amount.
+     *
      * @return $this
      */
     public function setBaseElectricity($baseElectricity)
@@ -214,6 +275,8 @@ class State
     }
 
     /**
+     * Get the non heating electricity amount.
+     *
      * @return float
      */
     public function getNonHeatingElectricity()
@@ -222,7 +285,11 @@ class State
     }
 
     /**
+     * Set the non heating electricity amount.
+     *
      * @param float $nonHeatingElectricity
+     *   The non heating electricity amount.
+     *
      * @return $this
      */
     public function setNonHeatingElectricity($nonHeatingElectricity)
@@ -232,6 +299,8 @@ class State
     }
 
     /**
+     * Get the electric heating energy.
+     *
      * @return float
      */
     public function getElectricHeatingEnergy()
@@ -240,7 +309,11 @@ class State
     }
 
     /**
+     * Set the electric heating energy.
+     *
      * @param float $electricHeatingEnergy
+     *   The electric heating energy.
+     *
      * @return $this
      */
     public function setElectricHeatingEnergy($electricHeatingEnergy)
@@ -250,6 +323,8 @@ class State
     }
 
     /**
+     * Get whether or not heating is done electric.
+     *
      * @return boolean
      */
     public function isHeatingElectric()
@@ -258,7 +333,11 @@ class State
     }
 
     /**
+     * Set whether or not heating is electric.
+     *
      * @param boolean $isHeatingElectric
+     *   Whether or not heating is electric.
+     *
      * @return $this
      */
     public function setIsHeatingElectric($isHeatingElectric)
@@ -268,6 +347,8 @@ class State
     }
 
     /**
+     * Whether or not electricity is forced.
+     *
      * @return boolean
      */
     public function forceElectricity()
@@ -276,7 +357,8 @@ class State
     }
 
     /**
-     * @param boolean $forceElectricity
+     * Set electricity forced.
+     *
      * @return $this
      */
     public function setForceElectricity()
@@ -291,9 +373,12 @@ class State
     }
 
     /**
-     * Returns the base figure to use when calculating energy differences for a certain category
+     * Returns the base figure to use when calculating energy differences for a
+     * certain category
      *
      * @param ConfigCategory $category
+     *   The category.
+     *
      * @return float
      */
     public function getCalculationBaseFormCategory(ConfigCategory $category)
@@ -310,11 +395,15 @@ class State
     }
 
     /**
-     * Subtracts energy from the correct type
+     * Subtracts energy from the correct type.
      *
      * @param float $amount
+     *   The amount to subtract.
      * @param bool $fromActual
+     *   Whether or not to substract form the actual amount.
      * @param bool $forceElec
+     *   Wether or not heating electric is forced.
+     *
      * @return $this
      */
     public function subtractEnergy($amount, $fromActual, $forceElec = false)
@@ -330,7 +419,7 @@ class State
         }
 
         /*
-         * cant go below zero
+         * Can't go below zero.
          */
 
         if ($this->electricity < 0) {
@@ -347,9 +436,11 @@ class State
     }
 
     /**
-     * Subtracts CO2
+     * Subtracts CO2.
      *
      * @param float $amount
+     *   The amount to subtract.
+     *
      * @return $this
      */
     public function subtractCo2($amount)
@@ -359,6 +450,9 @@ class State
         return $this;
     }
 
+    /**
+     * Clone the state.
+     */
     public function __clone()
     {
         $this->init();

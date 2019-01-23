@@ -28,6 +28,8 @@ class Diff
     protected $co2;
 
     /**
+     * Diff constructor.
+     *
      * @param $subject
      */
     public function __construct($subject)
@@ -36,6 +38,8 @@ class Diff
     }
 
     /**
+     * The start state.
+     *
      * @param State $state
      */
     public function start(State $state)
@@ -46,6 +50,8 @@ class Diff
     }
 
     /**
+     * The end state.
+     *
      * @param State $state
      */
     public function end(State $state)
@@ -56,6 +62,8 @@ class Diff
     }
 
     /**
+     * Get the subject of this diff.
+     *
      * @return ConfigCategory|Renewable
      */
     public function getSubject()
@@ -64,6 +72,8 @@ class Diff
     }
 
     /**
+     * Get the gas amount.
+     *
      * @return float
      */
     public function getGas()
@@ -72,6 +82,8 @@ class Diff
     }
 
     /**
+     * Get the electricity amount.
+     *
      * @return float
      */
     public function getElec()
@@ -80,6 +92,8 @@ class Diff
     }
 
     /**
+     * Get the total.
+     *
      * @return float
      */
     public function getTotal()
@@ -88,6 +102,8 @@ class Diff
     }
 
     /**
+     * Get the CO2 amount.
+     *
      * @return float
      */
     public function getCo2()

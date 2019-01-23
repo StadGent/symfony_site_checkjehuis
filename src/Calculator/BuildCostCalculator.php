@@ -33,12 +33,20 @@ class BuildCostCalculator
      */
     protected $totalPrice = 0;
 
+    /**
+     * The build cost calculator.
+     *
+     * @param House $house
+     *   The house.
+     */
     public function __construct(House $house)
     {
         $this->house = $house;
     }
 
     /**
+     * Get the build cost for a windroof.
+     *
      * @return BuildCost
      */
     public function getWindRoofCost()
@@ -47,7 +55,11 @@ class BuildCostCalculator
     }
 
     /**
+     * Set the build cost for a windroof.
+     *
      * @param BuildCost $windRoofCost
+     *   The build cost.
+     *
      * @return $this
      */
     public function setWindRoofCost($windRoofCost)
@@ -57,7 +69,9 @@ class BuildCostCalculator
     }
 
     /**
-     * @return array|\float[]
+     * Get subsidies per category.
+     *
+     * @return array
      */
     public function getCategories()
     {
@@ -65,7 +79,9 @@ class BuildCostCalculator
     }
 
     /**
-     * @return array|\float[]
+     * Get subsidies per renewable.
+     *
+     * @return array
      */
     public function getRenewables()
     {
@@ -73,6 +89,8 @@ class BuildCostCalculator
     }
 
     /**
+     * Get the total buildcost.
+     *
      * @return float
      */
     public function getTotalPrice()
@@ -80,6 +98,9 @@ class BuildCostCalculator
         return $this->totalPrice;
     }
 
+    /**
+     * Calculate the buildcost.
+     */
     public function calculate()
     {
         // Configurations.

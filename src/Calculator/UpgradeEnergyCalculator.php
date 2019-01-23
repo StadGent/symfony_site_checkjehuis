@@ -41,7 +41,7 @@ class UpgradeEnergyCalculator extends EnergyCalculator
         $configs = [];
 
         foreach ($this->house->getConfigs() as $defaultConfig) {
-            // only allow 1 type of heating, elec or gas
+            // Only allow 1 type of heating, elec or gas.
             if ($this->house->hasElectricHeating() && $defaultConfig->isCategory(ConfigCategory::CAT_HEATING)) {
                 continue;
             }
@@ -62,6 +62,9 @@ class UpgradeEnergyCalculator extends EnergyCalculator
         $this->calculated = true;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function transform(Config $from, Config $to = null, $percent = 100, $forceElectricity = false)
     {
         $diff = new Diff($from->getCategory());
@@ -72,6 +75,9 @@ class UpgradeEnergyCalculator extends EnergyCalculator
         $diff->end($this->state);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function subtractRenewable(Renewable $renewable)
     {
         $diff = new Diff($renewable);

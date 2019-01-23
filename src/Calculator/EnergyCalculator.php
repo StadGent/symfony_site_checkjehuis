@@ -34,6 +34,15 @@ abstract class EnergyCalculator
      */
     protected $log;
 
+    /**
+     * Energy calculator constructor.
+     *
+     * @param House $house
+     *   The house to create the calculator for.
+     * @param Parameters $parameters
+     *   Calculator parameters.
+     *
+     */
     public function __construct(House $house, Parameters $parameters)
     {
         $this->house = $house;
@@ -42,6 +51,8 @@ abstract class EnergyCalculator
     }
 
     /**
+     * Whether or not this has been calculated.
+     *
      * @return boolean
      */
     public function isCalculated()
@@ -50,6 +61,8 @@ abstract class EnergyCalculator
     }
 
     /**
+     * Get the state.
+     *
      * @return State
      */
     public function getState()
@@ -61,9 +74,14 @@ abstract class EnergyCalculator
      * Performs the transformation from one config to another.
      *
      * @param Config $from
+     *   The config to transform from.
      * @param Config|null $to
+     *   The config to transform to.
      * @param int $percent
+     *   The percentage.
      * @param bool $forceElectricity
+     *   Whether or not to force electric heating.
+     *
      * @return float|int
      */
     public function transform(Config $from, Config $to = null, $percent = 100, $forceElectricity = false)
@@ -119,7 +137,6 @@ abstract class EnergyCalculator
             }
 
             // Extra electricity cost.
-
             if ($cat->hasInverseMatrix()) {
 
                 $this->log->add('berekening extra kost');
@@ -152,7 +169,10 @@ abstract class EnergyCalculator
     }
 
     /**
+     * Do the calculation.
+     *
      * @param State $state
+     *   The state to calculate.
      */
     public function calculate(State $state)
     {
@@ -165,8 +185,12 @@ abstract class EnergyCalculator
     }
 
     /**
+     * Compute a difference.
+     *
      * @param array|Config[][][] $configs
+     *   The configs that will be added to the house.
      * @param array|Renewable[] $renewables
+     *   The renewables that will be added to the house.
      */
     public function diff($configs, $renewables)
     {
@@ -221,7 +245,6 @@ abstract class EnergyCalculator
         }
 
         // Other renewable energy.
-
         foreach ($renewables as $r) {
             if ($r->getSlug() === Renewable::RENEWABLE_SOLAR_WATER_HEATER) {
                 // Already added.
@@ -236,6 +259,12 @@ abstract class EnergyCalculator
         }
     }
 
+    /**
+     * Subtract a renewable.
+     *
+     * @param Renewable $renewable
+     *   The renewable to subtract.
+     */
     public function subtractRenewable(Renewable $renewable)
     {
         $fromActual = true;
@@ -271,10 +300,16 @@ abstract class EnergyCalculator
     }
 
     /**
+     * For a spit roof, split the configs 70/30.
+     *
      * @param array|Config[][][] $configs
+     *   The configs to split.
      * @param Config $extraFrom
+     *   The "extra" configs (flat part of the roof) to start from.
      * @param Config $extraTo
-     * @return array|\App\Entity\Config[][][]
+     *   The "extra" configs (flat part of the roof) to go to.
+     *
+     * @return array|Config[][][]
      */
     protected function splitTheRoof(array $configs = array(), Config $extraFrom = null, Config $extraTo = null)
     {
@@ -298,6 +333,8 @@ abstract class EnergyCalculator
     }
 
     /**
+     * Get the log.
+     *
      * @return Log
      */
     public function getLog()

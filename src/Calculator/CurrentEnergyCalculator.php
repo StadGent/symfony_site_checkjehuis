@@ -7,7 +7,7 @@ use App\Entity\ConfigCategory;
 use App\Entity\House;
 
 /**
- * Calculates the different between the default configs and the current configs
+ * Calculates the different between the default configs and the current configs.
  *
  * @package App
  */
@@ -19,6 +19,8 @@ class CurrentEnergyCalculator extends EnergyCalculator
     protected $defaultConfigs = array();
 
     /**
+     * Get the default configs.
+     *
      * @return array|Config[]
      */
     public function getDefaultConfigs()
@@ -27,7 +29,11 @@ class CurrentEnergyCalculator extends EnergyCalculator
     }
 
     /**
+     * Set the default configs.
+     *
      * @param array|Config[] $defaultConfigs
+     *   The default configs.
+     *
      * @return $this
      */
     public function setDefaultConfigs($defaultConfigs)
@@ -37,7 +43,10 @@ class CurrentEnergyCalculator extends EnergyCalculator
     }
 
     /**
+     * Calculate the state.
+     *
      * @param State $state
+     *   The state to calculate.
      */
     public function calculate(State $state)
     {

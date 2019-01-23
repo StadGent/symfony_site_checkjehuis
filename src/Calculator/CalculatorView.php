@@ -39,12 +39,20 @@ class CalculatorView
     protected $parameters;
 
     /**
+     * Calculator view constructor.
+     *
      * @param House $house
+     *   The house.
      * @param CurrentEnergyCalculator $current
+     *   The current energy calculator.
      * @param UpgradeEnergyCalculator $upgrade
+     *   The upgrade energy calculator.
      * @param BuildCostCalculator $buildCosts
+     *   The build cost calculator.
      * @param SubsidyCalculator $subsidies
+     *   The subsidy calculator.
      * @param Parameters $parameters
+     *   The parameters.
      */
     public function __construct(
         House $house,
@@ -63,7 +71,11 @@ class CalculatorView
     }
 
     /**
+     * Get the average score.
+     *
      * @param bool $current
+     *   Whether or not to use the current state or the upgrade state.
+     *
      * @return float|int
      */
     public function getAvgScore($current = false)
@@ -89,7 +101,11 @@ class CalculatorView
     }
 
     /**
+     * Get the average score config (used for the slider display).
+     *
      * @param bool $current
+     *   Whether or not to use the current or the upgrade config.
+     *
      * @return array
      */
     public function getAvgScoreConfig($current = false)
@@ -109,9 +125,15 @@ class CalculatorView
         $maxRight = 94;
 
         $value = $score;
-        if ($value > $maxVal) $value = $maxVal;
-        if ($value < $minVal) $value = $minVal;
-        if ($value < ($centerVal + $centerGutter) && $value > ($centerVal - $centerGutter)) $value = $centerVal;
+        if ($value > $maxVal) {
+            $value = $maxVal;
+        }
+        if ($value < $minVal) {
+            $value = $minVal;
+        }
+        if ($value < ($centerVal + $centerGutter) && $value > ($centerVal - $centerGutter)) {
+            $value = $centerVal;
+        }
 
         // Calculate the position.
         $position = $center;
@@ -147,7 +169,11 @@ class CalculatorView
     }
 
     /**
+     * Get the average score label.
+     *
      * @param bool $current
+     *   Whether or not to use the current or the upgrade config.
+     *
      * @return string
      */
     public function getAvgScoreLabel($current = false)
@@ -165,6 +191,8 @@ class CalculatorView
     }
 
     /**
+     * Get the price difference.
+     *
      * @return float|int
      */
     public function getPriceDiff()
@@ -181,6 +209,8 @@ class CalculatorView
     }
 
     /**
+     * Get the energy difference.
+     *
      * @return float
      */
     public function getEnergyDiff()
@@ -191,8 +221,12 @@ class CalculatorView
         return ($from->getGas() - $to->getGas()) + ($from->getElectricity() - $to->getElectricity());
     }
 
-    /***
+    /**
+     * Get the energy difference for a category.
+     *
      * @param string|ConfigCategory $cat
+     *   The category.
+     *
      * @return float
      */
     public function getEnergyDiffForCategory($cat)
@@ -212,8 +246,12 @@ class CalculatorView
         return $total;
     }
 
-    /***
+    /**
+     * Get the price difference for a category.
+     *
      * @param string|ConfigCategory $cat
+     *   The category.
+     *
      * @return float
      */
     public function getPriceDiffForCategory($cat)
@@ -240,7 +278,9 @@ class CalculatorView
         return $total;
     }
 
-    /***
+    /**
+     * Get the CO2 difference.
+     *
      * @return float
      */
     public function getCo2Diff()
@@ -248,8 +288,12 @@ class CalculatorView
         return $this->upgrade->getState()->getCo2();
     }
 
-    /***
+    /**
+     * Get the CO2 difference for a category.
+     *
      * @param string|ConfigCategory $cat
+     *   The category.
+     *
      * @return float
      */
     public function getCo2DiffForCategory($cat)
@@ -257,6 +301,11 @@ class CalculatorView
         return $this->getEnergyDiffForCategory($cat) * $this->parameters->getCo2PerKwh();
     }
 
+    /**
+     * Get the energy difference for renewables.
+     *
+     * @return float
+     */
     public function getEnergyDiffForRenewables()
     {
         $total = 0;
@@ -270,6 +319,14 @@ class CalculatorView
         return $total;
     }
 
+    /**
+     * Get the energy difference for renewables.
+     *
+     * @param string|Renewable $renewable
+     *   The renewable.
+     *
+     * @return float
+     */
     public function getEnergyDiffForRenewable($renewable)
     {
         if ($renewable instanceof Renewable) {
@@ -287,6 +344,11 @@ class CalculatorView
         return $total;
     }
 
+    /**
+     * Get the price difference for renewables.
+     *
+     * @return float
+     */
     public function getPriceDiffForRenewables()
     {
         $total = 0;
@@ -300,6 +362,14 @@ class CalculatorView
         return $total;
     }
 
+    /**
+     * Get the price difference for a renewable.
+     *
+     * @param string|Renewable $renewable
+     *   The renewable.
+     *
+     * @return float
+     */
     public function getPriceDiffForRenewable($renewable)
     {
         if ($renewable instanceof Renewable) {
@@ -317,6 +387,14 @@ class CalculatorView
         return $total;
     }
 
+    /**
+     * Get the CO2 difference for a renewable.
+     *
+     * @param string|Renewable $renewable
+     *   The renewable.
+     *
+     * @return float
+     */
     public function getCo2DiffForRenewable($renewable)
     {
         if ($renewable instanceof Renewable) {
@@ -334,11 +412,24 @@ class CalculatorView
         return $total;
     }
 
+    /**
+     * Get the build cost total.
+     *
+     * @return float
+     */
     public function getBuildCostTotal()
     {
         return $this->buildCosts->getTotalPrice();
     }
 
+    /**
+     * Get the build cost total for a category.
+     *
+     * @param string|ConfigCategory $cat
+     *   The category.
+     *
+     * @return float
+     */
     public function getBuildCostTotalForCategory($cat)
     {
         if ($cat instanceof ConfigCategory) {
@@ -360,6 +451,14 @@ class CalculatorView
         return $total;
     }
 
+    /**
+     * Get the build cost for a renewable.
+     *
+     * @param string|Renewable $renewable
+     *   The renewable.
+     *
+     * @return float
+     */
     public function getBuildCostForRenewable($renewable)
     {
         if ($renewable instanceof Renewable) {
@@ -377,11 +476,24 @@ class CalculatorView
         return $total;
     }
 
+    /**
+     * Get the subsidy total.
+     *
+     * @return float
+     */
     public function getSubsidyTotal()
     {
         return $this->subsidies->getTotalPrice();
     }
 
+    /**
+     * Get the subsidy total for a category.
+     *
+     * @param string|ConfigCategory $cat
+     *   The category.
+     *
+     * @return float
+     */
     public function getSubsidyTotalForCategory($cat)
     {
         if ($cat instanceof ConfigCategory) {
@@ -403,6 +515,14 @@ class CalculatorView
         return $total;
     }
 
+    /**
+     * Get subsidies for a category.
+     *
+     * @param string|ConfigCategory $cat
+     *   The category.
+     *
+     * @return \Generator
+     */
     public function getSubsidiesForCategory($cat)
     {
         if ($cat instanceof ConfigCategory) {
@@ -418,6 +538,14 @@ class CalculatorView
         }
     }
 
+    /**
+     * Get subsidies for a renewable.
+     *
+     * @param string|Renewable $renewable
+     *   The renewable.
+     *
+     * @return float[]
+     */
     public function getSubsidiesForRenewable($renewable)
     {
         if ($renewable instanceof Renewable) {
@@ -437,17 +565,22 @@ class CalculatorView
         return $result;
     }
 
+    /**
+     * Get the subsidy total for a renewable.
+     *
+     * @param string|Renewable $renewable
+     *   The renewable.
+     *
+     * @return float
+     */
     public function getSubsidyTotalForRenewable($renewable)
     {
         return array_sum($this->getSubsidiesForRenewable($renewable));
     }
 
-    public function getSubsidies()
-    {
-        $this->subsidies->getCategories()[ConfigCategory::CAT_WIND_ROOF];
-    }
-
     /**
+     * Get the current state.
+     *
      * @return CurrentEnergyCalculator
      */
     public function getCurrent()
@@ -456,6 +589,8 @@ class CalculatorView
     }
 
     /**
+     * Get the upgraded state.
+     *
      * @return UpgradeEnergyCalculator
      */
     public function getUpgrade()

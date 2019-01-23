@@ -26,6 +26,8 @@ class Parameters
     protected $co2PerKwh;
 
     /**
+     * Get the price of gas.
+     *
      * @return float
      */
     public function getPriceGas()
@@ -34,7 +36,11 @@ class Parameters
     }
 
     /**
+     * Set the price of gas.
+     *
      * @param float $priceGas
+     *   The price of gas.
+     *
      * @return $this
      */
     public function setPriceGas($priceGas)
@@ -44,6 +50,8 @@ class Parameters
     }
 
     /**
+     * Get the price of electricity.
+     *
      * @return float
      */
     public function getPriceElec()
@@ -52,7 +60,11 @@ class Parameters
     }
 
     /**
+     * Set the price of electricity.
+     *
      * @param float $priceElec
+     *   The price of electricity.
+     *
      * @return $this
      */
     public function setPriceElec($priceElec)
@@ -62,6 +74,8 @@ class Parameters
     }
 
     /**
+     * Get the CO2 per Kwh.
+     *
      * @return float
      */
     public function getCo2PerKwh()
@@ -70,7 +84,11 @@ class Parameters
     }
 
     /**
+     * Set the CO2 per Kwh.
+     *
      * @param float $co2PerKwh
+     *   The CO2 per Kwh.
+     *
      * @return $this
      */
     public function setCo2PerKwh($co2PerKwh)
@@ -80,6 +98,8 @@ class Parameters
     }
 
     /**
+     * Get the subsidy ceiling for roofs in Ghent.
+     *
      * @return int
      */
     public function getSubsidyCeilingRoofGent()
@@ -88,7 +108,11 @@ class Parameters
     }
 
     /**
+     * Set the subsidy ceiling for roofs in Ghent.
+     *
      * @param int $subsidyCeilingRoofGent
+     *   The subsidy ceiling for roofs in Ghent.
+     *
      * @return $this
      */
     public function setSubsidyCeilingRoofGent($subsidyCeilingRoofGent)

@@ -68,13 +68,23 @@ class SubsidyCalculator
      */
     protected $subsidies;
 
+    /**
+     * Subsidy calculator constructor.
+     *
+     * @param House $house
+     *   The house to calculate the subsidies for.
+     */
     public function __construct(House $house)
     {
         $this->house = $house;
     }
 
     /**
+     * Set subsidies for wind roof.
+     *
      * @param array|\App\Entity\Subsidy[] $windRoofSubsidies
+     *   The subsidies.
+     *
      * @return $this
      */
     public function setWindRoofSubsidies($windRoofSubsidies)
@@ -84,7 +94,11 @@ class SubsidyCalculator
     }
 
     /**
+     * Set build cost for windroof.
+     *
      * @param BuildCost $windRoofBuildCost
+     *   The build cost.
+     *
      * @return $this
      */
     public function setWindRoofBuildCost($windRoofBuildCost)
@@ -94,7 +108,11 @@ class SubsidyCalculator
     }
 
     /**
+     * Set the subsidies for a solar heater.
+     *
      * @param array|\App\Entity\Subsidy[] $solarHeaterSubsidies
+     *   The subsidies for the solar heater.
+     *
      * @return $this
      */
     public function setSolarHeaterSubsidies($solarHeaterSubsidies)
@@ -104,7 +122,11 @@ class SubsidyCalculator
     }
 
     /**
+     * Set the build cost for a solar heater.
+     *
      * @param BuildCost $solarHeaterBuildCost
+     *   The build cost for the solar heater.
+     *
      * @return $this
      */
     public function setSolarHeaterBuildCost($solarHeaterBuildCost)
@@ -114,7 +136,11 @@ class SubsidyCalculator
     }
 
     /**
+     * Set the subsidy ceiling for roofs in Ghent.
+     *
      * @param float $subsidyCeilingGentRoof
+     *   The subsidy ceiling.
+     *
      * @return $this
      */
     public function setSubsidyCeilingGentRoof($subsidyCeilingGentRoof)
@@ -124,6 +150,8 @@ class SubsidyCalculator
     }
 
     /**
+     * Get subsidies per category.
+     *
      * @return array
      */
     public function getCategories()
@@ -132,6 +160,8 @@ class SubsidyCalculator
     }
 
     /**
+     * Get subsidies per renewable.
+     *
      * @return array
      */
     public function getRenewables()
@@ -140,6 +170,8 @@ class SubsidyCalculator
     }
 
     /**
+     * Get the wind roof price.
+     *
      * @return array|\float[]
      */
     public function getWindRoofPrice()
@@ -148,6 +180,8 @@ class SubsidyCalculator
     }
 
     /**
+     * Get the total price.
+     *
      * @return float
      */
     public function getTotalPrice()
@@ -155,6 +189,9 @@ class SubsidyCalculator
         return $this->totalPrice;
     }
 
+    /**
+     * Calculate the subsidies.
+     */
     public function calculate()
     {
         // All roof related subsidies combined can not go over the max of
@@ -215,7 +252,7 @@ class SubsidyCalculator
 
                 $price = $s->getPrice($this->house, $c->getCost(), array('roof-type' => House::ROOF_TYPE_FLAT));
 
-                // check for stad gent roof related max roof subsidy param
+                // Check for stad Gent roof related max roof subsidy param.
                 if ($s->getCategory()->getId() === 1) {
                     $roofCat = $c->getCategory();
                     $roofSubsidies['category'][] = array(
@@ -274,9 +311,14 @@ class SubsidyCalculator
     }
 
     /**
+     * Subtract the subsidies given over the limit.
+     *
      * @param float $total
+     *   The total subsidies.
      * @param array $subsidies
+     *   The subsidies.
      * @param ConfigCategory $roofConfigCategory
+     *   The config category.
      */
     protected function assertRoofSubsidyLimits($total, $subsidies, $roofConfigCategory)
     {
@@ -303,6 +345,14 @@ class SubsidyCalculator
         }
     }
 
+    /**
+     * Helper function to add a value to a variable.
+     *
+     * @param mixed $var
+     *   The variable to add the value to.
+     * @param mixed $val
+     *   The value to add.
+     */
     protected function add(&$var, $val)
     {
         if (!isset($var)) {
