@@ -1437,7 +1437,7 @@ class House
 
     public function isHeatPumpAllowed()
     {
-        // if heat pump is already present
+        // If heat pump is already present.
         $heating = $this->hasElectricHeating() ? ConfigCategory::CAT_HEATING_ELEC: ConfigCategory::CAT_HEATING;
         if ($this->getConfig($heating) && in_array($this->getConfig($heating)->getId(), [
                 37, 38, 40, 41
@@ -1449,6 +1449,9 @@ class House
         $configRoof = $this->getUpgradeConfig(ConfigCategory::CAT_ROOF) ?: $this->getConfig(ConfigCategory::CAT_ROOF);
         $configWindow = $this->getUpgradeConfig(ConfigCategory::CAT_WINDOWS) ?: $this->getConfig(ConfigCategory::CAT_WINDOWS);
 
+        // Heat pump is only allowed when there is already good inulation for
+        // the roof and windows. Otherwise the electic bill will skyrocket. See
+        // also Content::HEAT_PUMP_NOT_ALLOWED.
         return $configRoof->isPossibleUpgrade() && (
             $this->getRoofType() !== House::ROOF_TYPE_MIXED || $this->getExtraUpgradeRoof(true)->isPossibleUpgrade()
         ) && $configWindow->isPossibleUpgrade();
