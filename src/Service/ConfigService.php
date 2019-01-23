@@ -11,7 +11,10 @@ use Doctrine\ORM\EntityNotFoundException;
 class ConfigService extends AbstractService
 {
     /**
+     * Load all config categories.
+     *
      * @return ConfigCategory[]
+     *   The config categories.
      */
     public function getAllCategories()
     {
@@ -35,8 +38,13 @@ class ConfigService extends AbstractService
     }
 
     /**
+     * Get all config categories for a house.
+     *
      * @param House $house
-     * @return \App\Entity\ConfigCategory[]
+     *   The house to get the config categories for.
+     *
+     * @return ConfigCategory[]
+     *   The config categories for the house.
      */
     public function getAllCategoriesForHouse(House $house)
     {
@@ -69,8 +77,13 @@ class ConfigService extends AbstractService
     }
 
     /**
-     * @param $id
+     * Load a config category by its id.
+     *
+     * @param int $id
+     *   The config category id.
+     *
      * @return ConfigCategory
+     *   The config category.
      */
     public function getCategory($id)
     {
@@ -80,8 +93,13 @@ class ConfigService extends AbstractService
     }
 
     /**
+     * Load a config category by its slug.
+     *
      * @param string $slug
+     *   The config category slug.
+     *
      * @return ConfigCategory
+     *   The config category.
      */
     public function getCategoryBySlug($slug)
     {
@@ -91,8 +109,13 @@ class ConfigService extends AbstractService
     }
 
     /**
-     * @param $id
+     * Load config by id.
+     *
+     * @param int $id
+     *   The config id.
+     *
      * @return Config
+     *   The config.
      */
     public function getConfig($id)
     {
@@ -102,10 +125,13 @@ class ConfigService extends AbstractService
     }
 
     /**
-     * Updates the category's percentage, aka it's weight in the calculations
+     * Updates the category's percentage, aka it's weight in the calculations.
      *
      * @param string $categorySlug
+     *   The slug of the category to update.
      * @param float $percent
+     *   The percentage to set it to.
+     *
      * @throws EntityNotFoundException
      */
     public function updateCategoryPercentBySlug($categorySlug, $percent)
@@ -124,9 +150,13 @@ class ConfigService extends AbstractService
     }
 
     /**
-     * Updates a matrix value if the value is set to 0, the transformation is removed
+     * Updates a matrix value.
+     *
+     * If the value is set to 0, the transformation is removed.
      *
      * @param ConfigTransformation $configTransformation
+     *   The config transformation to update.
+     *
      * @return $this
      */
     public function updateConfigTransformation(ConfigTransformation $configTransformation)
@@ -142,7 +172,8 @@ class ConfigService extends AbstractService
     }
 
     /**
-     * removes transformations with the same start and end config
+     * Removes transformations with the same start and end config, for all
+     * config entities.
      */
     public function removeDuplicateTransformations()
     {
@@ -150,28 +181,30 @@ class ConfigService extends AbstractService
             ->getRepository(Config::class)
             ->findAll();
 
-        foreach ($configs as $c) {
-            $transformations = $c->getTransformations();
-            $to = [];
-            $toInverse = [];
-            foreach ($transformations as $t) {
-                $conf = $t->getToConfig()->getId();
-                if ($t->isInverse()) {
-                    if (in_array($conf, $toInverse, true)) {
-                        $this->entityManager->remove($t);
-                        continue;
-                    }
-                    $toInverse[] = $conf;
-                } else {
-                    if (in_array($conf, $to, true)) {
-                        $this->entityManager->remove($t);
-                        continue;
-                    }
-                    $to[] = $conf;
-                }
-            }
+        foreach ($configs as $config) {
+            $this->removeDuplicateTransformationsFromConfig($config);
         }
 
         $this->entityManager->flush();
+    }
+
+    /**
+     * Removes transformations with the same start and end config, for a single
+     * config entity.
+     *
+     * @param Config $config
+     *   The config entity.
+     */
+    protected function removeDuplicateTransformationsFromConfig(Config $config) {
+      $transformations = $config->getTransformations();
+      $dedupe = [[], []];
+      foreach ($transformations as $transformation) {
+          $configId = $transformation->getToConfig()->getId();
+          if (in_array($configId, $dedupe[intval($transformation->isInverse())], true)) {
+              $this->entityManager->remove($transformation);
+              continue;
+          }
+          $dedupe[intval($transformation->isInverse())][] = $configId;
+      }
     }
 }

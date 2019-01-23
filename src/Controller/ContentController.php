@@ -2,12 +2,12 @@
 
 namespace App\Controller;
 
+use App\Factory\HouseFactory;
 use App\Form\ContentType;
 use App\Service\ConfigService;
 use App\Service\ContentService;
 use App\Service\HouseService;
 use App\Service\ParameterService;
-use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -29,6 +29,8 @@ class ContentController extends AbstractController
      *   The content service.
      * @param ParameterService $parameterService
      *   The parameter service.
+     * @param HouseFactory $houseFactory
+     *   The house factory.
      * @param ConfigService $configService
      *   The config service.
      */
@@ -36,9 +38,10 @@ class ContentController extends AbstractController
         HouseService $houseService,
         ContentService $contentService,
         ParameterService $parameterService,
+        HouseFactory $houseFactory,
         ConfigService $configService
     ) {
-        parent::__construct($houseService, $contentService, $parameterService);
+        parent::__construct($houseService, $contentService, $parameterService, $houseFactory);
         $this->configService = $configService;
     }
 

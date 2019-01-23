@@ -59,7 +59,7 @@ class SubsidyController extends FrameworkController
      */
     public function updateAction(Request $request)
     {
-        if ($request->getMethod() !== 'POST') {
+        if ($request->getMethod() === 'POST') {
             // Update category labels.
             foreach ($request->get('subsidy-cat-label') as $id => $label) {
                 $cat = $this->subsidyService->getSubsidyCategory($id);

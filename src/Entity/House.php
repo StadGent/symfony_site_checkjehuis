@@ -450,17 +450,13 @@ class House
 
         // Remove invalid heating configs if present.
         $slug = ($electricHeating) ? ConfigCategory::CAT_HEATING: ConfigCategory::CAT_HEATING_ELEC;
-        foreach ($this->configs as $c) {
-            if ($c->getCategory()->getSlug() == $slug) {
-                $this->configs->removeElement($c);
+        foreach (['configs', 'upgradeConfigs'] as $prop) {
+            foreach ($this->{$prop} as $c) {
+                if ($c->getCategory()->getSlug() == $slug) {
+                    $this->{$prop}->removeElement($c);
+                }
             }
         }
-        foreach ($this->upgradeConfigs as $c) {
-            if ($c->getCategory()->getSlug() == $slug) {
-                $this->upgradeConfigs->removeElement($c);
-            }
-        }
-
         return $this;
     }
 
@@ -712,20 +708,16 @@ class House
      */
     public function getSurfaceRoof($default = true, Config $config = null)
     {
-        if (!$this->surfaceRoof && $default) {
-            // If we are placing attic floor insulation, we need to have the
-            // flat surface area. Add check to see if this was set, for BC
-            // reasons.
-            $surface = $this->getDefaultRoof()->getSurface();
-            if ($config && $config->getId() === Config::CONFIG_ATTIC_FLOOR && $this->getDefaultRoofIfFlat()) {
-                $surface = $this->getDefaultRoofIfFlat()->getSurface();
-            }
-            if ($this->getRoofType() === House::ROOF_TYPE_MIXED) {
-                return round($surface * 0.7);
-            }
-            return $surface;
+        if ($this->surfaceRoof || !$default) {
+            return $this->surfaceRoof;
         }
-        return $this->surfaceRoof;
+
+        // If we are placing attic floor insulation, we need to have the
+        // flat surface area. Add check to see if this was set, for BC
+        // reasons.
+        $flat = $config && $config->getId() === Config::CONFIG_ATTIC_FLOOR && $this->getDefaultRoofIfFlat();
+        $surface = $flat ? $this->getDefaultRoofIfFlat()->getSurface() : $this->getDefaultRoof()->getSurface();
+        return $this->getRoofType() === House::ROOF_TYPE_MIXED ? round($surface * 0.7) : $surface;
     }
 
     /**
@@ -793,12 +785,12 @@ class House
 
     public function setDefaultSurfaces(DefaultSurface $defaultSurface, DefaultRoof $defaultRoof)
     {
-        $this->surfaceFloor     = NULL;
-        $this->surfaceFacade    = NULL;
-        $this->surfaceWindow    = NULL;
-        $this->surfaceRoof      = NULL;
-        $this->defaultSurface   = $defaultSurface;
-        $this->defaultRoof      = $defaultRoof;
+        $this->surfaceFloor = NULL;
+        $this->surfaceFacade = NULL;
+        $this->surfaceWindow = NULL;
+        $this->surfaceRoof = NULL;
+        $this->defaultSurface = $defaultSurface;
+        $this->defaultRoof = $defaultRoof;
         return $this;
     }
 
@@ -841,31 +833,26 @@ class House
 
         switch ($category) {
             case ConfigCategory::CAT_ROOF:
-                if ($percent < 50) {
-                    $actual     = $this->getSurfaceRoofExtra();
-                } else {
-                    $actual     = $this->getSurfaceRoof();
-                }
-                $default    = $this->getDefaultRoof()->getSurface();
+                $actual = $percent < 50 ? $this->getSurfaceRoofExtra() : $this->getSurfaceRoof();
+                $default = $this->getDefaultRoof()->getSurface();
                 break;
             case ConfigCategory::CAT_FACADE:
-                $actual     = $this->getSurfaceFacade();
-                $default    = $this->getDefaultSurface()->getFacade();
+                $actual = $this->getSurfaceFacade();
+                $default = $this->getDefaultSurface()->getFacade();
                 break;
             case ConfigCategory::CAT_FLOOR:
-                $actual     = $this->getSurfaceFloor();
-                $default    = $this->getDefaultSurface()->getFloor();
+                $actual = $this->getSurfaceFloor();
+                $default = $this->getDefaultSurface()->getFloor();
                 break;
             case ConfigCategory::CAT_WINDOWS:
-                $actual     = $this->getSurfaceWindow();
-                $default    = $this->getDefaultSurface()->getWindow();
+                $actual = $this->getSurfaceWindow();
+                $default = $this->getDefaultSurface()->getWindow();
                 break;
         }
 
         $diff = 1;
-        $percent = ($percent / 100);
-        $default = ($default * $percent);
-        if ($default && $actual && ($actual < $default - 1 || $actual > $default +1)) {
+        $default *= $percent / 100;
+        if ($default && $actual && ($actual < $default - 1 || $actual > $default + 1)) {
             $diff = $actual / $default;
         }
 

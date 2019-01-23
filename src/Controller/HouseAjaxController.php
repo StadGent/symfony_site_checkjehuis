@@ -7,13 +7,13 @@ use App\Calculator\CalculatorView;
 use App\Entity\Config;
 use App\Entity\ConfigCategory;
 use App\Entity\House;
+use App\Factory\HouseFactory;
 use App\Service\ConfigService;
 use App\Service\ContentService;
 use App\Service\HouseService;
 use App\Service\ParameterService;
 use App\Service\RenewablesService;
 use App\Utility\Format;
-use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -58,6 +58,8 @@ class HouseAjaxController extends AbstractController
      *   The content service.
      * @param ParameterService $parameterService
      *   The parameter service.
+     * @param HouseFactory $houseFactory
+     *   The house factory.
      * @param ConfigService $configService
      *   The config service.
      * @param RenewablesService $renewableService
@@ -69,11 +71,12 @@ class HouseAjaxController extends AbstractController
         HouseService $houseService,
         ContentService $contentService,
         ParameterService $parameterService,
+        HouseFactory $houseFactory,
         ConfigService $configService,
         RenewablesService $renewableService,
         CalculatorFactory $calculatorFactory
     ) {
-        parent::__construct($houseService, $contentService, $parameterService);
+        parent::__construct($houseService, $contentService, $parameterService, $houseFactory);
         $this->configService = $configService;
         $this->renewablesService = $renewableService;
         $this->calculatorFactory = $calculatorFactory;
@@ -81,6 +84,10 @@ class HouseAjaxController extends AbstractController
 
     /**
      * @Route("/configuratie/update", name="house_config_update_category")
+     *
+     * This method is an abomination with a cognitive complexity of 79 (!!!). It
+     * should be refactored but I don't have the time, budget or courage to
+     * touch it right now.
      */
     public function updateSingleConfigAction(Request $request)
     {

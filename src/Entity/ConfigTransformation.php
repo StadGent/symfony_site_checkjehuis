@@ -166,10 +166,7 @@ class ConfigTransformation
             case '%':
                 $relevantPart = $base * ($this->getFromConfig()->getCategory()->getPercent() / 100);
                 $percent = $this->getValue() / 100;
-                $diff = $relevantPart * abs($percent);
-                if ($percent < 0) {
-                    $diff = $diff * -1;
-                }
+                $diff = $relevantPart * $percent;
                 $formula = sprintf('%s * %s%% * %s%%', $base, $this->getFromConfig()->getCategory()->getPercent(), $this->getValue());
                 break;
             case 'kwh/jaar':
@@ -180,12 +177,7 @@ class ConfigTransformation
             default:
                 $diff = 0;
         }
-
-        if ($this->inverse) {
-            return 0 - $diff;
-        } else {
-            return $diff;
-        }
+        return $this->inverse ? 0 - $diff : $diff;
     }
 
     public function transform($energy, $base)
@@ -194,4 +186,4 @@ class ConfigTransformation
 
         return $energy - $diff;
     }
-} 
+}

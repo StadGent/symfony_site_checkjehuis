@@ -151,38 +151,20 @@ class Config
      */
     public function getLabelAdmin()
     {
-        $label = $this->label;
-
-        // replace or remove
+        // Replace or remove.
         $label = str_replace(
-            array(
-                "centrale verwarming met",
-                "Slecht geïsoleerd: ",
-                "Matig geïsoleerd: ",
-                "Goed geïsoleerd: ",
-                "Perfect geïsoleerd: ",
-                "op de zoldervloer",
-                "enkel glas",
-                "dubbel glas",
-                "gewoon dubbel",
-                "ventilatie",
-            ),
-            array(
-                "CV",
-                "",
-                "",
-                "",
-                "",
-                "zoldervloer",
-                "enkel",
-                "dubbel",
-                "dubbel",
-                "",
-            ),
-            $label
+            [
+                "centrale verwarming met", "Slecht geïsoleerd: ", "Matig geïsoleerd: ",
+                "Goed geïsoleerd: ", "Perfect geïsoleerd: ", "op de zoldervloer",
+                "enkel glas", "dubbel glas", "gewoon dubbel", "ventilatie",
+            ],
+            [
+                "CV", "", "", "", "", "zoldervloer", "enkel", "dubbel", "dubbel", "",
+            ],
+            $this->label
         );
 
-        // For insulation, only keep cm;
+        // For insulation, only keep cm.
         if ($this->getCategory()->getSlug() == ConfigCategory::CAT_ROOF) {
             // Magic!
             $label = preg_replace('/(?i)(\D*)(\d* *cm)( of R=)\d(([\.,])*\d)*(m²k\/W)/', '$2', $label);

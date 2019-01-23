@@ -6,12 +6,12 @@ use App\Calculator\CalculatorFactory;
 use App\Entity\ConfigCategory;
 use App\Entity\Content;
 use App\Entity\House;
+use App\Factory\HouseFactory;
 use App\Service\ConfigService;
 use App\Service\ContentService;
 use App\Service\HouseService;
 use App\Service\ParameterService;
 use App\Service\RenewablesService;
-use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -51,6 +51,8 @@ class HouseConfigController extends AbstractController
      *   The content service.
      * @param ParameterService $parameterService
      *   The parameter service.
+     * @param HouseFactory $houseFactory
+     *   The house factory.
      * @param ConfigService $configService
      *   The config service.
      * @param RenewablesService $renewablesService
@@ -62,11 +64,12 @@ class HouseConfigController extends AbstractController
         HouseService $houseService,
         ContentService $contentService,
         ParameterService $parameterService,
+        HouseFactory $houseFactory,
         ConfigService $configService,
         RenewablesService $renewablesService,
         CalculatorFactory $calculatorFactory
     ) {
-        parent::__construct($houseService, $contentService, $parameterService);
+        parent::__construct($houseService, $contentService, $parameterService, $houseFactory);
         $this->configService = $configService;
         $this->renewablesService = $renewablesService;
         $this->calculatorFactory = $calculatorFactory;

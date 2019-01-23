@@ -36,8 +36,8 @@ abstract class EnergyCalculator
 
     public function __construct(House $house, Parameters $parameters)
     {
-        $this->house        = $house;
-        $this->parameters   = $parameters;
+        $this->house = $house;
+        $this->parameters = $parameters;
         $this->log = new Log();
     }
 
@@ -68,9 +68,9 @@ abstract class EnergyCalculator
      */
     public function transform(Config $from, Config $to = null, $percent = 100, $forceElectricity = false)
     {
-        $cat            = $from->getCategory();
-        $fromActual     = $cat->isFromActual();
-        $base           = $this->state->getCalculationBaseFormCategory($cat);
+        $cat = $from->getCategory();
+        $fromActual = $cat->isFromActual();
+        $base = $this->state->getCalculationBaseFormCategory($cat);
 
         if ($to) {
 

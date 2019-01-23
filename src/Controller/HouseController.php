@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Content;
 use App\Entity\House;
+use App\Factory\HouseFactory;
 use App\Service\ContentService;
 use App\Service\DefaultsService;
 use App\Service\HouseService;
@@ -40,6 +41,8 @@ class HouseController extends AbstractController
      *   The content service.
      * @param ParameterService $parameterService
      *   The parameter service.
+     * @param HouseFactory $houseFactory
+     *   The house factory.
      * @param Packages $assetManager
      *   The asset manager.
      * @param DefaultsService $defaultsService
@@ -49,10 +52,11 @@ class HouseController extends AbstractController
         HouseService $houseService,
         ContentService $contentService,
         ParameterService $parameterService,
+        HouseFactory $houseFactory,
         Packages $assetManager,
         DefaultsService $defaultsService
     ) {
-        parent::__construct($houseService, $contentService, $parameterService);
+        parent::__construct($houseService, $contentService, $parameterService, $houseFactory);
         $this->assetManager = $assetManager;
         $this->defaultsService = $defaultsService;
     }

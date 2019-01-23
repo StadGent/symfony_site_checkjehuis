@@ -69,10 +69,16 @@ class HouseService extends AbstractService
     protected $session;
 
     /**
+     * Service constructor.
+     *
      * @param EntityManagerInterface $entityManager
+     *   The entity manager.
      * @param Pdf $pdfGenerator
+     *   The pdf generator.
      * @param RouterInterface $router
+     *   The router.
      * @param SessionInterface $session
+     *   The current session.
      */
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -91,7 +97,10 @@ class HouseService extends AbstractService
     }
 
     /**
+     * Get the url for the heatmap.
+     *
      * @return string
+     *   The url for the heatmap.
      */
     public function getUrlHeatMap()
     {
@@ -99,7 +108,11 @@ class HouseService extends AbstractService
     }
 
     /**
+     * Set the url for the heatmap.
+     *
      * @param string $urlHeatMap
+     *   The url for the heatmap.
+     *
      * @return $this
      */
     public function setUrlHeatMap($urlHeatMap)
@@ -109,7 +122,10 @@ class HouseService extends AbstractService
     }
 
     /**
+     * Get the url for the solar map.
+     *
      * @return string
+     *   The url for the solar map.
      */
     public function getUrlSolarMap()
     {
@@ -117,7 +133,11 @@ class HouseService extends AbstractService
     }
 
     /**
+     * Set the url for the solar map.
+     *
      * @param string $urlSolarMap
+     *   The url for the solar map.
+     *
      * @return $this
      */
     public function setUrlSolarMap($urlSolarMap)
@@ -126,6 +146,23 @@ class HouseService extends AbstractService
         return $this;
     }
 
+    /**
+     * Replace tokens in a url.
+     *
+     * @param string $url
+     *   The url to replace the tokens in.
+     *   Supported tokens:
+     *     - [[BB_TOKEN]]: The house token.
+     *     - [[BB_ADDRESS]]: The house address.
+     *     - [[BB_RETURN_URL: The $returnUrl parameter.
+     * @param House $house
+     *   The house.
+     * @param string $returnUrl
+     *   The return url.
+     *
+     * @return string
+     *   The url with the tokens replaced.
+     */
     public function parseUrl($url, House $house, $returnUrl)
     {
         $token = urlencode($house->getToken());
@@ -147,8 +184,13 @@ class HouseService extends AbstractService
     }
 
     /**
+     * Get all houses (optionally filtered).
+     *
      * @param array $filter
+     *   The filter criteria.
+     *
      * @return House[]
+     *   The matching houses.
      */
     public function getAllHouses(array $filter = array())
     {
@@ -169,38 +211,41 @@ class HouseService extends AbstractService
     }
 
     /**
-     * Save house to the database and keep the id in the session
+     * Save house to the database and keep the id in the session.
      *
      * @param House $house
+     *   The house to save.
      * @param bool $resetDefaults
+     *   Whether or not to reset to default values.
+     *
      * @return $this
      */
     public function saveHouse(House $house, $resetDefaults = false)
     {
         // Update defaults.
         if ($resetDefaults) {
-            $house->setConfigs($this->getDefaultConfigs($house));
-            $house->setDefaultEnergy($this->getDefaultEnergy($house));
-            $house->setDefaultSurface($this->getDefaultSurface($house));
-            $house->setDefaultRoof($this->getDefaultRoof($house));
-            $house->setDefaultRoofIfFlat($this->getDefaultRoofIfFlat($house));
-            $house->setExtraConfigRoof($house->getConfig(ConfigCategory::CAT_ROOF));
-            // Reset renewables.
-            $house->setRenewables(array());
+            $house->setConfigs($this->getDefaultConfigs($house))
+                ->setDefaultEnergy($this->getDefaultEnergy($house))
+                ->setDefaultSurface($this->getDefaultSurface($house))
+                ->setDefaultRoof($this->getDefaultRoof($house))
+                ->setDefaultRoofIfFlat($this->getDefaultRoofIfFlat($house))
+                ->setExtraConfigRoof($house->getConfig(ConfigCategory::CAT_ROOF))
+                // Reset renewables.
+                ->setRenewables(array());
         }
 
         // Save to db.
         $this->entityManager->persist($house);
         $this->entityManager->flush();
 
-        // Keep track of ID in session
+        // Keep track of ID in session.
         $this->session->set(self::HOUSE_SESSION_KEY, $house->getId());
 
         return $this;
     }
 
     /**
-     * Load a house from the current session id as saved by self::saveHouse()
+     * Load a house from the current session id as saved by self::saveHouse().
      *
      * @return bool|House
      */
@@ -216,7 +261,11 @@ class HouseService extends AbstractService
     }
 
     /**
-     * @param $token
+     * Load a house from a token.
+     *
+     * @param string $token
+     *   The house token.
+     *
      * @return House|false
      */
     public function loadHouseFromToken($token)
@@ -234,6 +283,14 @@ class HouseService extends AbstractService
         return false;
     }
 
+    /**
+     * Generate a pdf report.
+     *
+     * @param House $house
+     *   The house to generate the pdf for.
+     * @return string
+     *   The contents of the pdf document.
+     */
     public function generatePdf(House $house)
     {
         $url = $this->router->generate(
@@ -254,9 +311,11 @@ class HouseService extends AbstractService
     }
 
     /**
-     * Get the default configs based on the House's parameters
+     * Get the default configs based on the House's parameters.
      *
      * @param House $house
+     *   The house to get the default configs for.
+     *
      * @return Config[]
      */
     public function getDefaultConfigs(House $house)
@@ -265,34 +324,51 @@ class HouseService extends AbstractService
 
         $categories = $this->configService->getAllCategories();
         foreach ($categories as $cat) {
-
-            /** @var Config $defaultConfig */
-            $defaultConfig = null;
-            foreach ($cat->getConfigs() as $conf) {
-                if ($conf->isPossibleCurrent() && $conf->isDefault()) {
-                    if ($conf->getDefaultUpToYear(true) >= $house->getYear() &&
-                        (!$defaultConfig || $conf->getDefaultUpToYear(true) < $defaultConfig->getDefaultUpToYear(true))
-                    ) {
-                        $defaultConfig = $conf;
-                    }
-                }
-            }
-
-            if (!$defaultConfig) {
-                throw new \RuntimeException('No default config found for category: ' . $cat->getSlug());
-            }
-
-            $defaults[$cat->getSlug()] = $defaultConfig;
-
+            $defaults[$cat->getSlug()] = $this->getDefaultConfigForCategory($cat, $house->getYear());
         }
 
         return $defaults;
     }
 
     /**
-     * Get the default surface area based on the house's parameters
+     * Get the default configs for a category for a certain a year.
+     *
+     * @param ConfigCategory $configCategory
+     *   The config category to get the default for.
+     * @param int $year
+     *   The year to get the defaults for.
+     *
+     * @return Config
+     *   The default config.
+     *
+     * @throws \RuntimeException
+     *   If no default config was found for the given category.
+     */
+    protected function getDefaultConfigForCategory(ConfigCategory $configCategory, $year)
+    {
+        /** @var Config $defaultConfig */
+        $defaultConfig = null;
+        foreach ($configCategory->getConfigs() as $conf) {
+            if ($conf->isPossibleCurrent() && $conf->isDefault()
+              && $conf->getDefaultUpToYear(true) >= $year
+              && (!$defaultConfig || $conf->getDefaultUpToYear(true) < $defaultConfig->getDefaultUpToYear(true))
+            ) {
+                $defaultConfig = $conf;
+            }
+        }
+
+        if (!$defaultConfig) {
+            throw new \RuntimeException('No default config found for category: ' . $configCategory->getSlug());
+        }
+        return $defaultConfig;
+    }
+
+    /**
+     * Get the default surface area based on the house's parameters.
      *
      * @param House $house
+     *   The house to get the default surface area for.
+     *
      * @return DefaultSurface
      */
     public function getDefaultSurface(House $house)
@@ -304,9 +380,11 @@ class HouseService extends AbstractService
     }
 
     /**
-     * Get the default roof surface area based on the house's parameters
+     * Get the default roof surface area based on the house's parameters.
      *
      * @param House $house
+     *   The house to get the default roof surface area for.
+     *
      * @return DefaultRoof
      */
     public function getDefaultRoof(House $house)
@@ -319,10 +397,11 @@ class HouseService extends AbstractService
     }
 
     /**
-     * Get the default roof surface area based on the house's parameters
-     * Force the roof type to be flat
+     * Get the default roof surface area based on the house's parameters.
+     * Force the roof type to be flat.
      *
      * @param House $house
+     *   The house to get the default roof surface area for.
      * @return DefaultRoof
      */
     public function getDefaultRoofIfFlat(House $house)
@@ -335,9 +414,11 @@ class HouseService extends AbstractService
     }
 
     /**
-     * Get the default energy usage based on the house's parameters
+     * Get the default energy usage based on the house's parameters.
      *
      * @param House $house
+     *   The house to get the default energy usage for.
+     *
      * @return DefaultEnergy
      */
     public function getDefaultEnergy(House $house)
@@ -348,5 +429,4 @@ class HouseService extends AbstractService
             $house->getYear()
         );
     }
-
 }

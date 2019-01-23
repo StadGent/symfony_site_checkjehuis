@@ -1,0 +1,4 @@
+exclude_patterns:
+    - assets/datepicker
+    - assets/bootstrap
+    - src/Migrations

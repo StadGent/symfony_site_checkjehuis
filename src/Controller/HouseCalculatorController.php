@@ -5,13 +5,13 @@ namespace App\Controller;
 use App\Calculator\CalculatorFactory;
 use App\Entity\ConfigCategory;
 use App\Entity\Content;
+use App\Factory\HouseFactory;
 use App\Service\ConfigService;
 use App\Service\ContentService;
 use App\Service\HouseService;
 use App\Service\ParameterService;
 use App\Service\RenewablesService;
 use App\Service\SubsidyService;
-use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -59,6 +59,8 @@ class HouseCalculatorController extends AbstractController
      *   The content service.
      * @param ParameterService $parameterService
      *   The parameter service.
+     * @param HouseFactory $houseFactory
+     *   The house factory.
      * @param CalculatorFactory $calculatorFactory
      *   The calculator factory.
      * @param ConfigService $configService
@@ -72,12 +74,13 @@ class HouseCalculatorController extends AbstractController
         HouseService $houseService,
         ContentService $contentService,
         ParameterService $parameterService,
+        HouseFactory $houseFactory,
         CalculatorFactory $calculatorFactory,
         ConfigService $configService,
         RenewablesService $renewablesService,
         SubsidyService $subsidyService
     ) {
-        parent::__construct($houseService, $contentService, $parameterService);
+        parent::__construct($houseService, $contentService, $parameterService, $houseFactory);
         $this->calculatorFactory = $calculatorFactory;
         $this->configService = $configService;
         $this->renewablesService = $renewablesService;

@@ -2,19 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\ConfigCategory;
-use App\Entity\Content;
-use App\Entity\House;
-use App\Entity\Parameter;
+use App\Factory\HouseFactory;
 use App\Service\ContentService;
 use App\Service\HouseService;
 use App\Service\ParameterService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as FrameworkController;
-use Symfony\Component\Asset\Packages;
-use Symfony\Component\HttpFoundation\Cookie;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractController extends FrameworkController
 {
@@ -45,6 +38,13 @@ abstract class AbstractController extends FrameworkController
     protected $parameterService;
 
     /**
+     * The house factory.
+     *
+     * @var HouseFactory
+     */
+    protected $houseFactory;
+
+    /**
      * Controller constructor.
      *
      * @param HouseService $houseService
@@ -53,15 +53,19 @@ abstract class AbstractController extends FrameworkController
      *   The content service.
      * @param ParameterService $parameterService
      *   The parameter service.
+     * @param HouseFactory $houseFactory
+     *   The house factory.
      */
     public function __construct(
         HouseService $houseService,
         ContentService $contentService,
-        ParameterService $parameterService
+        ParameterService $parameterService,
+        HouseFactory $houseFactory
     ) {
         $this->houseService = $houseService;
         $this->contentService = $contentService;
         $this->parameterService = $parameterService;
+        $this->houseFactory = $houseFactory;
     }
 
     /**
@@ -82,19 +86,7 @@ abstract class AbstractController extends FrameworkController
 
         if (!$house) {
             if ($create) {
-                $house = new House();
-                $house->setConfigs($this->houseService->getDefaultConfigs($house));
-                $house->setExtraConfigRoof($house->getConfig(ConfigCategory::CAT_ROOF));
-                $house->setDefaultSurfaces(
-                    $this->houseService->getDefaultSurface($house),
-                    $this->houseService->getDefaultRoof($house)
-                );
-                $house->setDefaultRoofIfFlat($this->houseService->getDefaultRoofIfFlat($house));
-                $house->setDefaultEnergy($this->houseService->getDefaultEnergy($house));
-                $house->setSolarPanelsSurface(
-                    $this->parameterService->getParameterBySlug(Parameter::PARAM_SOLAR_SURFACE)->getValue()
-                );
-
+                $house = $this->houseFactory->create();
                 $save = true;
             }
         }
