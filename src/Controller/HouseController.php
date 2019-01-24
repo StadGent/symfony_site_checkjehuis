@@ -84,19 +84,19 @@ class HouseController extends AbstractController
         $options = array();
         foreach ($buildingTypes as $type => $label) {
             $options[] = array(
-                'value'     => $type,
-                'label'     => $label,
-                'icon'      => $this->getAsset('images/icons/house-' . $type . '.svg'),
-                'active'    => $house->getBuildingType() == $type
+                'value' => $type,
+                'label' => $label,
+                'icon' => $this->getAsset('images/icons/house-' . $type . '.svg'),
+                'active' => $house->getBuildingType() == $type
             );
         }
 
         $this->saveHouseLastRoute($request);
 
         return $this->render('house/basics/building-type.html.twig', array(
-            'house'         => $house,
-            'options'       => $options,
-            'content'       => $this->contentService->getContentBySlug(Content::ONE_TYPE),
+            'house' => $house,
+            'options' => $options,
+            'content' => $this->contentService->getContentBySlug(Content::ONE_TYPE),
         ));
     }
 
@@ -126,9 +126,9 @@ class HouseController extends AbstractController
         $this->saveHouseLastRoute($request);
 
         return $this->render('house/basics/year.html.twig', array(
-            'house'         => $house,
-            'options'       => $options,
-            'content'       => $this->contentService->getContentBySlug(Content::ONE_YEAR),
+            'house' => $house,
+            'options' => $options,
+            'content' => $this->contentService->getContentBySlug(Content::ONE_YEAR),
         ));
     }
 
@@ -156,25 +156,25 @@ class HouseController extends AbstractController
         $roofTypes = House::getRoofTypes();
         $options = array();
         $icons = array(
-            House::ROOF_TYPE_INCLINED   => 'inclined',
-            House::ROOF_TYPE_FLAT       => 'flat',
-            House::ROOF_TYPE_MIXED      => 'mixed',
+            House::ROOF_TYPE_INCLINED => 'inclined',
+            House::ROOF_TYPE_FLAT => 'flat',
+            House::ROOF_TYPE_MIXED => 'mixed',
         );
         foreach ($roofTypes as $type => $label) {
             $options[] = array(
-                'value'     => $type,
-                'label'     => $label,
-                'icon'      => $this->getAsset('images/icons/house-roof-' . $icons[$type] . '.svg'),
-                'active'    => $house->getRoofType() == $type
+                'value' => $type,
+                'label' => $label,
+                'icon' => $this->getAsset('images/icons/house-roof-' . $icons[$type] . '.svg'),
+                'active' => $house->getRoofType() == $type
             );
         }
 
         $this->saveHouseLastRoute($request);
 
         return $this->render('house/basics/roof-type.html.twig', array(
-            'house'         => $house,
-            'options'       => $options,
-            'content'       => $this->contentService->getContentBySlug(Content::ONE_ROOF),
+            'house' => $house,
+            'options' => $options,
+            'content' => $this->contentService->getContentBySlug(Content::ONE_ROOF),
         ));
     }
 
@@ -210,19 +210,19 @@ class HouseController extends AbstractController
         $options = array();
         foreach ($sizes as $type => $label) {
             $options[] = array(
-                'value'     => $type,
-                'label'     => $label,
-                'icon'      => $this->getAsset('images/icons/house-' . $type . '.svg'),
-                'active'    => !$house->getSurfaceFloor(false) && $house->getSize() == $type
+                'value' => $type,
+                'label' => $label,
+                'icon' => $this->getAsset('images/icons/house-' . $type . '.svg'),
+                'active' => !$house->getSurfaceFloor(false) && $house->getSize() == $type
             );
         }
 
         $this->saveHouseLastRoute($request);
 
         return $this->render('house/basics/surface.html.twig', array(
-            'house'         => $house,
-            'options'       => $options,
-            'content'       => $this->contentService->getContentBySlug(Content::ONE_SURFACE),
+            'house' => $house,
+            'options' => $options,
+            'content' => $this->contentService->getContentBySlug(Content::ONE_SURFACE),
         ));
     }
 
@@ -250,10 +250,10 @@ class HouseController extends AbstractController
         $this->saveHouseLastRoute($request);
 
         return $this->render('house/basics/ownership.html.twig', array(
-            'house'         => $house,
-            'owner'         => House::OWNERSHIP_OWNER,
-            'renter'        => House::OWNERSHIP_RENTER,
-            'content'       => $this->contentService->getContentBySlug(Content::ONE_OWNER),
+            'house' => $house,
+            'owner' => House::OWNERSHIP_OWNER,
+            'renter' => House::OWNERSHIP_RENTER,
+            'content' => $this->contentService->getContentBySlug(Content::ONE_OWNER),
         ));
     }
 
@@ -281,8 +281,8 @@ class HouseController extends AbstractController
         $this->saveHouseLastRoute($request);
 
         return $this->render('house/basics/occupants.html.twig', array(
-            'house'         => $house,
-            'content'       => $this->contentService->getContentBySlug(Content::ONE_OCCUPANTS),
+            'house' => $house,
+            'content' => $this->contentService->getContentBySlug(Content::ONE_OCCUPANTS),
         ));
     }
 
@@ -338,10 +338,10 @@ class HouseController extends AbstractController
         $this->saveHouseLastRoute($request);
 
         return $this->render('house/basics/energy.html.twig', array(
-            'house'             => $house,
-            'energy'            => $energy,
-            'content_avg'       => $this->contentService->getContentBySlug(Content::ONE_ENERGY_AVG),
-            'content_custom'    => $this->contentService->getContentBySlug(Content::ONE_ENERGY_CUSTOM),
+            'house' => $house,
+            'energy' => $energy,
+            'content_avg' => $this->contentService->getContentBySlug(Content::ONE_ENERGY_AVG),
+            'content_custom' => $this->contentService->getContentBySlug(Content::ONE_ENERGY_CUSTOM),
         ));
     }
 

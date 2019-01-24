@@ -193,7 +193,8 @@ class HousePublicRouteController extends AbstractController
 
         $response = $this->redirect($this->generateUrl('app_plan', array('download' => $download)));
 
-        // save or update the address in a cookie so other apps on this domain can use it
+        // Save or update the address in a cookie so other apps on this domain
+        // can use it.
         if ($setCookie) {
             $this->setGentCookies($response, $house);
         }

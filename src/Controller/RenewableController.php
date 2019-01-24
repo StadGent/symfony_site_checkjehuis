@@ -17,7 +17,7 @@ class RenewableController extends FrameworkController
     protected $renewablesService;
 
     /**
-     * Controller costructor.
+     * Controller constructor.
      *
      * @param RenewablesService $renewablesService
      *   The renewables service.

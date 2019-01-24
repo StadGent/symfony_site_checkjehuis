@@ -102,10 +102,10 @@ class ConfigController extends FrameworkController
         }
 
         $formTemplate = $this->renderView('config/update-config-transformation.html.twig', array(
-            'form'          => $form->createView(),
-            'configFrom'    => $from,
-            'configTo'      => $to,
-            'inverse'       => $inverse,
+            'form' => $form->createView(),
+            'configFrom' => $from,
+            'configTo' => $to,
+            'inverse' => $inverse,
         ));
 
         // Return a JSON response with the rendered form HTML as a property.

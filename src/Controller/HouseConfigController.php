@@ -111,14 +111,14 @@ class HouseConfigController extends AbstractController
         $this->saveHouseLastRoute($request);
 
         return $this->render('house/config/roof.html.twig', array(
-            'house'             => $house,
-            'category'          => $category,
-            'configBad'         => $this->configService->getCategory(2),
-            'configModerate'    => $this->configService->getCategory(4),
-            'configGood'        => $this->configService->getCategory(5),
-            'content'           => $this->contentService->getContentBySlug(Content::TWO_ROOF),
-            'contentHeatMap'    => $this->contentService->getContentBySlug(Content::TWO_HEAT_MAP),
-            'urlHeatMap'        => $this->houseService->parseUrl(
+            'house' => $house,
+            'category' => $category,
+            'configBad' => $this->configService->getCategory(2),
+            'configModerate' => $this->configService->getCategory(4),
+            'configGood' => $this->configService->getCategory(5),
+            'content' => $this->contentService->getContentBySlug(Content::TWO_ROOF),
+            'contentHeatMap' => $this->contentService->getContentBySlug(Content::TWO_HEAT_MAP),
+            'urlHeatMap' => $this->houseService->parseUrl(
                 $this->houseService->getUrlHeatMap(),
                 $house,
                 $this->generateUrl('house_roof', array(), UrlGeneratorInterface::ABSOLUTE_URL)
@@ -153,9 +153,9 @@ class HouseConfigController extends AbstractController
         $this->saveHouseLastRoute($request);
 
         return $this->render('house/config/facade.html.twig', array(
-            'house'         => $house,
-            'category'      => $category,
-            'content'       => $this->contentService->getContentBySlug(Content::TWO_FACADE),
+            'house' => $house,
+            'category' => $category,
+            'content' => $this->contentService->getContentBySlug(Content::TWO_FACADE),
         ));
     }
 
@@ -186,9 +186,9 @@ class HouseConfigController extends AbstractController
         $this->saveHouseLastRoute($request);
 
         return $this->render('house/config/floor.html.twig', array(
-            'house'             => $house,
-            'category'          => $category,
-            'content'           => $this->contentService->getContentBySlug(Content::TWO_FLOOR),
+            'house' => $house,
+            'category' => $category,
+            'content' => $this->contentService->getContentBySlug(Content::TWO_FLOOR),
         ));
     }
 
@@ -219,9 +219,9 @@ class HouseConfigController extends AbstractController
         $this->saveHouseLastRoute($request);
 
         return $this->render('house/config/window.html.twig', array(
-            'house'         => $house,
-            'category'      => $category,
-            'content'       => $this->contentService->getContentBySlug(Content::TWO_WINDOW),
+            'house' => $house,
+            'category' => $category,
+            'content' => $this->contentService->getContentBySlug(Content::TWO_WINDOW),
         ));
     }
 
@@ -252,9 +252,9 @@ class HouseConfigController extends AbstractController
         $this->saveHouseLastRoute($request);
 
         return $this->render('house/config/ventilation.html.twig', array(
-            'house'         => $house,
-            'category'      => $category,
-            'content'       => $this->contentService->getContentBySlug(Content::TWO_VENTILATION),
+            'house' => $house,
+            'category' => $category,
+            'content' => $this->contentService->getContentBySlug(Content::TWO_VENTILATION),
         ));
     }
 
@@ -286,9 +286,9 @@ class HouseConfigController extends AbstractController
         $this->saveHouseLastRoute($request);
 
         return $this->render('house/config/heating.html.twig', array(
-            'house'         => $house,
-            'category'      => $category,
-            'content'       => $this->contentService->getContentBySlug(Content::TWO_HEATING),
+            'house' => $house,
+            'category' => $category,
+            'content' => $this->contentService->getContentBySlug(Content::TWO_HEATING),
         ));
     }
 
@@ -306,9 +306,9 @@ class HouseConfigController extends AbstractController
         $this->saveHouseLastRoute($request);
 
         return $this->render('house/config/renewable.html.twig', array(
-            'house'         => $house,
-            'renewables'    => $this->renewablesService->getAll(),
-            'content'       => $this->contentService->getContentBySlug(Content::TWO_RENEWABLE),
+            'house' => $house,
+            'renewables' => $this->renewablesService->getAll(),
+            'content' => $this->contentService->getContentBySlug(Content::TWO_RENEWABLE),
         ));
     }
 
@@ -329,9 +329,9 @@ class HouseConfigController extends AbstractController
         $view = $this->calculatorFactory->createCalculatorView($house, true);
 
         return $this->render('house/config/energy-summary.html.twig', array(
-            'house'         => $house,
-            'calculator'    => $view,
-            'params'        => $params,
+            'house' => $house,
+            'calculator' => $view,
+            'params' => $params,
         ));
     }
 }

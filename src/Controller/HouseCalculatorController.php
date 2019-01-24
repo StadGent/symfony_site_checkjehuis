@@ -103,38 +103,38 @@ class HouseCalculatorController extends AbstractController
 
         $categories = $this->configService->getAllCategoriesForHouse($house);
         $categoryContent = array();
-        $categoryContent[ConfigCategory::CAT_ROOF]          = $this->contentService->getContentBySlug(Content::THREE_ROOF);
-        $categoryContent[ConfigCategory::CAT_FACADE]        = $this->contentService->getContentBySlug(Content::THREE_FACADE);
-        $categoryContent[ConfigCategory::CAT_FLOOR]         = $this->contentService->getContentBySlug(Content::THREE_FLOOR);
-        $categoryContent[ConfigCategory::CAT_WINDOWS]       = $this->contentService->getContentBySlug(Content::THREE_WINDOW);
-        $categoryContent[ConfigCategory::CAT_VENTILATION]   = $this->contentService->getContentBySlug(Content::THREE_VENTILATION);
-        $categoryContent[ConfigCategory::CAT_HEATING]       = $this->contentService->getContentBySlug(Content::THREE_HEATING);
-        $categoryContent[ConfigCategory::CAT_HEATING_ELEC]  = $categoryContent[ConfigCategory::CAT_HEATING];
+        $categoryContent[ConfigCategory::CAT_ROOF] = $this->contentService->getContentBySlug(Content::THREE_ROOF);
+        $categoryContent[ConfigCategory::CAT_FACADE] = $this->contentService->getContentBySlug(Content::THREE_FACADE);
+        $categoryContent[ConfigCategory::CAT_FLOOR] = $this->contentService->getContentBySlug(Content::THREE_FLOOR);
+        $categoryContent[ConfigCategory::CAT_WINDOWS] = $this->contentService->getContentBySlug(Content::THREE_WINDOW);
+        $categoryContent[ConfigCategory::CAT_VENTILATION] = $this->contentService->getContentBySlug(Content::THREE_VENTILATION);
+        $categoryContent[ConfigCategory::CAT_HEATING] = $this->contentService->getContentBySlug(Content::THREE_HEATING);
+        $categoryContent[ConfigCategory::CAT_HEATING_ELEC] = $categoryContent[ConfigCategory::CAT_HEATING];
 
         $categoryPremium = array();
-        $categoryPremium[ConfigCategory::CAT_ROOF]          = $this->contentService->getContentBySlug(Content::PREMIUM_ROOF);
-        $categoryPremium[ConfigCategory::CAT_FACADE]        = $this->contentService->getContentBySlug(Content::PREMIUM_FACADE);
-        $categoryPremium[ConfigCategory::CAT_FLOOR]         = $this->contentService->getContentBySlug(Content::PREMIUM_FLOOR);
-        $categoryPremium[ConfigCategory::CAT_WINDOWS]       = $this->contentService->getContentBySlug(Content::PREMIUM_WINDOW);
-        $categoryPremium[ConfigCategory::CAT_VENTILATION]   = $this->contentService->getContentBySlug(Content::PREMIUM_VENTILATION);
-        $categoryPremium[ConfigCategory::CAT_HEATING]       = $this->contentService->getContentBySlug(Content::PREMIUM_HEATING);
-        $categoryPremium[ConfigCategory::CAT_HEATING_ELEC]  = $categoryPremium[ConfigCategory::CAT_HEATING];
+        $categoryPremium[ConfigCategory::CAT_ROOF] = $this->contentService->getContentBySlug(Content::PREMIUM_ROOF);
+        $categoryPremium[ConfigCategory::CAT_FACADE] = $this->contentService->getContentBySlug(Content::PREMIUM_FACADE);
+        $categoryPremium[ConfigCategory::CAT_FLOOR] = $this->contentService->getContentBySlug(Content::PREMIUM_FLOOR);
+        $categoryPremium[ConfigCategory::CAT_WINDOWS] = $this->contentService->getContentBySlug(Content::PREMIUM_WINDOW);
+        $categoryPremium[ConfigCategory::CAT_VENTILATION] = $this->contentService->getContentBySlug(Content::PREMIUM_VENTILATION);
+        $categoryPremium[ConfigCategory::CAT_HEATING] = $this->contentService->getContentBySlug(Content::PREMIUM_HEATING);
+        $categoryPremium[ConfigCategory::CAT_HEATING_ELEC] = $categoryPremium[ConfigCategory::CAT_HEATING];
 
-        $renewableContent   = $this->contentService->getContentBySlug(Content::THREE_RENEWABLE);
-        $renewablePremium   = $this->contentService->getContentBySlug(Content::PREMIUM_RENEWABLES);
+        $renewableContent = $this->contentService->getContentBySlug(Content::THREE_RENEWABLE);
+        $renewablePremium = $this->contentService->getContentBySlug(Content::PREMIUM_RENEWABLES);
 
         return $this->render('house/calculator.html.twig', array(
-            'house'             => $house,
-            'calculator'        => $view,
-            'configCategories'  => $categories,
-            'categoryContent'   => $categoryContent,
-            'categoryPremium'   => $categoryPremium,
-            'renewables'        => $this->renewablesService->getAll(),
-            'renewableContent'  => $renewableContent,
-            'renewablePremium'  => $renewablePremium,
+            'house' => $house,
+            'calculator' => $view,
+            'configCategories' => $categories,
+            'categoryContent' => $categoryContent,
+            'categoryPremium' => $categoryPremium,
+            'renewables' => $this->renewablesService->getAll(),
+            'renewableContent' => $renewableContent,
+            'renewablePremium' => $renewablePremium,
             'modalHeatpumpNotAllowed' => $this->contentService->getContentBySlug(Content::HEAT_PUMP_NOT_ALLOWED),
-            'showDetails'       => $this->getParameter('calculation_debug_show'),
-            'urlSolarMap'       => $this->houseService->parseUrl(
+            'showDetails' => $this->getParameter('calculation_debug_show'),
+            'urlSolarMap' => $this->houseService->parseUrl(
                 $this->houseService->getUrlSolarMap(),
                 $house,
                 $this->generateUrl('house_calculator', array(), UrlGeneratorInterface::ABSOLUTE_URL)
@@ -155,8 +155,8 @@ class HouseCalculatorController extends AbstractController
         $view = $this->calculatorFactory->createCalculatorView($house);
 
         return $this->render('house/calculation-detail.html.twig', array(
-            'house'             => $house,
-            'calculator'        => $view,
+            'house' => $house,
+            'calculator' => $view,
         ));
     }
 
@@ -179,11 +179,11 @@ class HouseCalculatorController extends AbstractController
         $view = $this->calculatorFactory->createCalculatorView($house);
 
         return $this->render('pdf/plan.html.twig', array(
-            'house'             => $house,
-            'calculator'        => $view,
-            'configCategories'  => $this->configService->getAllCategories(),
-            'renewables'        => $this->renewablesService->getAll(),
-            'subsidies'         => iterator_to_array($this->idsAsKeys($this->subsidyService->getAllSubsidyCategories())),
+            'house' => $house,
+            'calculator' => $view,
+            'configCategories' => $this->configService->getAllCategories(),
+            'renewables' => $this->renewablesService->getAll(),
+            'subsidies' => iterator_to_array($this->idsAsKeys($this->subsidyService->getAllSubsidyCategories())),
         ));
     }
 
@@ -199,7 +199,7 @@ class HouseCalculatorController extends AbstractController
 
         try {
 
-            // disable toolbar when displaying the pdf, even in dev
+            // Disable toolbar when displaying the pdf, even in dev.
             error_log((int)$this->container->has('profiler'));
             if ($this->container->has('profiler')) {
                 $this->container->get('profiler')->disable();
@@ -209,8 +209,8 @@ class HouseCalculatorController extends AbstractController
                 $this->houseService->generatePdf($house),
                 200,
                 array(
-                    'Content-Type'          => 'application/pdf',
-                    // uncomment to download pdf instead of view it in browser
+                    'Content-Type' => 'application/pdf',
+                    // Uncomment to download pdf instead of view it in browser.
                     // 'Content-Disposition'   => 'attachment; filename="gent-klimaatstad.pdf"'
                 )
             );

@@ -110,20 +110,22 @@ class HouseAjaxController extends AbstractController
 
             $category = $this->configService->getCategory($categoryId);
 
-            // if $config == 0 we need to remove the configuration for the given category
+            // If $config == 0 we need to remove the configuration for the given
+            // category.
             if (!$configId) {
                 if (!$category) {
                     $success = false;
                     $errors[] = 'invalid category id given';
                 } else {
 
-                    // get the selected upgrade config and remove it
+                    // Get the selected upgrade config and remove it.
                     $config = $house->getUpgradeConfig($category);
                     if ($config) {
                         if ($options === 'extra' && $category->getSlug() === ConfigCategory::CAT_ROOF) {
                             $house->setExtraUpgradeRoof(null);
                         } else {
-                            // if we are removing attic floor insulation, reset any custom surface area
+                            // If we are removing attic floor insulation, reset
+                            // any custom surface area.
                             if ($config->getId() !== Config::CONFIG_ATTIC_FLOOR &&
                                 $config->getCategory()->getSlug() === ConfigCategory::CAT_ROOF &&
                                 $house->getUpgradeConfig($config->getCategory()) === Config::CONFIG_ATTIC_FLOOR
@@ -142,10 +144,10 @@ class HouseAjaxController extends AbstractController
 
                 $config = $this->configService->getConfig($configId);
 
-                // is the config from the correct category?
+                // Is the config from the correct category?
                 if ($config && $categoryId === $config->getCategory()->getId()) {
 
-                    // do we need to set the extra roof config?
+                    // Do we need to set the extra roof config?
                     if ($options === 'extra' && $category->getSlug() === ConfigCategory::CAT_ROOF) {
 
                         if ($config === $house->getExtraConfigRoof()) {
@@ -157,10 +159,11 @@ class HouseAjaxController extends AbstractController
                     } else {
                         $currentConfig = $house->getUpgradeConfig($category);
 
-                        // the config can't be the current config...
+                        // The config can't be the current config...
                         if (!$currentConfig || $house->getConfig($category) !== $config) {
 
-                            // if we are changing away from or to attic floor insulation, reset any custom surface area
+                            // If we are changing away from or to attic floor
+                            // insulation, reset any custom surface area.
                             if ($config->isCategory(ConfigCategory::CAT_ROOF) &&
                                 (($config->getId() !== Config::CONFIG_ATTIC_FLOOR && $currentConfig && $currentConfig->getId() === Config::CONFIG_ATTIC_FLOOR) ||
                                 ($config->getId() === Config::CONFIG_ATTIC_FLOOR && (!$currentConfig || $currentConfig->getId() !== Config::CONFIG_ATTIC_FLOOR)))
@@ -172,7 +175,9 @@ class HouseAjaxController extends AbstractController
                         } else {
 
                             if ($currentConfig) {
-                                // if we are changing away from or to attic floor insulation, reset any custom surface area
+                                // If we are changing away from or to attic
+                                // floor insulation, reset any custom surface
+                                // area.
                                 if ($config->getCategory()->getSlug() === ConfigCategory::CAT_ROOF &&
                                     (($config->getId() !== Config::CONFIG_ATTIC_FLOOR && $currentConfig && $currentConfig->getId() === Config::CONFIG_ATTIC_FLOOR) ||
                                     ($config->getId() === Config::CONFIG_ATTIC_FLOOR && (!$currentConfig || $currentConfig->getId() !== Config::CONFIG_ATTIC_FLOOR)))
@@ -205,9 +210,9 @@ class HouseAjaxController extends AbstractController
         }
 
         return new JsonResponse(array(
-            'success'   => $success,
-            'errors'    => $errors,
-            'data'      => $data,
+            'success' => $success,
+            'errors' => $errors,
+            'data' => $data,
         ));
     }
 
@@ -243,9 +248,9 @@ class HouseAjaxController extends AbstractController
 
         return new JsonResponse(
             array(
-                'success'   => $success,
-                'errors'    => $errors,
-                'data'      => $data
+                'success' => $success,
+                'errors' => $errors,
+                'data' => $data
             )
         );
     }
@@ -279,9 +284,9 @@ class HouseAjaxController extends AbstractController
 
         return new JsonResponse(
             array(
-                'success'   => $success,
-                'errors'    => $errors,
-                'data'      => $data
+                'success' => $success,
+                'errors' => $errors,
+                'data' => $data
             )
         );
     }
@@ -315,9 +320,9 @@ class HouseAjaxController extends AbstractController
 
         return new JsonResponse(
             array(
-                'success'   => $success,
-                'errors'    => $errors,
-                'data'      => $data
+                'success' => $success,
+                'errors' => $errors,
+                'data' => $data
             )
         );
     }
@@ -351,9 +356,9 @@ class HouseAjaxController extends AbstractController
 
         return new JsonResponse(
             array(
-                'success'   => $success,
-                'errors'    => $errors,
-                'data'      => $data
+                'success' => $success,
+                'errors' => $errors,
+                'data' => $data
             )
         );
     }
@@ -387,9 +392,9 @@ class HouseAjaxController extends AbstractController
 
         return new JsonResponse(
             array(
-                'success'   => $success,
-                'errors'    => $errors,
-                'data'      => $data
+                'success' => $success,
+                'errors' => $errors,
+                'data' => $data
             )
         );
     }
@@ -423,9 +428,9 @@ class HouseAjaxController extends AbstractController
 
         return new JsonResponse(
             array(
-                'success'   => $success,
-                'errors'    => $errors,
-                'data'      => $data
+                'success' => $success,
+                'errors' => $errors,
+                'data' => $data
             )
         );
     }
@@ -457,9 +462,9 @@ class HouseAjaxController extends AbstractController
 
         return new JsonResponse(
             array(
-                'success'   => $success,
-                'errors'    => $errors,
-                'data'      => $data
+                'success' => $success,
+                'errors' => $errors,
+                'data' => $data
             )
         );
     }
@@ -502,9 +507,9 @@ class HouseAjaxController extends AbstractController
 
         return new JsonResponse(
             array(
-                'success'   => $success,
-                'errors'    => $errors,
-                'data'      => $data
+                'success' => $success,
+                'errors' => $errors,
+                'data' => $data
             )
         );
     }
@@ -549,9 +554,9 @@ class HouseAjaxController extends AbstractController
 
         return new JsonResponse(
             array(
-                'success'   => $success,
-                'errors'    => $errors,
-                'data'      => $data
+                'success' => $success,
+                'errors' => $errors,
+                'data' => $data
             )
         );
     }
@@ -656,7 +661,6 @@ class HouseAjaxController extends AbstractController
         $view = $this->getCalculatorView($house);
 
         // Totals.
-
         $data['renewable_diff'] = Format::energy($view->getEnergyDiffForRenewables());
         $data['renewable_price'] = Format::price($view->getPriceDiffForRenewables());
         $data['energy_diff'] = Format::energy($view->getEnergyDiff());
@@ -666,15 +670,14 @@ class HouseAjaxController extends AbstractController
         $data['co2'] = Format::CO2($view->getCo2Diff());
         $data['score_config'] = $view->getAvgScoreConfig();
 
-        // roof settings and surfaces
+        // Roof settings and surfaces.
         $data['roof_windroof_possible'] = $house->canHaveWindRoof();
         $data['roof_surface'] = $house->getSurfaceRoof(true, $house->getUpgradeConfig(ConfigCategory::CAT_ROOF));
 
-        // heat pump allowed?
+        // Heat pump allowed?
         $data['heat_pump_allowed'] = $house->isHeatPumpAllowed();
 
-        // category specific
-
+        // Category specific.
         foreach ($house->getConfigs() as $config) {
             $data['categories'][$config->getCategory()->getSlug()] = array(
                 'diff'  => Format::energy(
@@ -686,19 +689,19 @@ class HouseAjaxController extends AbstractController
             );
         }
 
-        // renewables
+        // Renewables.
 
         $renewables = array(
             'diff'  => 0,
             'price' => 0,
         );
         foreach ($house->getUpgradeRenewables() as $renewable) {
-            $renewables['diff']     += $view->getEnergyDiffForRenewable($renewable);
-            $renewables['price']    += $view->getPriceDiffForRenewable($renewable);
+            $renewables['diff'] += $view->getEnergyDiffForRenewable($renewable);
+            $renewables['price'] += $view->getPriceDiffForRenewable($renewable);
         }
-        $renewables['diff']     = Format::energy($renewables['diff']);
-        $renewables['price']    = Format::price($renewables['price']);
-        $data['renewables']     = $renewables;
+        $renewables['diff'] = Format::energy($renewables['diff']);
+        $renewables['price'] = Format::price($renewables['price']);
+        $data['renewables'] = $renewables;
 
         return $data;
     }

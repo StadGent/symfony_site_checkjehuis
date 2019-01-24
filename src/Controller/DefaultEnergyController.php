@@ -39,11 +39,11 @@ class DefaultEnergyController extends FrameworkController
         $filter = $request->get('table-filter', array());
 
         return $this->render('default_energy/index.html.twig', array(
-            'buildingTypes'     => House::getBuildingTypes(),
-            'buildingSizes'     => House::getSizes(),
-            'years'             => House::getYears(),
-            'defaults'          => $this->defaultsService->getAllEnergy($filter),
-            'filter'            => $filter,
+            'buildingTypes' => House::getBuildingTypes(),
+            'buildingSizes' => House::getSizes(),
+            'years' => House::getYears(),
+            'defaults' => $this->defaultsService->getAllEnergy($filter),
+            'filter' => $filter,
         ));
     }
 
@@ -67,8 +67,8 @@ class DefaultEnergyController extends FrameworkController
         }
 
         $formTemplate = $this->renderView('default_energy/update-default-energy.html.twig', array(
-            'form'          => $form->createView(),
-            'energy'        => $energy,
+            'form' => $form->createView(),
+            'energy' => $energy,
         ));
 
         // Return a JSON response with the rendered form HTML as a property.

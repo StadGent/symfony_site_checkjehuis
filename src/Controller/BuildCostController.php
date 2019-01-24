@@ -51,7 +51,7 @@ class BuildCostController extends FrameworkController
                 if (is_numeric($val)) {
                     $cost = $this->buildCostService->getCost($id);
                     $cost->setValue($val);
-                    $service->persist($cost, false);
+                    $this->buildCostService->persist($cost, false);
                 }
             }
 

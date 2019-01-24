@@ -40,12 +40,12 @@ class DefaultsController extends FrameworkController
         $filter = $request->get('table-filter', array());
 
         return $this->render('defaults/index.html.twig', array(
-            'buildingTypes'     => House::getBuildingTypes(),
-            'roofTypes'         => House::getRoofTypes(),
-            'buildingSizes'     => House::getSizes(),
-            'defaults'          => $this->defaultsService->getAllSurfaces($filter),
-            'defaultsRoof'      => $this->defaultsService->getAllRoofs($filter),
-            'filter'            => $filter,
+            'buildingTypes' => House::getBuildingTypes(),
+            'roofTypes' => House::getRoofTypes(),
+            'buildingSizes' => House::getSizes(),
+            'defaults' => $this->defaultsService->getAllSurfaces($filter),
+            'defaultsRoof' => $this->defaultsService->getAllRoofs($filter),
+            'filter' => $filter,
         ));
     }
 
@@ -69,14 +69,14 @@ class DefaultsController extends FrameworkController
         }
 
         $formTemplate = $this->renderView('defaults/update-default-surface.html.twig', array(
-            'form'          => $form->createView(),
-            'surface'        => $surface,
+            'form' => $form->createView(),
+            'surface' => $surface,
         ));
 
         // Return a JSON response with the rendered form HTML as a property.
         return new JsonResponse(array(
-            'success'   => $success,
-            'template'  => $formTemplate
+            'success' => $success,
+            'template' => $formTemplate
         ));
     }
 
@@ -100,14 +100,14 @@ class DefaultsController extends FrameworkController
         }
 
         $formTemplate = $this->renderView('defaults/update-default-roof.html.twig', array(
-            'form'          => $form->createView(),
-            'surface'        => $surface,
+            'form' => $form->createView(),
+            'surface' => $surface,
         ));
 
         // Return a JSON response with the rendered form HTML as a property.
         return new JsonResponse(array(
-            'success'   => $success,
-            'template'  => $formTemplate
+            'success' => $success,
+            'template' => $formTemplate
         ));
     }
 }

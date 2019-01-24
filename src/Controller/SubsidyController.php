@@ -49,8 +49,8 @@ class SubsidyController extends FrameworkController
 
         return $this->render('subsidy/index.html.twig', array(
             'subsidyCategories' => $this->subsidyService->getAllSubsidyCategories(),
-            'subsidies'         => $this->subsidyService->getAllSubsidies(),
-            'gentRoofMax'       => $gentRoofMax->getValue(),
+            'subsidies' => $this->subsidyService->getAllSubsidies(),
+            'gentRoofMax' => $gentRoofMax->getValue(),
         ));
     }
 
