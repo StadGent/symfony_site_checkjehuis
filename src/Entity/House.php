@@ -334,6 +334,20 @@ class House
      * THIS IS NOW THE SURFACE
      *
      * @todo rename!
+     *
+     * Thank you, previous developer for this amazing clarification... As far as
+     * I can tell, this property should indeed be renamed to solarPanelsSurface.
+     * Looking at House::setSolarPanelsKWHPiek(), we can assume the solar panels
+     * generate 1 KwH per 15m² on peak moments. It is unclear to me why this has
+     * not been accounted for in House::getSolarPanelsKWHPiek(). Looking at the
+     * commit history in bitbucket (which is unfortunately no longer available
+     * in this repo on github), it was accounted for in commit 5032bcc, but that
+     * line (and only that one) was reverted in commit 52aa7c5 with the (again
+     * amazingly helpful) message "alles kapot" ("everything broken"). I'm
+     * leaving this untouched for now as I'm currently just upgrading from
+     * Symfony 2.8 to Symfony 4.2, but this should be fixed an thoroughly tested
+     * somewhere along the line. God speed to whoever takes on that task.
+     *
      * @var float
      * @ORM\Column(type="float")
      */
