@@ -10,15 +10,39 @@ use App\Service\ParameterService;
 
 class HouseFactory
 {
+    /**
+     * The house service.
+     *
+     * @var HouseService
+     */
     protected $houseService;
+
+    /**
+     * The parameter service.
+     *
+     * @var ParameterService
+     */
     protected $parameterService;
 
+    /**
+     * Factory constructor.
+     *
+     * @param HouseService $houseService
+     *   The house service.
+     * @param ParameterService $parameterService
+     *   The parameter service.
+     */
     public function __construct(HouseService $houseService, ParameterService $parameterService)
     {
         $this->houseService = $houseService;
         $this->parameterService = $parameterService;
     }
 
+    /**
+     * Creates a new house instance with default values.
+     *
+     * @return House
+     */
     public function create()
     {
         $house = new House();
