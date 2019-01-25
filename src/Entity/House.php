@@ -32,78 +32,6 @@ class House
     const OWNERSHIP_LETTER = 'letter';
 
     /**
-     * Returns the possible building types.
-     *
-     * @return array
-     */
-    public static function getBuildingTypes()
-    {
-        return array(
-            self::BUILDING_TYPE_OPEN => 'Open bebouwing',
-            self::BUILDING_TYPE_CORNER => 'Halfopen bebouwing',
-            self::BUILDING_TYPE_CLOSED => 'Gesloten bebouwing',
-        );
-    }
-
-    /**
-     * Returns the possible roof types
-     *
-     * @return array
-     */
-    public static function getRoofTypes()
-    {
-        return array(
-            self::ROOF_TYPE_MIXED => 'gemengd',
-            self::ROOF_TYPE_INCLINED => 'schuin',
-            self::ROOF_TYPE_FLAT => 'plat',
-        );
-    }
-
-    /**
-     * Returns the possible year options
-     *
-     * @return array
-     */
-    public static function getYears()
-    {
-        return array(
-            '1900' => '< 1900',
-            '1945' => '1901 - 1945',
-            '1970' => '1946 - 1970',
-            '2000' => '1971 - 2000',
-            '3000' => '> 2000',
-        );
-    }
-
-    /**
-     * Returns the possible building sizes
-     *
-     * @return array
-     */
-    public static function getSizes()
-    {
-        return array(
-            self::BUILDING_SIZE_LARGE => 'Groot',
-            self::BUILDING_SIZE_MEDIUM => 'Middel',
-            self::BUILDING_SIZE_SMALL => 'Klein',
-        );
-    }
-
-    /**
-     * Returns the possible ownership options
-     *
-     * @return array
-     */
-    public static function getOwnerships()
-    {
-        return array(
-            self::OWNERSHIP_OWNER => 'eigenaar en bewoner',
-            self::OWNERSHIP_RENTER => 'huurder',
-            // self::OWNERSHIP_LETTER  => 'verhuurder',
-        );
-    }
-
-    /**
      * @var int
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -285,7 +213,7 @@ class House
     protected $configs;
 
     /**
-     * In case of a mixed roof, this holds the config of the flat part
+     * In case of a mixed roof, this holds the config of the flat part.
      *
      * @var Config
      * @ORM\ManyToOne(targetEntity="Config", fetch="EAGER")
@@ -293,7 +221,7 @@ class House
     protected $extraConfigRoof;
 
     /**
-     * In case of a mixed roof, this holds the upgrade config of the flat part
+     * In case of a mixed roof, this holds the upgrade config of the flat part.
      *
      * @var Config
      * @ORM\ManyToOne(targetEntity="Config", fetch="EAGER")
@@ -1428,13 +1356,14 @@ class House
     }
 
     /**
-     * assert if all upgrade configs are still valid after a change
-     * in defaults or current configs
+     * Assert if all upgrade configs are still valid after a change
+     * in defaults or current configs.
      */
     public function validateUpgradeConfigs()
     {
         foreach ($this->getUpgradeConfigs() as $upgrade) {
-            // if we have an upgrade lower or equal than a current config, remove it
+            // If we have an upgrade lower or equal than a current config,
+            // remove it.
             if ($this->hasConfig($upgrade->getCategory()) &&
                 $upgrade->getOrdering() <= $this->getConfig($upgrade->getCategory())->getOrdering()
             ) {
@@ -1463,11 +1392,83 @@ class House
         $configRoof = $this->getUpgradeConfig(ConfigCategory::CAT_ROOF) ?: $this->getConfig(ConfigCategory::CAT_ROOF);
         $configWindow = $this->getUpgradeConfig(ConfigCategory::CAT_WINDOWS) ?: $this->getConfig(ConfigCategory::CAT_WINDOWS);
 
-        // Heat pump is only allowed when there is already good inulation for
+        // Heat pump is only allowed when there is already good insulation for
         // the roof and windows. Otherwise the electic bill will skyrocket. See
         // also Content::HEAT_PUMP_NOT_ALLOWED.
         return $configRoof->isPossibleUpgrade() && (
             $this->getRoofType() !== House::ROOF_TYPE_MIXED || $this->getExtraUpgradeRoof(true)->isPossibleUpgrade()
         ) && $configWindow->isPossibleUpgrade();
+    }
+
+    /**
+     * Returns the possible building types.
+     *
+     * @return array
+     */
+    public static function getBuildingTypes()
+    {
+        return array(
+            self::BUILDING_TYPE_OPEN => 'Open bebouwing',
+            self::BUILDING_TYPE_CORNER => 'Halfopen bebouwing',
+            self::BUILDING_TYPE_CLOSED => 'Gesloten bebouwing',
+        );
+    }
+
+    /**
+     * Returns the possible roof types.
+     *
+     * @return array
+     */
+    public static function getRoofTypes()
+    {
+        return array(
+            self::ROOF_TYPE_MIXED => 'gemengd',
+            self::ROOF_TYPE_INCLINED => 'schuin',
+            self::ROOF_TYPE_FLAT => 'plat',
+        );
+    }
+
+    /**
+     * Returns the possible year options.
+     *
+     * @return array
+     */
+    public static function getYears()
+    {
+        return array(
+            '1900' => '< 1900',
+            '1945' => '1901 - 1945',
+            '1970' => '1946 - 1970',
+            '2000' => '1971 - 2000',
+            '3000' => '> 2000',
+        );
+    }
+
+    /**
+     * Returns the possible building sizes.
+     *
+     * @return array
+     */
+    public static function getSizes()
+    {
+        return array(
+            self::BUILDING_SIZE_LARGE => 'Groot',
+            self::BUILDING_SIZE_MEDIUM => 'Middel',
+            self::BUILDING_SIZE_SMALL => 'Klein',
+        );
+    }
+
+    /**
+     * Returns the possible ownership options.
+     *
+     * @return array
+     */
+    public static function getOwnerships()
+    {
+        return array(
+            self::OWNERSHIP_OWNER => 'eigenaar en bewoner',
+            self::OWNERSHIP_RENTER => 'huurder',
+            // self::OWNERSHIP_LETTER  => 'verhuurder',
+        );
     }
 }

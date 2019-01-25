@@ -21,7 +21,7 @@ class ConfigCategory
     const CAT_HEATING_ELEC = 'heating_elec';
 
     /**
-     * pseudo category, not in database
+     * Pseudo category, not in database.
      */
     const CAT_WIND_ROOF = 'wind_roof';
 

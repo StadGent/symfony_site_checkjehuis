@@ -34,7 +34,7 @@ class DefaultSurface
     protected $size;
 
     /**
-     * Bewoonbare vloer oppervlakte
+     * Bewoonbare vloer oppervlakte.
      *
      * @var float
      * @ORM\Column(type="float")
@@ -188,4 +188,4 @@ class DefaultSurface
         $this->window = $window;
         return $this;
     }
-} 
+}

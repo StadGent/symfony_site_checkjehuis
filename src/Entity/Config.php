@@ -15,7 +15,7 @@ class Config
     const CONFIG_ATTIC_FLOOR = 42;
 
     /**
-     * Returns the possible unit options for matrix values
+     * Returns the possible unit options for matrix values.
      *
      * @return array
      */
@@ -350,7 +350,7 @@ class Config
 
     /**
      * Check if this is a heat pump config, hardcoded on IDs.
-     * Hardcoded?! yes, hardcoded.
+     * Hardcoded?! Yes, hardcoded.
      *
      * @return bool
      */
