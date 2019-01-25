@@ -7,12 +7,17 @@ use Doctrine\ORM\EntityManagerInterface;
 abstract class AbstractService
 {
     /**
+     * The entity manager.
+     *
      * @var EntityManagerInterface
      */
     protected $entityManager;
 
     /**
+     * Service constructor.
+     *
      * @param EntityManager $entityManager
+     *   The entity manager.
      */
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -21,10 +26,11 @@ abstract class AbstractService
 
     /**
      * Persist an entity, optionally flushing.
-     * Passing true as $entity will only flush.
      *
-     * @param $entity
+     * @param mixed $entity
+     *   The entity to persist. Passing true as $entity will only flush.
      * @param bool $flush
+     *   Whether or not to flush.
      */
     public function persist($entity = null, $flush = true)
     {
@@ -39,8 +45,10 @@ abstract class AbstractService
     /**
      * Proxy for EntityManager::remove().
      *
-     * @param $entity
+     * @param object $entity
+     *   The entity to remove.
      * @param bool $flush
+     *   Whether or not to flush.
      */
     public function remove($entity, $flush = true)
     {

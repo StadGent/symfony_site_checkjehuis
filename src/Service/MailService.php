@@ -95,7 +95,7 @@ class MailService
             ->setTo($house->getEmail())
             ->setBody(
                 $this->twig->render('email/save-token.html.twig', array(
-                    'house'                 => $house,
+                    'house' => $house,
                 ))
             )
         ;
@@ -122,7 +122,7 @@ class MailService
             ->setTo($house->getEmail())
             ->setBody(
                 $this->twig->render('email/plan-pdf.html.twig', array(
-                    'house'             => $house,
+                    'house' => $house,
                 ))
             )
             ->setContentType('text/html')

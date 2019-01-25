@@ -134,7 +134,7 @@ class DefaultsService extends AbstractService
      * Get a default roof by type, size and inclination.
      *
      * @param string $type
-     *   House type (closed, open, corner)
+     *   House type (closed, open, corner).
      * @param string $size
      *   Roof size (large, medium, small, ...).
      * @param string $inclined
@@ -167,7 +167,7 @@ class DefaultsService extends AbstractService
      * Get a default energy consumption by type, size and year.
      *
      * @param string $type
-     *   House type (closed, open, corner)
+     *   House type (closed, open, corner).
      * @param string $size
      *   House size (large, medium, small, ...).
      * @param int $year

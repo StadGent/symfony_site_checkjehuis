@@ -7,7 +7,10 @@ use App\Entity\BuildCost;
 class BuildCostService extends AbstractService
 {
     /**
+     * Get all build costs.
+     *
      * @return BuildCost[]
+     *   The build costs.
      */
     public function getAll()
     {
@@ -17,8 +20,13 @@ class BuildCostService extends AbstractService
     }
 
     /**
-     * @param $id
+     * Get a build cost by id.
+     *
+     * @param int $id
+     *   The build cost id.
+     *
      * @return BuildCost
+     *   The build cost.
      */
     public function getCost($id)
     {
@@ -28,8 +36,13 @@ class BuildCostService extends AbstractService
     }
 
     /**
+     * Get build cost by slug.
+     *
      * @param string $slug
+     *   The build cost slug.
+     *
      * @return BuildCost
+     *   The build cost.
      */
     public function getCostBySlug($slug)
     {

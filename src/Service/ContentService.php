@@ -7,7 +7,10 @@ use App\Entity\Content;
 class ContentService extends AbstractService
 {
     /**
+     * Get all content.
+     *
      * @return Content[]
+     *   An array of all content.
      */
     public function getAllContent()
     {
@@ -17,8 +20,13 @@ class ContentService extends AbstractService
     }
 
     /**
+     * Get content by id.
+     *
      * @param int $id
+     *   The content it.
+     *
      * @return Content
+     *   The content.
      */
     public function getContent($id)
     {
@@ -28,8 +36,13 @@ class ContentService extends AbstractService
     }
 
     /**
+     * Get content by slug.
+     *
      * @param string $slug
+     *   The slug.
+     *
      * @return Content
+     *   The content.
      */
     public function getContentBySlug($slug)
     {
