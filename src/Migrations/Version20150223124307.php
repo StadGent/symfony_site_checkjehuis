@@ -7,7 +7,7 @@ use Doctrine\DBAL\Schema\Schema;
 
 class Version20150223124307 extends AbstractMigration
 {
-    public function up(Schema $schema)
+    public function up(Schema $schema) : void
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
@@ -20,7 +20,7 @@ class Version20150223124307 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_95D7F5CB7036B2E8 ON houses (extraUpgradeRoof_id)');
     }
 
-    public function down(Schema $schema)
+    public function down(Schema $schema) : void
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 

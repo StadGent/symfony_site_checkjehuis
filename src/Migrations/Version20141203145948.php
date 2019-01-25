@@ -7,7 +7,7 @@ use Doctrine\DBAL\Schema\Schema;
 
 class Version20141203145948 extends AbstractMigration
 {
-    public function up(Schema $schema)
+    public function up(Schema $schema) : void
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
@@ -70,10 +70,10 @@ class Version20141203145948 extends AbstractMigration
         $this->addSql(file_get_contents(__DIR__ . '/../Resources/db/001/data_content.sql'));
     }
 
-    public function down(Schema $schema)
+    public function down(Schema $schema) : void
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
-        
+
         $this->addSql('ALTER TABLE houses DROP FOREIGN KEY FK_95D7F5CB52C922DE');
         $this->addSql('ALTER TABLE houses DROP FOREIGN KEY FK_95D7F5CB59B27F5E');
         $this->addSql('ALTER TABLE house_config DROP FOREIGN KEY FK_6737B6F524DB0683');

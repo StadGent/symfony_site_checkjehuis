@@ -7,7 +7,7 @@ use Doctrine\DBAL\Schema\Schema;
 
 class Version20150224171216 extends AbstractMigration
 {
-    public function up(Schema $schema)
+    public function up(Schema $schema) : void
     {
         $this->addSql("UPDATE build_costs SET ordering = ordering + 1 WHERE ordering > 4");
 
@@ -18,7 +18,7 @@ class Version20150224171216 extends AbstractMigration
         $this->addSql("UPDATE config_choices SET relatedCost_id = 20 WHERE id = 43");
     }
 
-    public function down(Schema $schema)
+    public function down(Schema $schema) : void
     {
 
     }

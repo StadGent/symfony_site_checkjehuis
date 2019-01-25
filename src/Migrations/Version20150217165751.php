@@ -7,7 +7,7 @@ use Doctrine\DBAL\Schema\Schema;
 
 class Version20150217165751 extends AbstractMigration
 {
-    public function up(Schema $schema)
+    public function up(Schema $schema) : void
     {
         $this->addSql("UPDATE config_choices SET  label = 'Slecht geïsoleerd: 6 cm of R=1,6m²k/W' WHERE id = 2;");
         $this->addSql("UPDATE config_choices SET  label = 'Slecht geïsoleerd: 10 cm of R=2,6m²k/W' WHERE id = 3;");
@@ -22,7 +22,7 @@ class Version20150217165751 extends AbstractMigration
         $this->addSql("UPDATE config_choices SET label = 'overal super isolerend glas (0,8W/m²K)' WHERE id =24;");
     }
 
-    public function down(Schema $schema)
+    public function down(Schema $schema) : void
     {
     }
 }

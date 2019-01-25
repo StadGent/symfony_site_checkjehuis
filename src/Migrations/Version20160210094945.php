@@ -10,7 +10,7 @@ class Version20160210094945 extends AbstractMigration
     /**
      * @param Schema $schema
      */
-    public function up(Schema $schema)
+    public function up(Schema $schema) : void
     {
         $this->addSql("UPDATE build_costs SET label = 'centrale verwarming label B (HR+ ketel)' WHERE slug='heating_hr_plus'");
         $this->addSql("UPDATE build_costs SET label = 'centrale verwarming label A (HR top)' WHERE slug='heating_hr_top'");
@@ -26,7 +26,7 @@ class Version20160210094945 extends AbstractMigration
     /**
      * @param Schema $schema
      */
-    public function down(Schema $schema)
+    public function down(Schema $schema) : void
     {
 
     }

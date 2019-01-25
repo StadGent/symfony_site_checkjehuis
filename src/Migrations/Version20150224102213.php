@@ -10,10 +10,10 @@ use Doctrine\DBAL\Schema\Schema;
  */
 class Version20150224102213 extends AbstractMigration
 {
-    public function up(Schema $schema)
+    public function up(Schema $schema) : void
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
-        
+
         $this->addSql('ALTER TABLE config_categories ADD custom TINYINT(1) NOT NULL');
         $this->addSql('UPDATE config_categories SET custom = 0');
 
@@ -22,10 +22,10 @@ class Version20150224102213 extends AbstractMigration
         $this->addSql(file_get_contents(__DIR__ . '/../Resources/db/004/data_config_transformations.sql'));
     }
 
-    public function down(Schema $schema)
+    public function down(Schema $schema) : void
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
-        
+
         $this->addSql('ALTER TABLE config_categories DROP custom');
     }
 }

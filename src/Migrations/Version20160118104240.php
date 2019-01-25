@@ -10,7 +10,7 @@ class Version20160118104240 extends AbstractMigration
     /**
      * @param Schema $schema
      */
-    public function up(Schema $schema)
+    public function up(Schema $schema) : void
     {
         $this->addSql('UPDATE default_energy SET electricityHeatPump = 0');
     }
@@ -18,7 +18,7 @@ class Version20160118104240 extends AbstractMigration
     /**
      * @param Schema $schema
      */
-    public function down(Schema $schema)
+    public function down(Schema $schema) : void
     {
     }
 }

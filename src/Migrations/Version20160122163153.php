@@ -10,7 +10,7 @@ class Version20160122163153 extends AbstractMigration
     /**
      * @param Schema $schema
      */
-    public function up(Schema $schema)
+    public function up(Schema $schema) : void
     {
         $this->addSql("UPDATE build_costs SET ordering = ordering + 1 WHERE ordering > 6");
 
@@ -38,7 +38,7 @@ class Version20160122163153 extends AbstractMigration
     /**
      * @param Schema $schema
      */
-    public function down(Schema $schema)
+    public function down(Schema $schema) : void
     {
         // this down() migration is auto-generated, please modify it to your needs
 

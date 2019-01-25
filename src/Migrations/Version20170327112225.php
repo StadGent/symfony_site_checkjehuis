@@ -13,7 +13,7 @@ class Version20170327112225 extends AbstractMigration
     /**
      * @param Schema $schema
      */
-    public function up(Schema $schema)
+    public function up(Schema $schema) : void
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
         $this->addSql('ALTER TABLE session ADD sess_lifetime INT NOT NULL');
@@ -23,7 +23,7 @@ class Version20170327112225 extends AbstractMigration
     /**
      * @param Schema $schema
      */
-    public function down(Schema $schema)
+    public function down(Schema $schema) : void
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
         $this->addSql('ALTER TABLE session DROP COLUMN sess_lifetime');

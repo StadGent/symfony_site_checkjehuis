@@ -10,7 +10,7 @@ class Version20160122175226 extends AbstractMigration
     /**
      * @param Schema $schema
      */
-    public function up(Schema $schema)
+    public function up(Schema $schema) : void
     {
         $this->addSql("UPDATE config_categories SET fromActual = '0' WHERE slug = 'ventilation'");
     }
@@ -18,7 +18,7 @@ class Version20160122175226 extends AbstractMigration
     /**
      * @param Schema $schema
      */
-    public function down(Schema $schema)
+    public function down(Schema $schema) : void
     {
     }
 }
