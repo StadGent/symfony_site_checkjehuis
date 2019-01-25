@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Content;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -10,15 +11,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentType extends AbstractType
 {
-
     /**
-     * @return string The name of this type
+     * {@inheritdoc}
      */
-    public function getName()
-    {
-        return 'content';
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
@@ -34,10 +29,13 @@ class ContentType extends AbstractType
         ;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'App\Entity\Content',
+            'data_class' => Content::class,
             'csrf_protection' => false,
             'allow_deactivation' => true,
         ));

@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\House;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -12,13 +13,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class MailPlanType extends AbstractType
 {
     /**
-     * @return string The name of this type
+     * {@inheritdoc}
      */
-    public function getName()
-    {
-        return 'mail_plan';
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
@@ -38,10 +34,13 @@ class MailPlanType extends AbstractType
         ;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'App\Entity\House',
+            'data_class' => House::class,
             'csrf_protection' => true,
         ));
     }

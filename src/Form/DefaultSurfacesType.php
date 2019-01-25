@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\DefaultSurface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -10,13 +11,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class DefaultSurfacesType extends AbstractType
 {
     /**
-     * @return string The name of this type
+     * {@inheritdoc}
      */
-    public function getName()
-    {
-        return 'config_default_surfaces';
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
@@ -29,10 +25,13 @@ class DefaultSurfacesType extends AbstractType
         ;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'App\Entity\DefaultSurface',
+            'data_class' => DefaultSurface::class,
             'csrf_protection' => false,
         ));
     }
