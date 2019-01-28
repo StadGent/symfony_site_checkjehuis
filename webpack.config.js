@@ -3,7 +3,10 @@ var Encore = require('@symfony/webpack-encore');
 Encore
     .disableSingleRuntimeChunk()
     .setOutputPath('public/build/')
-    .setPublicPath('/build')
+    // This is specific to the city of Ghent implementation of this app. Change
+    // this to /build if this website is running in your web root.
+    .setPublicPath('/checkjehuis/build')
+    .setManifestKeyPrefix('build/')
     .configureFilenames({
         css: '[name]-[contenthash].css',
         js: '[name]-[contenthash].js'
