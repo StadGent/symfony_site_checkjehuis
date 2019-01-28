@@ -300,7 +300,7 @@ abstract class EnergyCalculator
     }
 
     /**
-     * For a spit roof, split the configs 70/30.
+     * For a split roof, split the configs 70/30.
      *
      * @param array|Config[][][] $configs
      *   The configs to split.

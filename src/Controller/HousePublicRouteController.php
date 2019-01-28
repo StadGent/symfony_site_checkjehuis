@@ -94,7 +94,7 @@ class HousePublicRouteController extends AbstractController
     {
         $isLoaded = $this->houseService->loadHouseFromToken($token);
 
-        // If we have a house, try redirect to the last know route.
+        // If we have a house, try redirect to the last known route.
         if ($isLoaded) {
             $house = $this->getSessionHouse($request);
             if ($house) {
@@ -177,7 +177,7 @@ class HousePublicRouteController extends AbstractController
                         $pdf
                     );
 
-                    // Don't show pdf, we redirect with download enabled
+                    // Don't show pdf, we redirect with download enabled.
                     // return new Response($pdf, 200, array('Content-Type' => 'application/pdf'));
 
                 } catch (\Exception $e) {

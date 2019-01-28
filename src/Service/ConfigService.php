@@ -125,7 +125,7 @@ class ConfigService extends AbstractService
     }
 
     /**
-     * Updates the category's percentage, aka it's weight in the calculations.
+     * Updates the category's percentage, a.k.a. its weight in the calculations.
      *
      * @param string $categorySlug
      *   The slug of the category to update.
