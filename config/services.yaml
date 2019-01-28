@@ -16,6 +16,7 @@ parameters:
             - '/stad\.gent(.*)warmtefoto/'
         verbouwforum:
             - '/stad\.gent(.*)wonen-verbouwen/'
+    env(CJH_ASSETS_BASEPATH): '/'
 
 services:
     # default configuration for services in *this* file
