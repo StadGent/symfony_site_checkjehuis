@@ -3,7 +3,7 @@ var Encore = require('@symfony/webpack-encore');
 Encore
     .disableSingleRuntimeChunk()
     .setOutputPath('public/build/')
-    .setPublicPath('build')
+    .setPublicPath('/build')
     .configureFilenames({
         css: '[name]-[contenthash].css',
         js: '[name]-[contenthash].js'
