@@ -32,6 +32,9 @@
     "dflydev/dot-access-data": {
         "version": "v1.1.0"
     },
+    "digipolisgent/command-builder": {
+        "version": "1.0.1"
+    },
     "digipolisgent/robo-digipolis-deploy": {
         "version": "0.1.8"
     },
@@ -372,6 +375,9 @@
         }
     },
     "symfony/polyfill-intl-icu": {
+        "version": "v1.10.0"
+    },
+    "symfony/polyfill-intl-idn": {
         "version": "v1.10.0"
     },
     "symfony/polyfill-mbstring": {
