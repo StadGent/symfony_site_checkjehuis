@@ -1,0 +1,31 @@
+{% extends 'house/basics/base.html.twig' %}
+
+{% set my_house_menu_active = 'occupants' %}
+
+{% block my_house_content %}
+
+    <form class="form form-inline form-ajax validate" action="{{ path('house_occupants') }}" method="post">
+
+        <h1 class="text-center">
+            <div class="form-group">
+                Wij wonen hier met <input type="text" name="occupants" size="2" class="text-center form-control form-ajax-trigger-delay validate validate-integer" required="required" value="{{ house.occupants }}" style="font-size: 20px;" /> personen.
+                {% if content.active %}<small><a href="#" data-toggle="modal" data-target="#app-modal"><span class="fa fa-fw fa-info-circle"></span> meer info</a></small>{% endif %}
+            </div>
+        </h1>
+
+        <div class="layout-spacer hidden-xs"></div>
+
+        <div class="text-center">
+            <img src="{{ asset('build/images/house-occupants.png') }}" />
+        </div>
+
+        {# form is ajaxed, replaced submit with direct link to next page #}
+        <a class="btn btn-primary pull-right form-ajax-refresh-indicator btn-next-checked-height" href="{{ path('house_energy') }}">Verder gaan</a>
+
+    </form>
+
+{% endblock %}
+
+{% block app_modal_content %}
+    {{ content.value|raw }}
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends 'admin.html.twig' %}
+
+{% block content %}
+
+    <div class="container">
+        <h4>Huizen</h4>
+
+        <div class="row">
+            <div class="col-xs-8 form-inline">
+                <div class='col-xs-6'>
+                    <div class="form-group">
+                        <label>Van</label>
+                        <div class="input-group">
+                            <input type='text' class="form-control datepicker date-from" value="{{ filter.from|date('d/m/Y') }}" />
+                        </div>
+                    </div>
+                </div>
+                <div class='col-xs-6 form-inline'>
+                    <div class="form-group">
+                        <label>Tot en met</label>
+                        <div class='input-group'>
+                            <input type='text' class="form-control datepicker date-to" value="{{ filter.to|date('d/m/Y') }}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-4 text-right">
+                <a href="{{ path('admin_houses_download') }}" class="btn btn-primary btn-export">export</a>
+            </div>
+        </div>
+        <br />
+        <table class="table">
+            <tr>
+                <th>id</th>
+                <th>token</th>
+                <th>laatste update</th>
+                <th>acties</th>
+            </tr>
+            {% for house in houses %}
+                <tr>
+                    <td>{{ house.id }}</td>
+                    <td>{{ house.token }}</td>
+                    <td>{{ house.lastUpdate.format('Y-m-d H:i:s') }}</td>
+                    <td>
+                        <a href="{{ path('house_load_token', { token: house.token }) }}" class="btn btn-primary">configuratie laden</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function () {
+            var now = new Date();
+            now.setHours(0);
+            now.setMinutes(0);
+            now.setSeconds(0);
+
+            var $from   = $('.datepicker.date-from');
+            var $to     = $('.datepicker.date-to');
+            var options = {
+                format: 'dd/mm/yyyy',
+                onRender: function(date) { return date.valueOf() > now.valueOf() ? 'disabled' : ''; }
+            };
+
+            var from = $from.datepicker(options).data('datepicker');
+            var to = $to.datepicker(options).data('datepicker');
+
+            $('.datepicker').on('changeDate', function (e) {
+                window.location.search = buildQueryString();
+            });
+
+            var $btnExport = $('a.btn-export');
+            $btnExport.on('click', function () {
+                var url = $(this).attr('href');
+                url += buildQueryString();
+
+                window.location = url;
+                return false;
+            });
+
+            function buildQueryString()
+            {
+                return '?table-filter[from]=' + from.date.getTime() + '&table-filter[to]=' + to.date.getTime()
+            }
+        });
+    </script>
+{% endblock %}

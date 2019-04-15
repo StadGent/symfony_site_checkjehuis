@@ -1,0 +1,55 @@
+{% extends 'house/basics/base.html.twig' %}
+
+{% set my_house_menu_active = 'surface' %}
+
+{% block my_house_content %}
+
+    <h1>
+        Ik woon in een
+        {% if content.active %}<small><a href="#" data-toggle="modal" data-target="#app-modal"><span class="fa fa-fw fa-info-circle"></span> meer info</a></small>{% endif %}
+    </h1>
+
+    <form class="form form-options form-ajax validate" action="{{ path('house_surface') }}" method="POST">
+
+        <input id="size" type="hidden" name="size" value="{% if house.surfaceLivingArea %}custom-input{% else %}{{ house.size }}{% endif %}" />
+
+        <div>
+            {% set height = 135 %}
+            {% for option in options %}
+                <div class="option-container {% if option.active and not house.getSurfaceLivingArea(false) %}active{% endif %}" data-option-field="size" data-option-value="{{ option.value }}">
+                    <div class="option-icon">
+                        <img src="{{ option.icon }}" class="option-trigger" />
+                    </div>
+                    <div class="option-view option-trigger"></div>
+                    <div class="option-label option-trigger">{{ option.label }}</div>
+                </div>
+                {% set height = height - 25 %}
+            {% endfor %}
+
+            <div class="option-container {% if house.getSurfaceLivingArea(false) %}active{% endif %}" data-option-field="size" data-option-value="custom-input">
+                <div class="option-icon">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" name="square-meters" class="form-control form-ajax-trigger-delay validate validate-number" value="{{ house.getSurfaceLivingArea(false) }}" />
+                            <div class="input-group-addon">m²</div>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+                <div class="option-view option-trigger"></div>
+                <div class="option-label option-trigger">Ik ken mijn bewoonbare oppervlakte</div>
+            </div>
+        </div>
+
+        <div class="layout-spacer"></div>
+
+        {# form is ajaxed, replaced submit with direct link to next page #}
+        <a class="btn btn-primary pull-right form-ajax-refresh-indicator btn-next-checked-height" href="{{ path('house_ownership') }}">Verder gaan</a>
+
+    </form>
+
+{% endblock %}
+
+{% block app_modal_content %}
+    {{ content.value|raw }}
+{% endblock %}

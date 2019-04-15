@@ -1,0 +1,15 @@
+{% extends 'app.html.twig' %}
+
+{% set layout_menu_active = 'house-config' %}
+
+{% block content %}
+
+    <div class="container">
+
+        {% include 'house/config/base_menu.html.twig' with { 'active': house_config_menu_active } %}
+
+        {% block house_config_content %}{% endblock %}
+
+    </div>
+
+{% endblock %}
