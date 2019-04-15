@@ -1,0 +1,116 @@
+{% extends 'app.html.twig' %}
+
+{% block content %}
+
+    {% if download %}
+        <script type="text/javascript">
+            window.open('{{ path('house_calc_pdf') }}');
+        </script>
+    {% endif %}
+
+    <div class="page-sub-heading">
+        <div class="container text-center">
+            <img src="{{ asset('build/images/kathedraal.svg') }}" height="250" />
+            <h3>Beter wonen in Gent klimaatstad</h3>
+            <p>
+                Daalt je energieverbruik dan daalt ook de impact op het klimaat.
+                Elk energiezuinig gerenoveerd huis brengt ons een stap dichter bij
+                het ideale Gent.
+            </p>
+            <p><strong>Waarvoor onze dank!</strong></p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6 text-right">
+                <img src="{{ asset('build/images/icons/house-fly.svg') }}" height="150" />
+            </div>
+            <div class="col-xs-6">
+                <h3>Mijn plan</h3>
+                <p>
+                    Bekijk de details per ingreep. Wat kost het en wat brengt het op?<br />
+                    Download mijn persoonlijk stappenplan.
+                </p>
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#app-modal">Download mijn plan</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 text-right">
+                <img src="{{ asset('build/images/icons/house-help.svg') }}" height="150" />
+            </div>
+            <div class="col-xs-6">
+                <h3>Stad Gent helpt</h3>
+                <p>
+                    Renoveren? Je krijgt het warm bij het idee alleen al?<br />
+                    Stad Gent helpt je met premies, advies en begeleiding op maat.
+                    Zo is je energiezuinig huis gerealiseerd voor dat je het weet.
+                    Het enige wat jij dan nog hoeft te doen is ontspannen en genieten.
+                </p>
+                <a href="https://stad.gent/energiecentrale/formulieren/maak-een-afspraak-met-een-expert-van-de-energiecentrale" class="btn btn-primary">Vraag nu gratis advies</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="layout-spacer"></div>
+
+{% endblock %}
+
+
+{% block app_modal_content %}
+    <div class="container-fluid">
+        <form method="post" action="{{ path('house_mail_pdf') }}">
+            {{ form_widget(form._token) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.address) }}
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <input type="text" class="form-control" value="9000" disabled="disabled" />
+                </div>
+                <div class="col-xs-6">
+                    <input type="text" class="form-control" value="Gent" disabled="disabled" />
+                </div>
+            </div>
+
+            {{ form_widget(form.newsletter) }}
+
+            {% if hasAddressCookie %}
+                <input type="submit" class="btn btn-primary" value="Opslaan en versturen" />
+            {% else %}
+                <input type="button" onclick="document.getElementById('cookie-approval').classList.remove('hidden'); this.classList.add('hidden');" class="btn btn-primary" value="Opslaan en versturen" />
+
+                <div id="cookie-approval" class="hidden">
+                    <p>
+                        <strong>De websites van Stad Gent maken voor een optimale online ervaring gebruik van cookies. <br />
+                        Gaat u hiermee akkoord?</strong>
+                    </p>
+
+                    <input type="submit" name="with-cookie" class="btn btn-primary" value="Ja" />
+                    <input type="submit" name="without-cookie" class="btn btn-warning" value="Neen" />
+                </div>
+            {% endif %}
+
+            <div class="layout-spacer"></div>
+
+            <p>
+                De persoonsgegevens die je verstrekt, worden opgenomen in de gegevensbestanden waarvan de Stad Gent houder en verwerker is.
+                Dit gebeurt in overeenstemming met de Wet van 8 december 1992 tot bescherming van de persoonlijke levenssfeer.
+                Je hebt het recht op toegang tot en kosteloze verbetering of schrapping van deze gegevens.
+                Ook kan je het Register bij de Commissie voor de bescherming van de persoonlijke levenssfeer raadplegen.
+                De persoonsgegevens die worden verzameld, worden enkel gebruikt om je correct te informeren en de stedelijke dienstverlening te verbeteren.
+            </p>
+            <p>
+                <strong>Gegevens bekijken, wijzigen of schrappen</strong><br />
+                Als je gegevens wenst te bekijken, wijzigen of schrappen uit dit gegevensbestand kan je e-mailen naar <a href="mailto: gentinfo@gent.be">gentinfo@gent.be</a>.
+            </p>
+            <p>
+                <strong>Wetgeving bescherming van persoonsgegevens</strong><br />
+                De Stad Gent verbindt zich ertoe de wetgeving tot bescherming van persoonsgegevens nauwgezet na te leven.
+                Deze wetgeving is beschikbaar op de website van de Commissie voor de bescherming van de persoonlijke levenssfeer.
+            </p>
+
+            <div class="layout-spacer"></div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'admin.html.twig' %}
+
+{% block content %}
+
+    <div class="container">
+
+        <h1>Pagina bewerken <small>{{ content.label }}</small></h1>
+
+        <form method="post" action="{{ path('admin_content_edit', { slug: content.slug }) }}">
+            {% if content.canDeactivate %}
+                <div class="checkbox">
+                    <label>{{ form_widget(form.active) }} {{ form_label(form.active) }}</label>
+                </div>
+            {% endif %}
+            <div class="form-group">
+                {{ form_widget(form.value) }}
+            </div>
+            <input type="submit" class="btn btn-primary" value="opslaan" />
+            <a href="{{ path('admin_content') }}" class="btn btn-danger">annuleren</a>
+        </form>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+  {{ parent() }}
+  <script src="{{ asset('build/js/ckeditor.js') }}"></script>
+{% endblock %}

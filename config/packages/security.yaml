@@ -1,0 +1,25 @@
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha1
+        # c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec
+
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern: ^/
+            form_login:
+                provider: fos_userbundle
+                csrf_token_generator: security.csrf.token_manager
+                default_target_path: admin
+            logout:       true
+            anonymous:    true
+
+    access_control:
+        - { path: ^/admin, role: ROLE_ADMIN }

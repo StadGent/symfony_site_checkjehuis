@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block base_head %}
+    {{ parent() }}
+
+    <!-- GOOGLE ANALYTICS -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-791237-34', 'auto');
+        ga('send', 'pageview');
+    </script>
+{% endblock %}
+
+{% block base_content %}
+    <div class="page-wrapper">
+
+        {% block base_public_content %}{% endblock %}
+
+        <div class="page-footer-push"></div>
+
+    </div>
+
+    <div class="page-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                    <a href="http://www.energiecentrale.gent"><img src="{{ asset("build/images/logo-energie-centrale.png") }}" /></a>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                    <br />
+                    <a href="https://www.facebook.com/Gentklimaatstad"><i class="fa fa-fw fa-facebook-square"></i> Vind ons op Facebook</a>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                    <br />
+                    <a href="http://klimaat.stad.gent/"><i class="fa fa-fw fa-arrow-circle-left"></i> terug naar klimaat.stad.gent</a>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                    <img src="{{ asset("build/images/logo-gent-stad.png") }}" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="app-modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    {% block app_modal_content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

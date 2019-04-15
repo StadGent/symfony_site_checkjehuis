@@ -1,0 +1,23 @@
+<table class="table table-striped table-matrix">
+    <tr>
+        <th></th>
+        {% for config in category.configs %}
+            <th title="{{ config.label }}">{{ config.labelAdmin }}</th>
+        {% endfor %}
+    </tr>
+    {% for fromConfig in category.configs %}
+        <tr>
+            <td title="{{ fromConfig.label }}">{{ fromConfig.labelAdmin }}</td>
+            {% for toConfig in category.configs %}
+                {% if fromConfig == toConfig %}
+                    <td class="no-value-possible">&nbsp;</td>
+                {% else %}
+                    {% set trans = fromConfig.getTransformationFor(toConfig, inverse) %}
+                    <td class="right value"
+                        data-url="{{ path('admin_matrix_transformation_update', { configFrom: fromConfig.id, configTo: toConfig.id, inverse: inverse }) }}"
+                            >{{ trans ? trans.value : '' }}&nbsp;{{ trans ? trans.unit : '' }}</td>
+                {% endif %}
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>

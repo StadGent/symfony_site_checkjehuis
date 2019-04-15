@@ -1,0 +1,57 @@
+{% extends 'house/config/base.html.twig' %}
+
+{% set house_config_menu_active = 'facade' %}
+
+{% block house_config_content %}
+
+    <form class="form form-ajax" action="{{ path('house_config_facade') }}" method="post">
+
+        <input id="facade" type="hidden" name="facade" value="{{ house.getConfig(category).id }}" />
+
+        <div class="row">
+            <div class="col-xs-2"></div>
+            <div class="col-xs-8">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <img src="{{ asset(category.iconAsset) }}" width="75%" class="hidden-xs" /><br />
+                        Klopt dit niet?<br /> Pas aan wat je al deed om je huis te verbeteren.
+                    </div>
+                    <div class="col-sm-9">
+                        <h3>
+                            Mijn gevel is
+                            {% if content.active %}<small><a href="#" data-toggle="modal" data-target="#app-modal"><span class="fa fa-fw fa-info-circle"></span> meer info</a></small>{% endif %}
+                        </h3>
+                        <div class="house-config-dropdown" data-dropdown-field="facade">
+                            <div class="btn btn-default btn-block dropdown-toggle">
+                                <span class="icon"><i class="fa fa-fw fa-chevron-down"></i></span>
+                                <strong class="dropdown-value-label">{{ house.getConfig(category).label }}</strong>
+                            </div>
+                            <div class="dropdown-options list-group">
+                                {% for conf in category.configs if conf.isPossibleCurrent %}
+                                    <a class="list-group-item" href="#"
+                                       data-dropdown-value="{{ conf.id }}"
+                                            >{{ conf.label }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layout-spacer"></div>
+
+        {# form is ajaxed, replaced submit with direct link to next page #}
+        <a class="btn btn-primary pull-right form-ajax-refresh-indicator btn-next-checked-height" href="{{ path('house_config_floor') }}">Verder gaan</a>
+
+    </form>
+
+{% endblock %}
+
+{% block app_modal_content %}
+    <div class="text-center">
+
+        {{ content.value|raw }}
+
+    </div>
+{% endblock %}

@@ -1,0 +1,243 @@
+{% extends 'pdf.html.twig' %}
+
+{% block base_content %}
+
+    <div class="page-heading" style="margin: 0; padding: 20px;">
+        <img height="53" src="{{ asset('build/images/logo-gent-header.svg') }}" />
+    </div>
+
+    <div class="text-center" style="background: #EFEFEF; padding: 30px;">
+        <img src="{{ asset('build/images/kathedraal.svg') }}" width="400" height="193" />
+    </div>
+
+    <div class="layout-spacer"></div>
+
+    <div class="text-center" style="padding: 50px;">
+        <h3>Beter wonen in Gent Klimaatstad</h3>
+
+        <p class="subtext">
+            Maak je woning energiezuinig, bespaar voor het leven.
+        </p>
+
+        <div class="layout-spacer"></div>
+
+        <h3>Renoveer slim, woon energiezuinig</h3>
+
+        <p class="subtext">
+            Energiezuinig wonen hoeft niet ingewikkeld te zijn. Met enkele ingrepen kan je het energieverbruik van je woning serieus beperken.
+        </p>
+
+        <div class="layout-spacer"></div>
+
+        <h3>Meer comfort, minder kosten</h3>
+
+        <p class="subtext">
+            Zo woon je beter en dat is goed voor je portemonnee. Met wat je jaarlijks uitspaart kan je heel wat meer genieten... of opzij zetten voor de keuken van je dromen.
+        </p>
+    </div>
+
+
+    <div class="page-heading pagebreak" style="margin: 0; padding: 20px; padding-left: 100px;">
+        <h3>Mijn stappenplan</h3>
+    </div>
+
+    <div style="padding: 0 100px;">
+
+        {% if house.placeWindRoofWithoutInsulationChange %}
+            <div class="keeptogether house-improvement">
+                <h3>Dakisolatie</h3>
+
+                <div class="panel-rounded">
+                    <table width="100%">
+                        <tr>
+                            <td width="100">
+                                <img class="house-config-row-icon" src="{{ asset('build/images/icons/house-roof-mixed.svg') }}" width="79" height="85" />
+                            </td>
+                            <td>
+                                ik plaats een winddicht onderdak
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <table>
+                    <tr>
+                        <td width="200">Ik investeer</td>
+                        <td>€ {{ calculator.getBuildCostForCategory('roof', true)|f_price }}</td>
+                    </tr>
+                    <tr>
+                        <td>Ik ontvang premies*</td>
+                        <td>€ {{ calculator.getSubsidyForCategory('roof')|f_price }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+                    {% for subsidy in upgrade.detail.getSubsidies() %}
+                        {% for config in subsidy %}
+                            {% if config.subsidy.slug == 'roof_wind' and config.price %}
+                                <tr>
+                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ config.subsidy.category.label }}</td>
+                                    <td>€ {{ config.price|f_price }}</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </table>
+            </div>
+        {% endif %}
+        {% for cat in configCategories if (house.getUpgradeConfig(cat) or (cat.slug == 'roof' and (house.extraUpgradeRoof))) %}
+            {% include 'pdf/_section.html.twig' %}
+        {% endfor %}
+
+        {% for renewable in house.getUpgradeRenewables %}
+
+            <div class="keeptogether house-improvement" style="padding-bottom: 10px">
+                <h3>{{ renewable.label }}</h3>
+
+                <div class="panel-rounded">
+                    <table width="100%">
+                        <tr>
+                            <td width="100">
+                                <img class="house-config-row-icon" src="{{ asset('build/images/icons/house-renewable.svg') }}" width="79" height="85" />
+                            </td>
+                            <td>
+                                {{ renewable.label }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <table width="100%">
+                    {% if not (renewable.slug == 'green_power') %}
+                    <tr>
+                        <td width="200">Ik investeer</td>
+                        <td>€ {{ calculator.getBuildCostForRenewable(renewable.slug)|f_price }}</td>
+                    </tr>
+                    <tr>
+                        <td>Ik ontvang premies*</td>
+                        <td>€ {{ calculator.getSubsidyTotalForRenewable(renewable.slug)|f_price }}</td>
+                    </tr>
+                    {% if calculator.getSubsidyTotalForRenewable(renewable.slug) %}
+                    <tr>
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+                    {% endif %}
+                    {% for subsidyId, price in calculator.getSubsidiesForRenewable(renewable) if price > 0 %}
+                        <tr>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ subsidies[subsidyId].label }}</td>
+                            <td>€ {{ price|default(0)|f_price }}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Ik verbruik minder energie</td>
+                        <td>{{ calculator.energyDiffForRenewable(renewable)|f_energy }} kWh/jaar</td>
+                    </tr>
+                    <tr>
+                        <td>Ik bespaar</td>
+                        <td>€ {{ calculator.priceDiffForRenewable(renewable)|f_price }} /jaar</td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <td>Ik woon in Gent klimaatstad</td>
+                        <td>{{ calculator.co2DiffForRenewable(renewable)|f_co2 }} kg CO<sub>2</sub>/jaar</td>
+                    </tr>
+                </table>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="page-heading pagebreak" style="margin: 0; padding: 20px; padding-left: 100px;">
+        <h3>Zo wil ik wonen</h3>
+    </div>
+
+    <div class="container-fluid">
+
+        <div class="keeptogether">
+
+
+            <h3 style="padding: 0 100px;">Met dit  stappenplan renoveer je jouw woning tot een energiezuinige woning van</h3>
+
+
+
+            <div class="container text-center">
+                {% include "house/energy-scale.html.twig" with { 'calculator': calculator } only %}
+            </div>
+
+
+            <table style="margin-left: 100px;">
+                <tr>
+                    <td width="200">Totaal</td>
+                    <td>€ {{ calculator.buildCostTotal|default(0)|f_price }}</td>
+                </tr>
+                <tr>
+                    <td>Ik ontvang premies*</td>
+                    <td>€ {{ calculator.subsidyTotal|default(0)|f_price }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>Ik verbruik minder energie</td>
+                    <td>{{ calculator.energyDiff|f_energy }} kWh/jaar</td>
+                </tr>
+                <tr>
+                    <td>Ik bespaar</td>
+                    <td>€ {{ calculator.priceDiff|f_price }} /jaar</td>
+                </tr>
+                <tr>
+                    <td>Ik woon in Gent klimaatstad</td>
+                    <td>{{ calculator.co2Diff|default(0)|f_co2 }} kg CO<sub>2</sub>/jaar</td>
+                </tr>
+            </table>
+
+            <div class="keeptogether" style="padding: 0 100px;">
+                <h3>Beter wonen in Gent klimaatstad</h3>
+
+                <p class="justify">
+                    Daalt je energieverbruik dan daalt ook je impact op het klimaat.<br />
+                    Elk energiezuinig gerenoveerd huis brengt ons een stap dichter bij het ideale Gent.<br />
+                    Waarvoor onze dank!
+                </p>
+            </div>
+        </div>
+        <div class="keeptogether" style="padding: 0 100px;">
+            <h3>Laat je renovatie gratis begeleiden</h3>
+
+            <p class="justify">
+                Maak een afspraak voor gratis advies aan huis door de expert van de Energiecentrale en bekijk vrijblijvend de mogelijkheden van jouw huis.<br/><br/>
+                <a href="http://www.energiecentrale.gent">www.energiecentrale.gent</a>
+            </p>
+        </div>
+
+        <br />
+
+        <div>
+            <table width="100%">
+                <tr>
+                    <td width="50%" class="text-center"><img src="{{ asset('build/images/energiecentrale-footer.jpg') }}" height="125" /></td>
+                </tr>
+            </table>
+        </div>
+        <br />
+        <div class="keeptogether" style="padding: 0 100px;">
+            <em>
+                * Opgelet! De Gentse Energiepremies zijn afhankelijk van je inkomen. De premieberekening in dit voorbeeld is gebaseerd op een gemiddeld inkomen. De grenzen worden ek jaar geïndexeerd.
+                Afhankelijk van jouw gezamelijk belastbaar inkomen kan je meer of minder premies krijgen.<br />
+                Bekijk de recentste voorwaarden op <a href="http://www.energiecentrale.gent">http://www.energiecentrale.gent</a>.
+            </em>
+            <br />
+            <em>
+                ** Opgelet! De besparing op energieverbruik per ingreep werd berekend op de som van de ingrepen.
+                Vinkte je naast isolatie ingrepen ook een warmtepomp aan?<br />
+                Dan wordt ook de energiebesparing die pakweg het isoleren van je dak opbrengt, herrekend in functie van deze ingreep.
+                Door te isoleren moet je minder verwarmen. Een warmtepomp verbruikt minder energie om te verwarmen.<br />
+                Beide factoren worden meegenomen in de berekening van je energiebesparing.<br />
+                Wil je weten wat deze ingreep opbrengt met je huidige verwarmingsketel? Doe dan de simulatie zonder warmtepomp aan te vinken.
+            </em>
+        </div>
+    </div>
+
+{% endblock %}

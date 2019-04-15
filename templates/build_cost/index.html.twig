@@ -1,0 +1,33 @@
+{% extends 'admin.html.twig' %}
+
+{% block content %}
+
+    <div class="container">
+        <h4>Bouwkosten</h4>
+
+        <form action="{{ path('admin_buildcosts_update') }}" method="POST">
+            <table class="table table-striped">
+                <tr>
+                    <th width="30%">technologie</th>
+                    <th>kost</th>
+                </tr>
+                {% for cost in costs %}
+                    <tr>
+                        <td>{{ cost.label }}</td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-addon">&euro;</div>
+                                <input type="text" class="form-control" name="cost[{{ cost.id }}]" value="{{ cost.value }}" style="text-align: right" />
+                                <div class="input-group-addon" style="min-width: 120px">{% if cost.unit %}{{ cost.unit }}{% endif %}</div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+            <div class="btn-group">
+                <input type="submit" class="btn btn-primary" value="opslaan" />
+            </div>
+        </form>
+    </div>
+{% endblock %}

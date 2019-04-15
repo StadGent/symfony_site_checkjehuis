@@ -1,0 +1,79 @@
+{% set currentConf  = house.config(cat) %}
+{% set selectedConf = house.upgradeConfig(cat)|default(currentConf) %}
+
+{% set totalSubsidy = calculator.subsidyTotalForCategory(cat.slug) %}
+
+<div class="keeptogether house-improvement" style="padding-bottom: 10px">
+    <h3>{{ cat.label }}</h3>
+
+    <div class="panel-rounded">
+        <table width="100%">
+            <tr>
+                <td width="100">
+                    <img class="house-config-row-icon" src="{{ asset(cat.iconAsset(house)) }}" width="79" height="85" />
+                </td>
+                <td>
+                    {% if (not cat.slug == 'roof') or house.upgradeConfig(cat) %}
+                        {% if cat.slug == 'roof' %}Schuin dak:{% endif %}
+                        {{ selectedConf.label }}<br />
+                    {% endif %}
+                    {% if cat.slug == 'roof' and house.extraUpgradeRoof %}Plat dak: {{ house.extraUpgradeRoof.label }}<br />{% endif %}
+                    {% if cat.slug == 'roof' and (not house.getRoofType == 'mixed') and house.placeWindroof %}
+                        ik plaats een winddicht onderdak<br />
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <table width="100%">
+        <tr>
+            <td width="200">Ik investeer</td>
+            <td>€ {{ calculator.buildCostTotalForCategory(cat)|f_price }}</td>
+        </tr>
+        <tr>
+            <td>Ik ontvang premies*</td>
+            <td>€ {{ calculator.subsidyTotalForCategory(cat)|f_price }}</td>
+        </tr>
+        {% if totalSubsidy %}
+        <tr>
+            <td colspan="2">&nbsp;</td>
+        </tr>
+        {% endif %}
+        {% for categoryId, price in calculator.subsidiesForCategory(cat) if price > 0 %}
+            <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ subsidies[categoryId].label }}</td>
+                <td>€ {{ price|default(0)|f_price }}</td>
+            </tr>
+        {% endfor %}
+        {% if cat.slug == 'roof' and calculator.subsidyTotalForCategory('wind_roof') %}
+            <tr>
+                <td colspan="2">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="2">premies winddicht onderdak</td>
+            </tr>
+            {% for categoryId, price in calculator.subsidiesForCategory('wind_roof') if price > 0 %}
+                <tr>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ subsidies[categoryId].label }}</td>
+                    <td>€ {{ price|default(0)|f_price }}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        <tr>
+            <td colspan="2">&nbsp;</td>
+        </tr>
+        <tr>
+            <td>Ik verbruik minder energie{% if cat.slug == 'roof' or cat.slug == 'facade' or cat.slug == 'floor' or cat.slug == 'window' %}**{% endif %}</td>
+            <td>{{ calculator.energyDiffForCategory(cat)|f_energy }} kWh/jaar</td>
+        </tr>
+        <tr>
+            <td>Ik bespaar</td>
+            <td>€ {{ calculator.priceDiffForCategory(cat)|f_price }} /jaar</td>
+        </tr>
+        <tr>
+            <td>Ik woon in Gent klimaatstad</td>
+            <td>{{ calculator.co2DiffForCategory(cat)|f_co2 }} kg CO<sub>2</sub>/jaar</td>
+        </tr>
+    </table>
+</div>
