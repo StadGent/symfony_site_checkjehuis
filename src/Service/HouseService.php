@@ -310,6 +310,7 @@ class HouseService extends AbstractService
                 'margin-bottom' => 0,
                 'margin-left' => 0,
                 'margin-right' => 0,
+                'disable-javascript' => true,
             )
         );
     }
