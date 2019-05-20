@@ -114,9 +114,11 @@ class State
         if ($house->hasCustomEnergy()) {
             $gas = $house->getConsumptionGas();
             $elec = $house->getConsumptionElec();
+            $nonHeatingElectricity = $house->hasElectricHeating() ? $house->getConsumptionElec() - $house->getDefaultEnergy()->getElectricHeating() : $house->getConsumptionElec();
         } else {
             $gas = $house->getDefaultEnergy()->getGas();
             $elec = $house->getDefaultEnergy()->getElectricity($house->hasElectricHeating());
+            $nonHeatingElectricity = $house->getDefaultEnergy()->getElectricity();
         }
 
         // We ignore the gas if heating is electric.
@@ -125,7 +127,7 @@ class State
             $gas = 0;
         }
 
-        return new self($gas, $elec, $house->getDefaultEnergy()->getElectricity(), $isElectric);
+        return new self($gas, $elec, $nonHeatingElectricity, $isElectric);
     }
 
     /**
