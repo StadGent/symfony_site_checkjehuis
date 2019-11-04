@@ -65,7 +65,6 @@ class Version20141203145948 extends AbstractMigration
         $this->addSql(file_get_contents(__DIR__ . '/../Resources/db/001/data_default_surfaces.sql'));
         $this->addSql(file_get_contents(__DIR__ . '/../Resources/db/001/data_default_roofs.sql'));
         $this->addSql(file_get_contents(__DIR__ . '/../Resources/db/001/data_default_energy.sql'));
-        $this->addSql(file_get_contents(__DIR__ . '/../Resources/db/001/data_users.sql'));
         $this->addSql(file_get_contents(__DIR__ . '/../Resources/db/001/data_config_subsidies.sql'));
         $this->addSql(file_get_contents(__DIR__ . '/../Resources/db/001/data_content.sql'));
     }
