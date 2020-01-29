@@ -8,6 +8,9 @@
     "ckr/arraymerger": {
         "version": "2.0.0"
     },
+    "composer/xdebug-handler": {
+        "version": "1.4.0"
+    },
     "consolidation/annotated-command": {
         "version": "2.11.0"
     },
@@ -130,9 +133,6 @@
     },
     "egulias/email-validator": {
         "version": "2.1.7"
-    },
-    "fig/link-util": {
-        "version": "1.0.0"
     },
     "friendsofsymfony/user-bundle": {
         "version": "v2.1.2"
@@ -313,6 +313,9 @@
     },
     "symfony/dotenv": {
         "version": "v4.2.1"
+    },
+    "symfony/error-handler": {
+        "version": "v4.4.3"
     },
     "symfony/event-dispatcher": {
         "version": "v4.2.1"
