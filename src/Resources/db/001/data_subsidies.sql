@@ -1,4 +1,4 @@
-INSERT INTO subsidies (id, slug, subsidyCategory_id, label, value, multiplier, max) VALUES
+INSERT INTO `subsidies` (`id`, `slug`, `subsidyCategory_id`, `label`, `value`, `multiplier`, `max`) VALUES
 
 (1, 'roof_18', 1, 'dakisolatie > 18cm', '2', 'surface', '1000'),
 (2, 'roof_24', 1, 'dakisolatie > 24cm', '5', 'surface', '1000'),

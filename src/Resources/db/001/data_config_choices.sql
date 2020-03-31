@@ -1,4 +1,4 @@
-INSERT INTO config_choices (id, ordering, category_id, label, `default`, defaultUpToYear, possibleCurrent, possibleUpgrade, relatedCost_id, costFactor, co2Factor) VALUES
+INSERT INTO `config_choices` (`id`, `ordering`, `category_id`, `label`, `default`, `defaultUpToYear`, `possibleCurrent`, `possibleUpgrade`, `relatedCost_id`, `costFactor`, `co2Factor`) VALUES
 (1, 1, 1, 'Niet geïsoleerd', 1, '1970', 1, 0, NULL, 1, 0),
 (2, 2, 1, 'Slecht geïsoleerd: 6 cm of R=1,6', 1, '2000', 1, 0, NULL, 1, 0),
 (3, 3, 1, 'Slecht geïsoleerd: 10 cm of R=2,6', 1, NULL, 1, 0, NULL, 1, 0),
