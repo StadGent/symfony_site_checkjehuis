@@ -18,8 +18,10 @@ The following steps can be followed to install the application
 3. At the end of `composer install` create a `.env` file based on `.env.dist`.
 4. `bin/console doctrine:migrations:migrate`
 5. Create the admin user:
-  5.1. `bin/console fos:user:create` and answer the prompts
-  5.2. `bin/console fos:user:promote` and enter the username of the user you
+
+    5.1. `bin/console fos:user:create` and answer the prompts
+    
+    5.2. `bin/console fos:user:promote` and enter the username of the user you
        created in step 5.1 when prompted. Enter `ROLE_ADMIN` when prompted for
        the role.
 6. `bin/console cache:clear && bin/console cache:warmup`
