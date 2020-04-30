@@ -13,7 +13,7 @@
     },
     "dependencies": {
         "@ckeditor/ckeditor5-build-classic": "^11.2.0",
-        "jquery": "^3.3.1",
+        "jquery": "^3.5.0",
         "node-sass": "^4.11.0",
         "sass-loader": "^7.0.1"
     }
