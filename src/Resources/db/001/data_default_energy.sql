@@ -1,4 +1,4 @@
-INSERT INTO default_energy (type, size, maxYear, gas, electricity, electricHeating) VALUES
+INSERT INTO `default_energy` (`type`, `size`, `maxYear`, `gas`, `electricity`, `electricHeating`) VALUES
 ('closed', 'small', '1900', 19042, 3262, 9000),
 ('closed', 'small', '1945', 19042, 3262, 9000),
 ('closed', 'small', '1970', 20215, 3262, 9000),

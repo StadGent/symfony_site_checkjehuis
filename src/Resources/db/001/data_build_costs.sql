@@ -1,4 +1,4 @@
-INSERT INTO build_costs (id, ordering, slug, label, value, unit) VALUES
+INSERT INTO `build_costs` (`id`, `ordering`, `slug`, `label`, `value`, `unit`) VALUES
 (1, 1, 'roof_18', 'dakisolatie > 18cm', 50, 'm²'),
 (2, 2, 'roof_24', 'dakisolatie > 24cm', 60, 'm²'),
 (3, 3, 'roof_30', 'dakisolatie > 30cm', 65, 'm²'),

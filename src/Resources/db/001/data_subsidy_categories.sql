@@ -1,4 +1,4 @@
-INSERT INTO subsidy_categories (id, label) VALUES
+INSERT INTO `subsidy_categories` (`id`, `label`) VALUES
 
 (1, 'Stad Gent'),
 (2, 'Vlaams renovatie fonds'),

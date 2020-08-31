@@ -1,4 +1,4 @@
-INSERT INTO config_subsidies (subsidy_id, config_id) VALUES
+INSERT INTO `config_subsidies` (`subsidy_id`, `config_id`) VALUES
 (1, 5),
 (2, 6),
 (3, 7),

@@ -17,9 +17,16 @@ The following steps can be followed to install the application
 2. `composer install`
 3. At the end of `composer install` create a `.env` file based on `.env.dist`.
 4. `bin/console doctrine:migrations:migrate`
-5. `bin/console cache:clear && bin/console cache:warmup`
-6. Install the yarn dependencies: `yarn install`
-7. Build the assets: `yarn run encore prod`
+5. Create the admin user:
+
+    5.1. `bin/console fos:user:create` and answer the prompts
+    
+    5.2. `bin/console fos:user:promote` and enter the username of the user you
+       created in step 5.1 when prompted. Enter `ROLE_ADMIN` when prompted for
+       the role.
+6. `bin/console cache:clear && bin/console cache:warmup`
+7. Install the yarn dependencies: `yarn install`
+8. Build the assets: `yarn run encore prod`
 
 After the steps above are taken, make sure the application is reachable through
 a URL. Make sure the vhost points to the app's `public` folder.

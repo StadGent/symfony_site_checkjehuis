@@ -1,4 +1,4 @@
-INSERT INTO default_roofs (type, size, inclined, surface) VALUES
+INSERT INTO `default_roofs` (`type`, `size`, `inclined`, `surface`) VALUES
 ('closed', 'small', 'mixed', 52.7),
 ('closed', 'small', 'no', 50),
 ('closed', 'small', 'yes', 53.9),

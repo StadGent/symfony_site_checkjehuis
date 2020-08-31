@@ -1,4 +1,4 @@
-INSERT INTO config_categories (id, ordering, slug, label, hasInverseMatrix, fromActual, percent) VALUES
+INSERT INTO `config_categories` (`id`, `ordering`, `slug`, `label`, `hasInverseMatrix`, `fromActual`, `percent`) VALUES
 (1, 1, 'roof', 'Dakisolatie', 0, 0, 30),
 (2, 2, 'facade', 'Gevelisolatie', 0, 0, 15),
 (3, 3, 'floor', 'Vloerisolatie', 0, 0, 10),

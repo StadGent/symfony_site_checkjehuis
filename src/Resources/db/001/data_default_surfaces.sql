@@ -1,4 +1,4 @@
-INSERT INTO default_surfaces (type, size, livingArea, floor, facade, window) VALUES
+INSERT INTO `default_surfaces` (`type`, `size`, `livingArea`, `floor`, `facade`, `window`) VALUES
 ('closed', 'small', 175, 50, 47, 16),
 ('closed', 'medium', 120, 80, 68, 15),
 ('closed', 'large', 250, 100, 291, 25),

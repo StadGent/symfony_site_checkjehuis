@@ -1,4 +1,4 @@
-INSERT INTO config_transformations (id, value, unit, inverse, fromConfig_id, toConfig_id) VALUES
+INSERT INTO `config_transformations` (`id`, `value`, `unit`, `inverse`, `fromConfig_id`, `toConfig_id`) VALUES
   (1, 20, '%', 0, 1, 2),
   (2, 36, '%', 0, 1, 3),
   (3, 44, '%', 0, 1, 4),

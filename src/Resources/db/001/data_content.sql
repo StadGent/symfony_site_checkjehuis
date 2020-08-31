@@ -1,4 +1,4 @@
-INSERT INTO content (canDeactivate, active, slug, label, value) VALUES
+INSERT INTO `content` (`canDeactivate`, `active`, `slug`, `label`, `value`) VALUES
 
 (0, 1, 'intro', 'Intro', '<h3>Beter wonen in Gent Klimaatstad</h3>
 

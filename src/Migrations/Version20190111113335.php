@@ -69,7 +69,7 @@ final class Version20190111113335 extends AbstractMigration
         $this->addSql('ALTER TABLE config_choices '
           . 'CHANGE possibleCurrent possible_current TINYINT(1) NOT NULL, '
           . 'CHANGE possibleUpgrade possible_upgrade TINYINT(1) NOT NULL, '
-          . 'CHANGE defaultuptoyear default_up_to_year VARCHAR(255) NOT NULL');
+          . 'CHANGE defaultuptoyear default_up_to_year VARCHAR(255) DEFAULT NULL');
         $this->addSql('ALTER TABLE config_categories CHANGE hasInverseMatrix has_inverse_matrix TINYINT(1) NOT NULL, CHANGE fromActual from_actual TINYINT(1) NOT NULL');
         $this->addSql('ALTER TABLE default_energy CHANGE maxyear max_year VARCHAR(255) NOT NULL, CHANGE electricheating electric_heating DOUBLE PRECISION NOT NULL');
         $this->addSql('ALTER TABLE subsidies DROP FOREIGN KEY FK_ECEE6C4AD75064B4');
