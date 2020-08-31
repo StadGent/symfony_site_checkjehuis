@@ -5,7 +5,7 @@ Encore
     .setOutputPath('public/build/')
     // This is specific to the city of Ghent implementation of this app. Change
     // this to /build if this website is running in your web root.
-    .setPublicPath('/checkjehuis/build')
+    .setPublicPath('/build')
     .setManifestKeyPrefix('build/')
     .configureFilenames({
         css: '[name]-[contenthash].css',
